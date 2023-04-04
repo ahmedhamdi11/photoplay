@@ -13,6 +13,7 @@ class PhotoPlay extends StatelessWidget {
     return MaterialApp(
       home: const LoginView(),
       theme: ThemeData(
+        fontFamily: 'Gotham',
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
       ),
