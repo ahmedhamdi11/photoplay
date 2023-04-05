@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1048523886554",
+    "project_id": "photoplay-644a4",
+    "storage_bucket": "photoplay-644a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048523886554:android:c7a4580561953cea347ae3",
+        "android_client_info": {
+          "package_name": "com.example.photoplay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048523886554-lp92jggqt48n8in7s2vutgo63e5os2jp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHKyK9cN9bdDKRfbRzGdsY-8qPtS1Ekro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048523886554-lp92jggqt48n8in7s2vutgo63e5os2jp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
