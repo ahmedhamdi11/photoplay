@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/login_background.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/login_logo.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/social_logins.dart';
+import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/custom_text_feild.dart';
 import 'package:photoplay/core/widgets/default_button.dart';
@@ -95,8 +97,10 @@ class LoginViewBody extends StatelessWidget {
                 const SizedBox(
                   height: 8.0,
                 ),
-                GestureDetector(
-                  onTap: () {},
+                InkWell(
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.registerViewPath);
+                  },
                   child: Text(
                     'REGISTER',
                     style: Styles.text14b,

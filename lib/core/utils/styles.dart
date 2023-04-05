@@ -14,10 +14,14 @@ abstract class Styles {
   static TextStyle text14m =
       const TextStyle(fontWeight: FontWeight.w500, fontSize: 14);
 
-  static TextStyle text15 = const TextStyle(
+  static TextStyle text15bk = const TextStyle(
     fontWeight: FontWeight.w300,
     fontSize: 15,
     color: Color(0xffBFBFBF),
+  );
+  static TextStyle text15m = const TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
   );
   static TextStyle text16 = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 16, color: kPrimatyColor);
