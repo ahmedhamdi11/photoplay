@@ -13,8 +13,7 @@ class SocialLogins extends StatelessWidget {
       children: [
         Row(
           children: [
-            SizedBox(
-              width: 100,
+            Expanded(
               child: Divider(
                 endIndent: 16.0,
                 color: Colors.white.withOpacity(0.36),
@@ -24,8 +23,7 @@ class SocialLogins extends StatelessWidget {
               'Social Logins',
               style: Styles.text14m,
             ),
-            SizedBox(
-              width: 100,
+            Expanded(
               child: Divider(
                 indent: 16.0,
                 color: Colors.white.withOpacity(0.36),
