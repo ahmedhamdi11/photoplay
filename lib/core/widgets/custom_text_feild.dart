@@ -3,14 +3,16 @@ import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key, this.suffix, this.hint});
+  const CustomTextField({super.key, this.suffix, this.hint, this.onChanged});
   final Widget? suffix;
   final String? hint;
+  final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 42,
       child: TextField(
+        onChanged: onChanged,
         cursorColor: kPrimatyColor,
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
