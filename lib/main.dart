@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:photoplay/Features/auth/presentation/views/login_view.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 

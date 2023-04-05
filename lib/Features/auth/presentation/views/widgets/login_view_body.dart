@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/login_background.dart';
-import 'package:photoplay/Features/auth/presentation/views/widgets/login_logo.dart';
+import 'package:photoplay/Features/auth/presentation/views/widgets/app_logo.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/social_logins.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
@@ -26,7 +26,10 @@ class LoginViewBody extends StatelessWidget {
             child: Column(
               children: [
                 //logo
-                const LoginLogo(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                ),
+                const AppLogo(),
                 const SizedBox(
                   height: 50,
                 ),
@@ -62,8 +65,11 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 CustomTextField(
                   hint: 'password here',
-                  suffix: GestureDetector(
-                    onTap: () {},
+                  suffix: TextButton(
+                    onPressed: () {
+                      GoRouter.of(context)
+                          .push(AppRouter.resetPasswordViewPath);
+                    },
                     child: Text(
                       'FORGOT?',
                       style: Styles.text11,
