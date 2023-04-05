@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photoplay/Features/auth/presentation/views/login_view.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/utils/app_router.dart';
 
 void main() {
   runApp(const PhotoPlay());
@@ -11,8 +12,8 @@ class PhotoPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const LoginView(),
+    return MaterialApp.router(
+      routerConfig: AppRouter.router,
       theme: ThemeData(
         colorSchemeSeed: kPrimatyColor,
         // textSelectionTheme: TextSelectionThemeData(
