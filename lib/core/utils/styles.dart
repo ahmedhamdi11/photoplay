@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photoplay/constants.dart';
 
 abstract class Styles {
   static TextStyle text11 =
@@ -18,6 +19,8 @@ abstract class Styles {
     fontSize: 15,
     color: Color(0xffBFBFBF),
   );
+  static TextStyle text16 = const TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 16, color: kPrimatyColor);
 
   static TextStyle text17 = const TextStyle(
     fontWeight: FontWeight.w300,

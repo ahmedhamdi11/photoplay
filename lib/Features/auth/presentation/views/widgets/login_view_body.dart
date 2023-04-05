@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:photoplay/Features/auth/presentation/views/widgets/login_background.dart';
+import 'package:photoplay/Features/auth/presentation/views/widgets/login_logo.dart';
+import 'package:photoplay/Features/auth/presentation/views/widgets/social_logins.dart';
+import 'package:photoplay/core/utils/styles.dart';
+import 'package:photoplay/core/widgets/custom_text_feild.dart';
+import 'package:photoplay/core/widgets/default_button.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
@@ -7,47 +12,103 @@ class LoginViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.topCenter,
       children: [
-        ShaderMask(
-          shaderCallback: (bounds) {
-            return const LinearGradient(
-                colors: [
-                  Colors.black,
-                  Colors.grey,
-                  Colors.white,
-                  Colors.black,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0, .1, .5, 1]).createShader(bounds);
-          },
-          child: Image.asset(
-            'assets/images/loginImage.png',
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.6,
-            fit: BoxFit.cover,
+        //background image
+        const LoginBackground(),
+
+        //main body
+        SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 45.0),
+            child: Column(
+              children: [
+                //logo
+                const LoginLogo(),
+                const SizedBox(
+                  height: 50,
+                ),
+
+                //email field
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'EMAIL',
+                    style: Styles.text12b,
+                  ),
+                ),
+                const SizedBox(
+                  height: 8.0,
+                ),
+                const CustomTextField(
+                  hint: 'email here',
+                ),
+                const SizedBox(
+                  height: 25.0,
+                ),
+
+                //password field
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'PASSWORD',
+                    style: Styles.text12b,
+                  ),
+                ),
+                const SizedBox(
+                  height: 8.0,
+                ),
+                CustomTextField(
+                  hint: 'password here',
+                  suffix: GestureDetector(
+                    onTap: () {},
+                    child: Text(
+                      'FORGOT?',
+                      style: Styles.text11,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 21.0,
+                ),
+
+                //login button
+                DefaultButton(onPressed: () {}, btnText: 'LOGIN'),
+                const SizedBox(
+                  height: 29.0,
+                ),
+
+                //login with facebook and googl
+                const SocialLogins(),
+                const SizedBox(
+                  height: 42.0,
+                ),
+
+                //register button
+                Text(
+                  'Don\'t have an account?',
+                  style: Styles.text14m.copyWith(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white.withAlpha(70),
+                  ),
+                ),
+                const SizedBox(
+                  height: 8.0,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    'REGISTER',
+                    style: Styles.text14b,
+                  ),
+                ),
+                const SizedBox(
+                  height: 40.0,
+                ),
+              ],
+            ),
           ),
         ),
-        Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
-            ),
-            SvgPicture.asset('assets/images/logo.svg'),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const Text(
-              'PHOTOPLAY',
-              style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Gotham',
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffFFBB3B)),
-            ),
-          ],
-        )
       ],
     );
   }
