@@ -76,6 +76,8 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
       BlocProvider.of<RegisterCubit>(context).registerUser(
         email: registerCubit.email!,
         password: registerCubit.password!,
+        firstName: registerCubit.firstName!,
+        lastName: registerCubit.lastName!,
       );
     } else {
       setState(() {

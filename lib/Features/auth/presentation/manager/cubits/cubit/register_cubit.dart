@@ -11,9 +11,19 @@ class RegisterCubit extends Cubit<RegisterStates> {
   String? lastName;
   String? email;
   String? password;
-  registerUser({required String email, required String password}) async {
+  registerUser({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
     emit(RegisterLoadingState());
-    var result = await authRepo.registerUser(email: email, password: password);
+    var result = await authRepo.registerUser(
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+    );
     result.fold((failure) {
       emit(RegisterFailureState(failure.errMessage));
     }, (userCredential) {

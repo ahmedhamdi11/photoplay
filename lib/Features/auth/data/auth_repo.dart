@@ -4,7 +4,11 @@ import 'package:photoplay/core/failures/failures.dart';
 
 abstract class AuthRepo {
   loginUser();
-  Future<Either<Failure, UserCredential>> registerUser(
-      {required String email, required String password});
+  Future<Either<Failure, UserCredential>> registerUser({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  });
   resetPassword();
 }

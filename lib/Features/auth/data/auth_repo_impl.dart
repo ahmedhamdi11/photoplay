@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:photoplay/Features/auth/data/auth_repo.dart';
@@ -11,14 +12,24 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserCredential>> registerUser(
-      {required String email, required String password}) async {
+  Future<Either<Failure, UserCredential>> registerUser({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+  }) async {
     try {
       final userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      await FirebaseFirestore.instance.collection('users').add({
+        'first_name': firstName,
+        'last_name': lastName,
+        'email': userCredential.user!.email,
+        'userId': userCredential.user!.uid,
+      });
       return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {
