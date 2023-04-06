@@ -22,6 +22,7 @@ class LoginTextFields extends StatelessWidget {
         const TextFieldTitle(title: 'EMAIL'),
         CustomTextField(
           hint: 'email here',
+          keyboardType: TextInputType.emailAddress,
           validator: (value) {
             if (value!.isEmpty) {
               return 'email cannot be empty';
@@ -48,6 +49,7 @@ class LoginTextFields extends StatelessWidget {
             }
           },
           hint: 'password here',
+          isPassword: true,
           onChanged: (value) {
             loginCubit.password = value;
           },

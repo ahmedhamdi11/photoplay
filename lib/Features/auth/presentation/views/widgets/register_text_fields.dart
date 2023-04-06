@@ -20,6 +20,7 @@ class RegisterTextFields extends StatelessWidget {
         const TextFieldTitle(title: 'FIRST NAME'),
         CustomTextField(
           hint: 'first name here',
+          keyboardType: TextInputType.name,
           onChanged: (value) {
             registerCubit.firstName = value;
           },
@@ -39,6 +40,7 @@ class RegisterTextFields extends StatelessWidget {
         const TextFieldTitle(title: 'LAST NAME'),
         CustomTextField(
           hint: 'last name here',
+          keyboardType: TextInputType.name,
           onChanged: (value) {
             registerCubit.lastName = value;
           },
@@ -60,6 +62,7 @@ class RegisterTextFields extends StatelessWidget {
         ),
         CustomTextField(
           hint: 'email here',
+          keyboardType: TextInputType.emailAddress,
           onChanged: (value) {
             registerCubit.email = value;
           },

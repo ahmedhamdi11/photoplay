@@ -3,18 +3,29 @@ import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField(
-      {super.key, this.suffix, this.hint, this.onChanged, this.validator});
+  const CustomTextField({
+    super.key,
+    this.suffix,
+    this.hint,
+    this.onChanged,
+    this.validator,
+    this.keyboardType,
+    this.isPassword = false,
+  });
   final Widget? suffix;
   final String? hint;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final bool isPassword;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       validator: validator,
       onChanged: onChanged,
+      keyboardType: keyboardType,
       cursorColor: kPrimatyColor,
+      obscureText: isPassword,
       decoration: InputDecoration(
           isDense: true,
           contentPadding:
