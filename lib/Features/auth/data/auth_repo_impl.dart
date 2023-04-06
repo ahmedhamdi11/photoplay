@@ -1,10 +1,16 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:photoplay/Features/auth/data/auth_repo.dart';
 import 'package:photoplay/core/failures/failures.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as p;
 
 class AuthRepoImpl implements AuthRepo {
+  String? imageUrl;
   @override
   loginUser() {
     // TODO: implement loginUser
@@ -17,6 +23,7 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
     required String firstName,
     required String lastName,
+    required File? imageFile,
   }) async {
     try {
       final userCredential =
@@ -24,11 +31,21 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
       );
+      if (imageFile != null) {
+        await FirebaseStorage.instance
+            .ref()
+            .child('Images/${p.basename(imageFile.path)}')
+            .putFile(imageFile)
+            .then((value) async {
+          imageUrl = await value.ref.getDownloadURL();
+        });
+      }
       await FirebaseFirestore.instance.collection('users').add({
         'first_name': firstName,
         'last_name': lastName,
         'email': userCredential.user!.email,
         'userId': userCredential.user!.uid,
+        'imageUrl': imageUrl,
       });
       return right(userCredential);
     } catch (e) {

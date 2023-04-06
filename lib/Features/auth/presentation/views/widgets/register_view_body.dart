@@ -53,7 +53,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           ? const Center(child: CircularProgressIndicator())
                           : DefaultButton(
                               onPressed: () {
-                                registerUser(context, registerCubit);
+                                registerUser(registerCubit);
                               },
                               btnText: 'REGISTER',
                             ),
@@ -71,14 +71,9 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
     );
   }
 
-  void registerUser(BuildContext context, RegisterCubit registerCubit) {
+  void registerUser(RegisterCubit registerCubit) {
     if (formKey.currentState!.validate()) {
-      BlocProvider.of<RegisterCubit>(context).registerUser(
-        email: registerCubit.email!,
-        password: registerCubit.password!,
-        firstName: registerCubit.firstName!,
-        lastName: registerCubit.lastName!,
-      );
+      registerCubit.registerUser();
     } else {
       setState(() {
         autovalidateMode = AutovalidateMode.always;

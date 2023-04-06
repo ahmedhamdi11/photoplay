@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photoplay/Features/auth/presentation/manager/cubits/cubit/register_cubit.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class RegisterAddPicture extends StatefulWidget {
@@ -36,8 +38,10 @@ class _RegisterAddPictureState extends State<RegisterAddPicture> {
         TextButton(
           onPressed: () async {
             XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
-            imageFile = File(xFile!.path);
-            setState(() {});
+            setState(() {
+              imageFile = File(xFile!.path);
+              BlocProvider.of<RegisterCubit>(context).imageFile = imageFile;
+            });
           },
           child: Text(
             'Add profile picture',

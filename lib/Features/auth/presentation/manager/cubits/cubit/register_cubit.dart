@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:photoplay/Features/auth/data/auth_repo.dart';
@@ -11,18 +13,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
   String? lastName;
   String? email;
   String? password;
-  registerUser({
-    required String email,
-    required String password,
-    required String firstName,
-    required String lastName,
-  }) async {
+  File? imageFile;
+  registerUser() async {
     emit(RegisterLoadingState());
     var result = await authRepo.registerUser(
-      email: email,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
+      email: email!,
+      password: password!,
+      firstName: firstName!,
+      lastName: lastName!,
+      imageFile: imageFile,
     );
     result.fold((failure) {
       emit(RegisterFailureState(failure.errMessage));
