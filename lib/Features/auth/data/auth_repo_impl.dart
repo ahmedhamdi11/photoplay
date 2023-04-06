@@ -71,8 +71,16 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  resetPassword() {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<Either<Failure, String>> resetPassword({required String email}) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return right('password reset link sent! check you email');
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        return left(AuthFailure(e.message.toString()));
+      } else {
+        return left(AuthFailure(e.toString()));
+      }
+    }
   }
 }

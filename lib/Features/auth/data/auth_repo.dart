@@ -16,5 +16,7 @@ abstract class AuthRepo {
     required String lastName,
     required File? imageFile,
   });
-  resetPassword();
+  Future<Either<Failure, String>> resetPassword({
+    required String email,
+  });
 }
