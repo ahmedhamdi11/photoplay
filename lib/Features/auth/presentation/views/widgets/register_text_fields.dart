@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/register_cubit/register_cubit.dart';
-import 'package:photoplay/core/utils/styles.dart';
+import 'package:photoplay/Features/auth/presentation/views/widgets/text_field_title.dart';
 import 'package:photoplay/core/widgets/custom_text_feild.dart';
 
 class RegisterTextFields extends StatelessWidget {
@@ -17,7 +17,7 @@ class RegisterTextFields extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //first name
-        const FieldTitle(title: 'FIRST NAME'),
+        const TextFieldTitle(title: 'FIRST NAME'),
         CustomTextField(
           hint: 'first name here',
           onChanged: (value) {
@@ -36,7 +36,7 @@ class RegisterTextFields extends StatelessWidget {
         ),
 
         //last name
-        const FieldTitle(title: 'LAST NAME'),
+        const TextFieldTitle(title: 'LAST NAME'),
         CustomTextField(
           hint: 'last name here',
           onChanged: (value) {
@@ -55,7 +55,7 @@ class RegisterTextFields extends StatelessWidget {
         ),
 
         //email
-        const FieldTitle(
+        const TextFieldTitle(
           title: 'EMAIL',
         ),
         CustomTextField(
@@ -76,7 +76,7 @@ class RegisterTextFields extends StatelessWidget {
         ),
 
         //password
-        const FieldTitle(title: 'PASSWORD'),
+        const TextFieldTitle(title: 'PASSWORD'),
         CustomTextField(
           hint: 'password here',
           onChanged: (value) {
@@ -95,7 +95,7 @@ class RegisterTextFields extends StatelessWidget {
         ),
 
         //confirm password
-        const FieldTitle(title: 'CONFIRM PASSWORD'),
+        const TextFieldTitle(title: 'CONFIRM PASSWORD'),
         CustomTextField(
           hint: 'confirm password here',
           validator: (value) {
@@ -109,24 +109,6 @@ class RegisterTextFields extends StatelessWidget {
           },
         ),
       ],
-    );
-  }
-}
-
-class FieldTitle extends StatelessWidget {
-  const FieldTitle({
-    super.key,
-    required this.title,
-  });
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        title,
-        style: Styles.text12b,
-      ),
     );
   }
 }

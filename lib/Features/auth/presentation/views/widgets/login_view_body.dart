@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/login_cubit/login_cubit.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/login_background.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/app_logo.dart';
+import 'package:photoplay/Features/auth/presentation/views/widgets/login_text_fields.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/social_logins.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
-import 'package:photoplay/core/widgets/custom_text_feild.dart';
 import 'package:photoplay/core/widgets/default_button.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -49,68 +49,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     height: 50,
                   ),
 
-                  //email field
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'EMAIL',
-                      style: Styles.text12b,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  CustomTextField(
-                    hint: 'email here',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'email cannot be empty';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (value) {
-                      loginCubit.email = value;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 25.0,
-                  ),
-
-                  //password field
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'PASSWORD',
-                      style: Styles.text12b,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  CustomTextField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'password cannot be empty';
-                      } else {
-                        return null;
-                      }
-                    },
-                    hint: 'password here',
-                    onChanged: (value) {
-                      loginCubit.password = value;
-                    },
-                    suffix: TextButton(
-                      onPressed: () {
-                        GoRouter.of(context)
-                            .push(AppRouter.resetPasswordViewPath);
-                      },
-                      child: Text(
-                        'FORGOT?',
-                        style: Styles.text11,
-                      ),
-                    ),
-                  ),
+                  //text fields(email,password)
+                  LoginTextFields(loginCubit: loginCubit),
                   const SizedBox(
                     height: 21.0,
                   ),
@@ -122,12 +62,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                         )
                       : DefaultButton(
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              loginCubit.loginUser();
-                            } else {
-                              autovalidateMode = AutovalidateMode.always;
-                              setState(() {});
-                            }
+                            loginUser(loginCubit);
                           },
                           btnText: 'LOGIN',
                         ),
@@ -149,11 +84,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       color: Colors.white.withAlpha(70),
                     ),
                   ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  InkWell(
-                    onTap: () {
+
+                  TextButton(
+                    onPressed: () {
                       GoRouter.of(context).push(AppRouter.registerViewPath);
                     },
                     child: Text(
@@ -171,5 +104,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         ),
       ],
     );
+  }
+
+  void loginUser(LoginCubit loginCubit) {
+    if (formKey.currentState!.validate()) {
+      loginCubit.loginUser();
+    } else {
+      autovalidateMode = AutovalidateMode.always;
+      setState(() {});
+    }
   }
 }
