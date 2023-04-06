@@ -11,10 +11,23 @@ import 'package:path/path.dart' as p;
 
 class AuthRepoImpl implements AuthRepo {
   String? imageUrl;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
-  loginUser() {
-    // TODO: implement loginUser
-    throw UnimplementedError();
+  Future<Either<Failure, UserCredential>> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final userCredential = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return right(userCredential);
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        return left(AuthFailure(e.message.toString()));
+      } else {
+        return left(AuthFailure(e.toString()));
+      }
+    }
   }
 
   @override
