@@ -39,7 +39,9 @@ class _RegisterAddPictureState extends State<RegisterAddPicture> {
           onPressed: () async {
             XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
             setState(() {
-              imageFile = File(xFile!.path);
+              if (xFile != null) {
+                imageFile = File(xFile.path);
+              }
               BlocProvider.of<RegisterCubit>(context).imageFile = imageFile;
             });
           },
