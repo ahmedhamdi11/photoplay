@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:photoplay/Features/auth/presentation/manager/cubits/cubit/register_cubit.dart';
+import 'package:photoplay/Features/auth/presentation/manager/cubits/register_cubit/register_cubit.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class RegisterAddPicture extends StatefulWidget {

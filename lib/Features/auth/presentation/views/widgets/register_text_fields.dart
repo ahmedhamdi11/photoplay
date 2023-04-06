@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photoplay/Features/auth/presentation/manager/cubits/cubit/register_cubit.dart';
+import 'package:photoplay/Features/auth/presentation/manager/cubits/register_cubit/register_cubit.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/custom_text_feild.dart';
 
