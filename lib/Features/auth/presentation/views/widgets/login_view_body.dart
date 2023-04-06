@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:photoplay/Features/auth/presentation/manager/cubits/login_cubit/login_cubit.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/login_background.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/app_logo.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/social_logins.dart';
@@ -9,10 +11,11 @@ import 'package:photoplay/core/widgets/custom_text_feild.dart';
 import 'package:photoplay/core/widgets/default_button.dart';
 
 class LoginViewBody extends StatelessWidget {
-  const LoginViewBody({super.key});
-
+  const LoginViewBody({super.key, required this.state});
+  final LoginStates state;
   @override
   Widget build(BuildContext context) {
+    LoginCubit loginCubit = BlocProvider.of<LoginCubit>(context);
     return Stack(
       children: [
         //background image
@@ -45,8 +48,11 @@ class LoginViewBody extends StatelessWidget {
                 const SizedBox(
                   height: 8.0,
                 ),
-                const CustomTextField(
+                CustomTextField(
                   hint: 'email here',
+                  onChanged: (value) {
+                    loginCubit.email = value;
+                  },
                 ),
                 const SizedBox(
                   height: 25.0,
@@ -65,6 +71,9 @@ class LoginViewBody extends StatelessWidget {
                 ),
                 CustomTextField(
                   hint: 'password here',
+                  onChanged: (value) {
+                    loginCubit.password = value;
+                  },
                   suffix: TextButton(
                     onPressed: () {
                       GoRouter.of(context)
@@ -81,7 +90,16 @@ class LoginViewBody extends StatelessWidget {
                 ),
 
                 //login button
-                DefaultButton(onPressed: () {}, btnText: 'LOGIN'),
+                state is LoginLoadingState
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : DefaultButton(
+                        onPressed: () {
+                          loginCubit.loginUser();
+                        },
+                        btnText: 'LOGIN',
+                      ),
                 const SizedBox(
                   height: 29.0,
                 ),
