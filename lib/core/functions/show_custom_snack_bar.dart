@@ -5,11 +5,12 @@ showCustomSnackBar({
   required BuildContext context,
   required String content,
   required Color backgroundColor,
+  Color textColor = Colors.white,
 }) {
   SnackBar mySnackBar = SnackBar(
     content: Text(
       content,
-      style: Styles.text14m.copyWith(color: Colors.white),
+      style: Styles.text14m.copyWith(color: textColor),
     ),
     backgroundColor: backgroundColor,
   );
