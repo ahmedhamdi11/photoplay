@@ -53,7 +53,10 @@ class AuthRepoImpl implements AuthRepo {
           imageUrl = await value.ref.getDownloadURL();
         });
       }
-      await FirebaseFirestore.instance.collection('users').add({
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
         'first_name': firstName,
         'last_name': lastName,
         'email': userCredential.user!.email,
