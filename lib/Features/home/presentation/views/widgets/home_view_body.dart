@@ -15,13 +15,14 @@ class HomeViewBody extends StatelessWidget {
             shaderCallback: (bounds) {
               return const LinearGradient(
                   colors: [
+                    Colors.black,
                     Colors.white,
                     Colors.white,
                     Colors.black,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  stops: [0, 0.94, 1]).createShader(bounds);
+                  stops: [0, 0.1, 0.94, 1]).createShader(bounds);
             },
             child: Image.asset(
               'assets/images/test_image1.png',
