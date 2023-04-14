@@ -23,6 +23,10 @@ abstract class Styles {
     fontWeight: FontWeight.w500,
     fontSize: 15,
   );
+  static TextStyle text15b = const TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+  );
   static TextStyle text16 = const TextStyle(
       fontWeight: FontWeight.bold, fontSize: 16, color: kPrimatyColor);
 
@@ -30,5 +34,10 @@ abstract class Styles {
     fontWeight: FontWeight.w300,
     fontSize: 17,
     color: Color(0xffA2A2A2),
+  );
+
+  static TextStyle text33 = const TextStyle(
+    fontWeight: FontWeight.w300,
+    fontSize: 33,
   );
 }
