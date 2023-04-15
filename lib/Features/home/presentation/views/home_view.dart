@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/custom_navigation_bar.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/home_view_body.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: HomeViewBody(),
-      bottomNavigationBar: CustomNavigationBar(),
+    return BlocConsumer<HomeCubit, HomeStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        HomeCubit homeCubit = BlocProvider.of<HomeCubit>(context);
+        return Scaffold(
+          body: homeCubit.views[homeCubit.currentIndex],
+          bottomNavigationBar: const CustomNavigationBar(),
+        );
+      },
     );
   }
 }
