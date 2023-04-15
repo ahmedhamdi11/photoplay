@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:photoplay/core/utils/cash_helper.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -9,6 +10,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await CashHelper.init();
+  CashHelper.uId = CashHelper.prefs.getString('uId');
   runApp(const PhotoPlay());
 }
 

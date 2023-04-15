@@ -8,6 +8,7 @@ import 'package:photoplay/Features/auth/data/auth_repo.dart';
 import 'package:photoplay/core/failures/failures.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as p;
+import 'package:photoplay/core/utils/cash_helper.dart';
 
 class AuthRepoImpl implements AuthRepo {
   String? imageUrl;
@@ -20,6 +21,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final userCredential = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      CashHelper.prefs.setString('uId', userCredential.user!.uid);
       return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {
@@ -63,6 +65,7 @@ class AuthRepoImpl implements AuthRepo {
         'userId': userCredential.user!.uid,
         'imageUrl': imageUrl,
       });
+      CashHelper.prefs.setString('uId', userCredential.user!.uid);
       return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {

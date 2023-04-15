@@ -8,12 +8,14 @@ import 'package:photoplay/Features/auth/presentation/views/login_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/register_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/reset_password_view.dart';
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
+import 'package:photoplay/core/utils/cash_helper.dart';
 
 abstract class AppRouter {
   static const registerViewPath = '/registerView';
   static const resetPasswordViewPath = '/resetPasswordView';
   static const homeViewPath = '/homeView';
   static GoRouter router = GoRouter(
+    initialLocation: CashHelper.uId == null ? '/' : homeViewPath,
     routes: [
       GoRoute(
         path: '/',
