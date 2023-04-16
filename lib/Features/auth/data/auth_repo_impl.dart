@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:photoplay/Features/auth/data/auth_repo.dart';
 import 'package:photoplay/core/failures/failures.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -81,6 +82,29 @@ class AuthRepoImpl implements AuthRepo {
     try {
       await firebaseAuth.sendPasswordResetEmail(email: email);
       return right('password reset link sent! check you email');
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        return left(AuthFailure(e.message.toString()));
+      } else {
+        return left(AuthFailure(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserCredential>> googleSignin() async {
+    try {
+      GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      GoogleSignInAuthentication? gAuth = await gUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth?.accessToken,
+        idToken: gAuth?.idToken,
+      );
+      final userCredential =
+          await firebaseAuth.signInWithCredential(credential);
+      CashHelper.prefs.setString('uId', userCredential.user!.uid);
+
+      return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {
         return left(AuthFailure(e.message.toString()));
