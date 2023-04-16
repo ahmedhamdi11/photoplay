@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -108,6 +107,7 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, String>> signOut() async {
     try {
+      await GoogleSignIn().disconnect();
       await firebaseAuth.signOut();
       await CashHelper.prefs.remove('uId');
       return right('Signed Out');
