@@ -25,7 +25,8 @@ class LoginView extends StatelessWidget {
             GoRouter.of(context).pushReplacement(AppRouter.homeViewPath);
             showCustomSnackBar(
                 context: context,
-                content: 'welcom back my friend',
+                content:
+                    'welcom back ${state.userCredential.user!.displayName}',
                 textColor: Colors.black,
                 backgroundColor: kPrimatyColor);
           }

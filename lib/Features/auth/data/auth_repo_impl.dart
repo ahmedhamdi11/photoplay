@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,7 +11,6 @@ import 'package:path/path.dart' as p;
 import 'package:photoplay/core/utils/cash_helper.dart';
 
 class AuthRepoImpl implements AuthRepo {
-  String? imageUrl;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
   Future<Either<Failure, UserCredential>> loginUser({
@@ -53,19 +51,11 @@ class AuthRepoImpl implements AuthRepo {
             .child('Images/${p.basename(imageFile.path)}')
             .putFile(imageFile)
             .then((value) async {
-          imageUrl = await value.ref.getDownloadURL();
+          String? imageUrl = await value.ref.getDownloadURL();
+          userCredential.user!.updatePhotoURL(imageUrl);
         });
       }
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .set({
-        'first_name': firstName,
-        'last_name': lastName,
-        'email': userCredential.user!.email,
-        'userId': userCredential.user!.uid,
-        'imageUrl': imageUrl,
-      });
+      userCredential.user!.updateDisplayName('$firstName $lastName');
       CashHelper.prefs.setString('uId', userCredential.user!.uid);
       return right(userCredential);
     } catch (e) {
