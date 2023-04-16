@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,7 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? currentUser = FirebaseAuth.instance.currentUser;
     return SafeArea(
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -25,7 +27,12 @@ class ProfileView extends StatelessWidget {
               CircleAvatar(
                 radius: 70,
                 backgroundColor: const Color(0xff1D1D1D),
-                child: SvgPicture.asset('assets/images/person.svg'),
+                backgroundImage: currentUser?.photoURL != null
+                    ? NetworkImage(currentUser!.photoURL!)
+                    : null,
+                child: currentUser!.photoURL == null
+                    ? SvgPicture.asset('assets/images/person.svg')
+                    : null,
               ),
               const SizedBox(height: 18),
 
@@ -33,7 +40,7 @@ class ProfileView extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width * .7,
                 child: Text(
-                  'Ahmed hamdi',
+                  currentUser.displayName!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
