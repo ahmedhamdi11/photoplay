@@ -21,4 +21,6 @@ abstract class AuthRepo {
   });
 
   Future<Either<Failure, UserCredential>> googleSignin();
+
+  Future<Either<Failure, String>> signOut();
 }

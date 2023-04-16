@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -95,6 +96,21 @@ class AuthRepoImpl implements AuthRepo {
       CashHelper.prefs.setString('uId', userCredential.user!.uid);
 
       return right(userCredential);
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        return left(AuthFailure(e.message.toString()));
+      } else {
+        return left(AuthFailure(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> signOut() async {
+    try {
+      await firebaseAuth.signOut();
+      await CashHelper.prefs.remove('uId');
+      return right('Signed Out');
     } catch (e) {
       if (e is FirebaseAuthException) {
         return left(AuthFailure(e.message.toString()));
