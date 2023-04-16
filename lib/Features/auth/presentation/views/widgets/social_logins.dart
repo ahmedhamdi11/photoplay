@@ -17,6 +17,11 @@ class SocialLogins extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SocialSignInCubit, SocialSignInStates>(
       listener: (context, state) {
+        if (state is GoogleSignInLoadingState) {
+          showLoadingAlert(context: context, isLoading: true);
+        } else {
+          showLoadingAlert(context: context, isLoading: false);
+        }
         if (state is GoogleSignInSuccessState) {
           GoRouter.of(context).pushReplacement(AppRouter.homeViewPath);
         } else if (state is GoogleSignInFailureState) {
@@ -24,8 +29,6 @@ class SocialLogins extends StatelessWidget {
               context: context,
               content: state.errMessage,
               backgroundColor: Colors.red);
-        } else if (state is GoogleSignInLoadingState) {
-          showLoadingAlert(context: context);
         }
       },
       builder: (context, state) {
