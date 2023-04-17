@@ -85,10 +85,13 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, UserCredential>> googleSignin() async {
     try {
       GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-      GoogleSignInAuthentication? gAuth = await gUser?.authentication;
+      if (gUser == null) {
+        return left(AuthFailure('No Google account selected'));
+      }
+      GoogleSignInAuthentication? gAuth = await gUser.authentication;
       final credential = GoogleAuthProvider.credential(
-        accessToken: gAuth?.accessToken,
-        idToken: gAuth?.idToken,
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
       );
       final userCredential =
           await firebaseAuth.signInWithCredential(credential);
