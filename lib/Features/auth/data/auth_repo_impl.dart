@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:photoplay/Features/auth/data/auth_repo.dart';
 import 'package:photoplay/core/failures/failures.dart';
@@ -117,6 +118,29 @@ class AuthRepoImpl implements AuthRepo {
       await firebaseAuth.signOut();
       await CashHelper.prefs.remove('uId');
       return right('Signed Out');
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        return left(AuthFailure(e.message.toString()));
+      } else {
+        return left(AuthFailure(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserCredential>> facebookSignin() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status != LoginStatus.success) {
+        return left(AuthFailure('Facebook login failed'));
+      }
+
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(result.accessToken!.token);
+      final UserCredential userCredential =
+          await firebaseAuth.signInWithCredential(facebookAuthCredential);
+      CashHelper.prefs.setString('uId', userCredential.user!.uid);
+      return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {
         return left(AuthFailure(e.message.toString()));

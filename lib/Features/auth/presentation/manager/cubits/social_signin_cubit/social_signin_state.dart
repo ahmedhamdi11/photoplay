@@ -13,3 +13,13 @@ class GoogleSignInFailureState extends SocialSignInStates {
 
   GoogleSignInFailureState(this.errMessage);
 }
+
+class FacebookSignInLoadingState extends SocialSignInStates {}
+
+class FacebookSignInSuccessState extends SocialSignInStates {}
+
+class FacebookSignInFailureState extends SocialSignInStates {
+  final String errMessage;
+
+  FacebookSignInFailureState(this.errMessage);
+}

@@ -17,14 +17,21 @@ class SocialLogins extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SocialSignInCubit, SocialSignInStates>(
       listener: (context, state) {
-        if (state is GoogleSignInLoadingState) {
+        if (state is GoogleSignInLoadingState ||
+            state is FacebookSignInLoadingState) {
           showLoadingAlert(context: context, isLoading: true);
         } else {
           showLoadingAlert(context: context, isLoading: false);
         }
-        if (state is GoogleSignInSuccessState) {
+        if (state is GoogleSignInSuccessState ||
+            state is FacebookSignInSuccessState) {
           GoRouter.of(context).pushReplacement(AppRouter.homeViewPath);
         } else if (state is GoogleSignInFailureState) {
+          showCustomSnackBar(
+              context: context,
+              content: state.errMessage,
+              backgroundColor: Colors.red);
+        } else if (state is FacebookSignInFailureState) {
           showCustomSnackBar(
               context: context,
               content: state.errMessage,
@@ -61,7 +68,10 @@ class SocialLogins extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    BlocProvider.of<SocialSignInCubit>(context)
+                        .signInWithFacebook();
+                  },
                   child: SvgPicture.asset('assets/images/Facebook button.svg'),
                 ),
                 const SizedBox(

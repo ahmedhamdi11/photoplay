@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">photoplay</string>
+    <string name="facebook_app_id">172654269049060</string>
+    <string name="fb_login_protocol_scheme">fb2a62325fb3953de446777bc3d8cf8757</string>
+    <string name="facebook_client_token">2302bbd750284aa052b8b8cd0283baed</string>
+</resources>
