@@ -107,7 +107,10 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, String>> signOut() async {
     try {
-      await GoogleSignIn().disconnect();
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      if (await googleSignIn.isSignedIn()) {
+        await googleSignIn.disconnect();
+      }
       await firebaseAuth.signOut();
       await CashHelper.prefs.remove('uId');
       return right('Signed Out');
