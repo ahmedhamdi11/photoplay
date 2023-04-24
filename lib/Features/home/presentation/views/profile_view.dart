@@ -54,14 +54,18 @@ class ProfileView extends StatelessWidget {
 
                   //user image
                   CircleAvatar(
-                    radius: 70,
-                    backgroundColor: const Color(0xff1D1D1D),
-                    backgroundImage: currentUser?.photoURL != null
-                        ? NetworkImage(currentUser!.photoURL!)
-                        : null,
-                    child: currentUser!.photoURL == null
-                        ? SvgPicture.asset('assets/images/person.svg')
-                        : null,
+                    radius: 72,
+                    backgroundColor: kPrimatyColor,
+                    child: CircleAvatar(
+                      radius: 70,
+                      backgroundColor: const Color(0xff1D1D1D),
+                      backgroundImage: currentUser?.photoURL != null
+                          ? NetworkImage(currentUser!.photoURL!)
+                          : null,
+                      child: currentUser!.photoURL == null
+                          ? SvgPicture.asset('assets/images/person.svg')
+                          : null,
+                    ),
                   ),
                   const SizedBox(height: 18),
 
