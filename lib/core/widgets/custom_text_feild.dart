@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.keyboardType,
     this.isPassword = false,
+    this.autofocus = false,
   });
   final Widget? suffix;
   final String? hint;
@@ -18,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final bool isPassword;
+  final bool autofocus;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -26,6 +28,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       cursorColor: kPrimatyColor,
       obscureText: isPassword,
+      autofocus: autofocus,
       decoration: InputDecoration(
           isDense: true,
           contentPadding:
