@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/popular_listview.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watchin_listview.dart';
 import 'package:photoplay/constants.dart';
@@ -80,12 +81,20 @@ class HomeViewBody extends StatelessWidget {
             ),
           );
         } else if (state is GetPopularMoviesFailureState) {
-          return Center(
-            child: Text(state.errMessage),
+          return ErrorView(
+            errMessage: state.errMessage,
+            onPressed: () {
+              cubit.getNowPlayingMovies();
+              cubit.getPopularMovies();
+            },
           );
         } else if (state is GetNowPlayingMoviesFailureState) {
-          return Center(
-            child: Text(state.errMessage),
+          return ErrorView(
+            errMessage: state.errMessage,
+            onPressed: () {
+              cubit.getNowPlayingMovies();
+              cubit.getPopularMovies();
+            },
           );
         }
         return const Center(

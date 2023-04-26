@@ -22,6 +22,7 @@ class HomeCubit extends Cubit<HomeStates> {
     currentIndex = index;
     if (currentIndex == 0) {
       getNowPlayingMovies();
+      getPopularMovies();
     }
     emit(ChangeBNavigationBarState());
   }
