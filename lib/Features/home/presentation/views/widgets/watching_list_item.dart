@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/constants.dart';
@@ -14,13 +15,11 @@ class MoviesListItem extends StatelessWidget {
       padding: const EdgeInsets.only(right: 12.0),
       child: AspectRatio(
         aspectRatio: 2 / 3,
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage('$kImageBaseUrl/w300${movie.posterPath}'),
-            ),
-          ),
+        child: CachedNetworkImage(
+          imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       ),
     );

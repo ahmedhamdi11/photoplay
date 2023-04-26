@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
@@ -31,8 +32,14 @@ class HomeViewBody extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         stops: [0, 0.1, 0.94, 1]).createShader(bounds);
                   },
-                  child: Image.network(
-                    '$kImageBaseUrl/original${cubit.nowPlayingMovies![0].posterPath}',
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        '$kImageBaseUrl/original${cubit.nowPlayingMovies![0].posterPath}',
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.54,
                     fit: BoxFit.cover,
