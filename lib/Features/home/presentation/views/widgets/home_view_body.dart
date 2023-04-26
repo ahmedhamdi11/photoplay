@@ -38,18 +38,21 @@ class HomeViewBody extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Text(
-                  '${cubit.nowPlayingMovies![0].voteCount}',
-                  style: Styles.text33,
-                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.star_rounded, color: kPrimatyColor),
-                    Icon(Icons.star_rounded, color: kPrimatyColor),
-                    Icon(Icons.star_rounded, color: kPrimatyColor),
-                    Icon(Icons.star_border_rounded, color: kPrimatyColor),
-                    Icon(Icons.star_border_rounded, color: kPrimatyColor),
+                  children: [
+                    const Icon(Icons.star_rounded, color: kPrimatyColor),
+                    Text(
+                      '${cubit.nowPlayingMovies![0].voteAverage}',
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
+                    Text(
+                      '(${cubit.nowPlayingMovies![0].voteCount})',
+                      style: Styles.text14m.copyWith(color: Colors.grey),
+                    ),
                   ],
                 ),
                 const SizedBox(
