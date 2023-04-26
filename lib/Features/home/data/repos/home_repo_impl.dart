@@ -18,6 +18,9 @@ class HomeRepoImpl implements HomeRepo {
       }
       return right(movies);
     } catch (e) {
+      if (e is DioError) {
+        return left(HomeFailure.fromDio(e));
+      }
       return left(HomeFailure(e.toString()));
     }
   }
@@ -32,6 +35,9 @@ class HomeRepoImpl implements HomeRepo {
       }
       return right(movies);
     } catch (e) {
+      if (e is DioError) {
+        return left(HomeFailure.fromDio(e));
+      }
       return left(HomeFailure(e.toString()));
     }
   }
