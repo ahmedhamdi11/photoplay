@@ -4,4 +4,5 @@ import 'package:photoplay/core/failures/failures.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, List<MovieModel>>> getNowPlayingMovies();
+  Future<Either<Failure, List<MovieModel>>> getPopularMovies();
 }

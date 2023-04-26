@@ -26,15 +26,29 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(ChangeBNavigationBarState());
   }
 
+  List<MovieModel>? nowPlayingMovies;
   Future getNowPlayingMovies() async {
     emit(GetNowPlayingMoviesLoadingState());
     var result = await homeRepo.getNowPlayingMovies();
 
     result.fold((failure) {
-      print(failure.errMessage);
       emit(GetNowPlayingMoviesFailureState(failure.errMessage));
-    }, (movie) {
-      emit(GetNowPlayingMoviesSuccessState(movie));
+    }, (movies) {
+      nowPlayingMovies = movies;
+      emit(GetNowPlayingMoviesSuccessState());
+    });
+  }
+
+  List<MovieModel>? popularMovies;
+  Future getPopularMovies() async {
+    emit(GetPopularMoviesLoadingState());
+    var result = await homeRepo.getPopularMovies();
+
+    result.fold((failure) {
+      emit(GetPopularMoviesFailureState(failure.errMessage));
+    }, (movies) {
+      popularMovies = movies;
+      emit(GetPopularMoviesSuccessState());
     });
   }
 }

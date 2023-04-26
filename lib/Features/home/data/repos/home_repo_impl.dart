@@ -21,4 +21,18 @@ class HomeRepoImpl implements HomeRepo {
       return left(HomeFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<MovieModel>>> getPopularMovies() async {
+    try {
+      var response = await dio.get('$kBaseUrl/movie/popular?api_key=$kApiKey');
+      List<MovieModel> movies = [];
+      for (int i = 0; i < response.data['results'].length; i++) {
+        movies.add(MovieModel.fromJson(response.data['results'][i]));
+      }
+      return right(movies);
+    } catch (e) {
+      return left(HomeFailure(e.toString()));
+    }
+  }
 }

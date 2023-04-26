@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/constants.dart';
 
-class WatchingListItem extends StatelessWidget {
-  const WatchingListItem({
+class MoviesListItem extends StatelessWidget {
+  const MoviesListItem({
     super.key,
     required this.movie,
   });

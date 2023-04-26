@@ -3,8 +3,8 @@ import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watching_list_item.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
-class WatchingListView extends StatelessWidget {
-  const WatchingListView({
+class PopularListView extends StatelessWidget {
+  const PopularListView({
     super.key,
     required this.movies,
   });
@@ -17,7 +17,7 @@ class WatchingListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Watching',
+            'Popular',
             style: Styles.text15b,
           ),
           const SizedBox(

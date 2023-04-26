@@ -48,8 +48,9 @@ abstract class AppRouter {
           path: homeViewPath,
           builder: (context, state) => MultiBlocProvider(providers: [
                 BlocProvider(
-                    create: (context) =>
-                        HomeCubit(HomeRepoImpl())..getNowPlayingMovies()),
+                    create: (context) => HomeCubit(HomeRepoImpl())
+                      ..getNowPlayingMovies()
+                      ..getPopularMovies()),
                 BlocProvider(
                     create: (context) =>
                         SignOutCubit(authRepo: AuthRepoImpl())),
