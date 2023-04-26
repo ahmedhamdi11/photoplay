@@ -6,3 +6,7 @@ abstract class Failure {
 class AuthFailure extends Failure {
   AuthFailure(super.errMessage);
 }
+
+class HomeFailure extends Failure {
+  HomeFailure(super.errMessage);
+}

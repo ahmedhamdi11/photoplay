@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watching_list_item.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class WatchingListView extends StatelessWidget {
   const WatchingListView({
     super.key,
+    required this.movies,
   });
-
+  final List<MovieModel> movies;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +29,9 @@ class WatchingListView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemCount: 10,
-              itemBuilder: (context, index) => const WatchingListItem(),
+              itemBuilder: (context, index) => WatchingListItem(
+                movie: movies[index],
+              ),
             ),
           ),
         ],

@@ -9,6 +9,7 @@ import 'package:photoplay/Features/auth/presentation/manager/cubits/social_signi
 import 'package:photoplay/Features/auth/presentation/views/login_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/register_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/reset_password_view.dart';
+import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
@@ -46,7 +47,9 @@ abstract class AppRouter {
       GoRoute(
           path: homeViewPath,
           builder: (context, state) => MultiBlocProvider(providers: [
-                BlocProvider(create: (context) => HomeCubit()),
+                BlocProvider(
+                    create: (context) =>
+                        HomeCubit(HomeRepoImpl())..getNowPlayingMovies()),
                 BlocProvider(
                     create: (context) =>
                         SignOutCubit(authRepo: AuthRepoImpl())),

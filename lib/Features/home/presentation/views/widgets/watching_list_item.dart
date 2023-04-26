@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:photoplay/Features/home/data/models/movie_model.dart';
+import 'package:photoplay/constants.dart';
 
 class WatchingListItem extends StatelessWidget {
   const WatchingListItem({
     super.key,
+    required this.movie,
   });
-
+  final MovieModel movie;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,10 +15,10 @@ class WatchingListItem extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 2 / 3,
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage('assets/images/test_image2.png'),
+              image: NetworkImage('$kImageBaseUrl/w300${movie.posterPath}'),
             ),
           ),
         ),
