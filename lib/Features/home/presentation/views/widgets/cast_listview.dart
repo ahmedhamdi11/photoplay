@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/movies_list_item.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/cast_list_item.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
-class WatchingListView extends StatelessWidget {
-  const WatchingListView({
+class CastListView extends StatelessWidget {
+  const CastListView({
     super.key,
-    required this.movies,
+    required this.movie,
   });
-  final List<MovieModel> movies;
+
+  final MovieModel movie;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,22 +19,20 @@ class WatchingListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Watching',
+            'Cast',
             style: Styles.text15b,
           ),
           const SizedBox(
             height: 12.0,
           ),
           SizedBox(
-            height: 150,
+            height: 180,
             child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemCount: 10,
-              itemBuilder: (context, index) => MoviesListItem(
-                movie: movies[index],
-              ),
-            ),
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return CastListItem(movie: movie);
+                }),
           ),
         ],
       ),

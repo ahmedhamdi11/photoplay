@@ -9,27 +9,35 @@ import 'package:photoplay/Features/auth/presentation/manager/cubits/social_signi
 import 'package:photoplay/Features/auth/presentation/views/login_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/register_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/reset_password_view.dart';
+import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
+import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
 
 abstract class AppRouter {
   static const registerViewPath = '/registerView';
   static const resetPasswordViewPath = '/resetPasswordView';
   static const homeViewPath = '/homeView';
+  static const movieDetailsViewPath = '/movieDetailsViewPath';
   static GoRouter router = GoRouter(
     initialLocation: CashHelper.uId == null ? '/' : homeViewPath,
     routes: [
       GoRoute(
-          path: '/',
-          builder: (context, state) => MultiBlocProvider(providers: [
-                BlocProvider(
-                    create: (context) => LoginCubit(authRepo: AuthRepoImpl())),
-                BlocProvider(
-                    create: (context) =>
-                        SocialSignInCubit(authRepo: AuthRepoImpl())),
-              ], child: const LoginView())),
+        path: '/',
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => LoginCubit(authRepo: AuthRepoImpl()),
+            ),
+            BlocProvider(
+              create: (context) => SocialSignInCubit(authRepo: AuthRepoImpl()),
+            ),
+          ],
+          child: const LoginView(),
+        ),
+      ),
       GoRoute(
         path: registerViewPath,
         builder: (context, state) => BlocProvider(
@@ -45,17 +53,26 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-          path: homeViewPath,
-          builder: (context, state) => MultiBlocProvider(providers: [
-                BlocProvider(
-                    create: (context) => HomeCubit(HomeRepoImpl())
-                      ..getNowPlayingMovies()
-                      ..getPopularMovies()
-                      ..getTrendingMovies()),
-                BlocProvider(
-                    create: (context) =>
-                        SignOutCubit(authRepo: AuthRepoImpl())),
-              ], child: const HomeView())),
+        path: homeViewPath,
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) => HomeCubit(HomeRepoImpl())
+                  ..getNowPlayingMovies()
+                  ..getPopularMovies()
+                  ..getTrendingMovies()),
+            BlocProvider(
+                create: (context) => SignOutCubit(authRepo: AuthRepoImpl())),
+          ],
+          child: const HomeView(),
+        ),
+      ),
+      GoRoute(
+        path: movieDetailsViewPath,
+        builder: (context, state) => MovieDetailsView(
+          movie: state.extra as MovieModel,
+        ),
+      )
     ],
   );
 }

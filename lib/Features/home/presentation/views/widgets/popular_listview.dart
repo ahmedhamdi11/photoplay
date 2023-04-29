@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/watching_list_item.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/movies_list_item.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class PopularListView extends StatelessWidget {
