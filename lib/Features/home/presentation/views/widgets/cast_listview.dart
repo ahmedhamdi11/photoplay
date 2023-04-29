@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:photoplay/Features/home/data/models/movie_model.dart';
+import 'package:photoplay/Features/home/data/models/cast_model.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_list_item.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class CastListView extends StatelessWidget {
   const CastListView({
     super.key,
-    required this.movie,
+    required this.movieCast,
   });
 
-  final MovieModel movie;
+  final List<CastModel> movieCast;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,11 @@ class CastListView extends StatelessWidget {
             height: 180,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
+                itemCount: movieCast.length,
                 itemBuilder: (context, index) {
-                  return CastListItem(movie: movie);
+                  return CastListItem(
+                    movieCast: movieCast[index],
+                  );
                 }),
           ),
         ],

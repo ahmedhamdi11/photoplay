@@ -11,7 +11,8 @@ import 'package:photoplay/Features/auth/presentation/views/register_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/reset_password_view.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
-import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
 import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
@@ -69,8 +70,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: movieDetailsViewPath,
-        builder: (context, state) => MovieDetailsView(
-          movie: state.extra as MovieModel,
+        builder: (context, state) => BlocProvider(
+          create: (context) => CastCubit(homeRepo: HomeRepoImpl()),
+          child: MovieDetailsView(
+            movie: state.extra as MovieModel,
+          ),
         ),
       )
     ],

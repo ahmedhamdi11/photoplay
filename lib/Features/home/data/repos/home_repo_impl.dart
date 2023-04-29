@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:photoplay/Features/home/data/models/cast_model.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:photoplay/Features/home/data/models/trending_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/trending_item.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/trending_movies.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/failures/failures.dart';
 
@@ -60,6 +59,26 @@ class HomeRepoImpl implements HomeRepo {
         return left(HomeFailure.fromDio(e));
       }
       return left(HomeFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CastModel>>> getMovieCast(
+      {required int movieId}) async {
+    try {
+      var response =
+          await dio.get('$kBaseUrl/movie/$movieId/credits?api_key=$kApiKey');
+      List<CastModel> movieCast = [];
+      for (int i = 0; i < response.data['cast'].length; i++) {
+        movieCast.add(CastModel.fromJson(response.data['cast'][i]));
+      }
+      return right(movieCast);
+    } catch (e) {
+      if (e is DioError) {
+        return left(HomeFailure.fromDio(e));
+      } else {
+        return left(HomeFailure(e.toString()));
+      }
     }
   }
 }

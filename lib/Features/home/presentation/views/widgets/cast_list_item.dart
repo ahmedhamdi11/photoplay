@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:photoplay/Features/home/data/models/movie_model.dart';
+import 'package:photoplay/Features/home/data/models/cast_model.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class CastListItem extends StatelessWidget {
   const CastListItem({
     super.key,
-    required this.movie,
+    required this.movieCast,
   });
 
-  final MovieModel movie;
+  final CastModel movieCast;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CastListItem extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 2 / 3,
               child: CachedNetworkImage(
-                imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
+                imageUrl: '$kImageBaseUrl/w300${movieCast.profilePath}',
                 placeholder: (context, url) =>
                     const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -36,7 +36,7 @@ class CastListItem extends StatelessWidget {
           SizedBox(
             width: 70,
             child: Text(
-              'name',
+              movieCast.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

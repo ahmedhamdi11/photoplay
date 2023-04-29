@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/home_cubit.dart';
 import 'package:photoplay/constants.dart';
 
 class CustomNavigationBar extends StatelessWidget {

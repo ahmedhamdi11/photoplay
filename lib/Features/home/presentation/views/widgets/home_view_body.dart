@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photoplay/Features/home/presentation/manager/cubits/cubit/home_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/popular_listview.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/trending_movies.dart';

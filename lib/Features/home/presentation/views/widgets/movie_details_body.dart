@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
 import 'package:photoplay/core/utils/styles.dart';
@@ -95,7 +98,22 @@ class MovieDetailsBody extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  CastListView(movie: movie),
+                  BlocBuilder<CastCubit, CastStates>(
+                    builder: (context, state) {
+                      if (state is GetMovieCastSuccessState) {
+                        return CastListView(movieCast: state.movieCast);
+                      } else if (state is GetMovieCastFailureState) {
+                        return ErrorView(
+                            errMessage: state.errMessage, onPressed: () {});
+                      } else if (state is GetMovieCastLoadingState) {
+                        return const Padding(
+                          padding: EdgeInsets.only(top: 40),
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
                 ],
               ),
             ),
