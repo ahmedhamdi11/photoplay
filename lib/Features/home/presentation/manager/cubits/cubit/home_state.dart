@@ -25,3 +25,13 @@ class GetPopularMoviesFailureState extends HomeStates {
 
   GetPopularMoviesFailureState(this.errMessage);
 }
+
+class GetTrendingMoviesLoadingState extends HomeStates {}
+
+class GetTrendingMoviesSuccessState extends HomeStates {}
+
+class GetTrendingMoviesFailureState extends HomeStates {
+  final String errMessage;
+
+  GetTrendingMoviesFailureState(this.errMessage);
+}

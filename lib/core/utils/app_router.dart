@@ -50,7 +50,8 @@ abstract class AppRouter {
                 BlocProvider(
                     create: (context) => HomeCubit(HomeRepoImpl())
                       ..getNowPlayingMovies()
-                      ..getPopularMovies()),
+                      ..getPopularMovies()
+                      ..getTrendingMovies()),
                 BlocProvider(
                     create: (context) =>
                         SignOutCubit(authRepo: AuthRepoImpl())),
