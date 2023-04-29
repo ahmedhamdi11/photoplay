@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/sign_out_cubit/sign_out_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/custom_profile_btn.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/profile_image.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
 import 'package:photoplay/core/functions/show_loading_alert.dart';
@@ -53,19 +53,8 @@ class ProfileView extends StatelessWidget {
                   ),
 
                   //user image
-                  CircleAvatar(
-                    radius: 72,
-                    backgroundColor: kPrimatyColor,
-                    child: CircleAvatar(
-                      radius: 70,
-                      backgroundColor: const Color(0xff1D1D1D),
-                      backgroundImage: currentUser?.photoURL != null
-                          ? NetworkImage(currentUser!.photoURL!)
-                          : null,
-                      child: currentUser!.photoURL == null
-                          ? SvgPicture.asset('assets/images/person.svg')
-                          : null,
-                    ),
+                  ProfileImage(
+                    photoUrl: currentUser!.photoURL,
                   ),
                   const SizedBox(height: 18),
 
@@ -74,7 +63,7 @@ class ProfileView extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * .7,
                     child: Text(
                       currentUser.displayName!,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: Styles.text27,
