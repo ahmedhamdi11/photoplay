@@ -14,6 +14,7 @@ import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/known_for_cubit/known_for_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/trailers_cubit/trailers_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
 import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
 import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
@@ -73,8 +74,13 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: movieDetailsViewPath,
-        builder: (context, state) => BlocProvider(
-          create: (context) => CastCubit(homeRepo: HomeRepoImpl()),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) => CastCubit(homeRepo: HomeRepoImpl())),
+            BlocProvider(
+                create: (context) => TrailersCubit(homeRepo: HomeRepoImpl())),
+          ],
           child: MovieDetailsView(
             movie: state.extra as MovieModel,
           ),

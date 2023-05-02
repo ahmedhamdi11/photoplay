@@ -132,7 +132,11 @@ class HomeRepoImpl implements HomeRepo {
       List<VideosModel> trailerVideos = movieVideos
           .where((e) => e.type == 'Trailer' && e.site == 'YouTube')
           .toList();
-      return right(trailerVideos[0]);
+      if (trailerVideos.isEmpty) {
+        return left(HomeFailure('sorry trailer not found'));
+      } else {
+        return right(trailerVideos[0]);
+      }
     } catch (e) {
       if (e is DioError) {
         return left(HomeFailure.fromDio(e));

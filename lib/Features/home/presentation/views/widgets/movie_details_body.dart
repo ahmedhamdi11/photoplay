@@ -7,13 +7,26 @@ import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview
 import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
-import 'package:photoplay/core/widgets/default_button.dart';
 
-class MovieDetailsBody extends StatelessWidget {
+class MovieDetailsBody extends StatefulWidget {
   const MovieDetailsBody({super.key, required this.movie});
   final MovieModel movie;
+
+  @override
+  State<MovieDetailsBody> createState() => _MovieDetailsBodyState();
+}
+
+class _MovieDetailsBodyState extends State<MovieDetailsBody> {
+  @override
+  void initState() {
+    BlocProvider.of<CastCubit>(context).getMovieCast(movieId: widget.movie.id);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +36,7 @@ class MovieDetailsBody extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               //image
-              MovieDetailsImage(movie: movie),
+              MovieDetailsImage(movie: widget.movie),
 
               //back btn
               const DefaultBackBtn(),
@@ -40,7 +53,7 @@ class MovieDetailsBody extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: Text(
-                          movie.title!,
+                          widget.movie.title!,
                           style: Styles.text19m,
                         ),
                       ),
@@ -68,7 +81,7 @@ class MovieDetailsBody extends StatelessWidget {
           ),
 
           //rating
-          MovieDetalsRating(movie: movie),
+          MovieDetalsRating(movie: widget.movie),
           const SizedBox(
             height: 28.0,
           ),
@@ -84,7 +97,7 @@ class MovieDetailsBody extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
-                        movie.overview!,
+                        widget.movie.overview!,
                         style: Styles.text15bk,
                       ),
                     ),
@@ -92,12 +105,9 @@ class MovieDetailsBody extends StatelessWidget {
                       height: 18.0,
                     ),
 
-                    //watch now button
-                    SizedBox(
-                      width: 160,
-                      child:
-                          DefaultButton(onPressed: () {}, btnText: 'WATCH NOW'),
-                    ),
+                    //watch trailer button
+                    WatchTrailer(movieId: widget.movie.id),
+
                     const SizedBox(
                       height: 16.0,
                     ),
