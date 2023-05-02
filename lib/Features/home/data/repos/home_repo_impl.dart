@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:photoplay/Features/home/data/models/cast_model.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:photoplay/Features/home/data/models/videos_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/failures/failures.dart';
@@ -109,6 +110,29 @@ class HomeRepoImpl implements HomeRepo {
         movies.add(MovieModel.fromJson(response.data['cast'][i]));
       }
       return right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return left(HomeFailure.fromDio(e));
+      } else {
+        return left(HomeFailure(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, VideosModel>> getMovieTrailer(
+      {required int movieId}) async {
+    try {
+      var respons =
+          await dio.get('$kBaseUrl/movie/$movieId/videos?api_key=$kApiKey');
+      List<VideosModel> movieVideos = [];
+      for (int i = 0; i < respons.data['results'].length; i++) {
+        movieVideos.add(VideosModel.fromJson(respons.data['results'][i]));
+      }
+      List<VideosModel> trailerVideos = movieVideos
+          .where((e) => e.type == 'Trailer' && e.site == 'YouTube')
+          .toList();
+      return right(trailerVideos[0]);
     } catch (e) {
       if (e is DioError) {
         return left(HomeFailure.fromDio(e));

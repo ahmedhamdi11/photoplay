@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:photoplay/Features/home/data/models/cast_model.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
+import 'package:photoplay/Features/home/data/models/videos_model.dart';
 import 'package:photoplay/core/failures/failures.dart';
 
 abstract class HomeRepo {
@@ -11,4 +12,5 @@ abstract class HomeRepo {
   Future<Either<Failure, CastModel>> getCastDetails({required int castId});
   Future<Either<Failure, List<MovieModel>>> getKnownForList(
       {required int castId});
+  Future<Either<Failure, VideosModel>> getMovieTrailer({required int movieId});
 }
