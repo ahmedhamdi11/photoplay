@@ -2,13 +2,14 @@ import 'package:equatable/equatable.dart';
 
 class MovieModel extends Equatable {
   final int id;
-  final String title;
+  final String? title;
   final String? overview;
   final String? posterPath;
   final String? backdropPath;
   final dynamic voteAverage;
   final int voteCount;
   final List genreIds;
+  final String? mediaType;
 
   const MovieModel({
     required this.id,
@@ -19,18 +20,20 @@ class MovieModel extends Equatable {
     required this.voteAverage,
     required this.voteCount,
     required this.genreIds,
+    required this.mediaType,
   });
 
   factory MovieModel.fromJson(jsonData) {
     return MovieModel(
       id: jsonData['id'],
-      title: jsonData['title'],
+      title: jsonData['title'] ?? '',
       overview: jsonData['overview'] ?? '-',
       posterPath: jsonData['poster_path'] ?? '',
       backdropPath: jsonData['backdrop_path'] ?? '',
       voteAverage: jsonData['vote_average'],
       voteCount: jsonData['vote_count'],
       genreIds: jsonData['genre_ids'],
+      mediaType: jsonData['media_type'],
     );
   }
 
@@ -42,5 +45,6 @@ class MovieModel extends Equatable {
         posterPath,
         voteAverage,
         voteCount,
+        mediaType,
       ];
 }

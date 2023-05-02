@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
-import 'package:photoplay/Features/home/data/models/trending_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo.dart';
 import 'package:photoplay/Features/home/presentation/views/downloads_view.dart';
 import 'package:photoplay/Features/home/presentation/views/profile_view.dart';
@@ -54,7 +53,7 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  List<TrendingModel>? trendingMovies;
+  List<MovieModel>? trendingMovies;
   Future getTrendingMovies() async {
     emit(GetPopularMoviesLoadingState());
     var result = await homeRepo.getTrendingMovies();

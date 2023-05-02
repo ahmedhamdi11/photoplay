@@ -28,6 +28,7 @@ class CastListView extends StatelessWidget {
           SizedBox(
             height: 180,
             child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: movieCast.length,
                 itemBuilder: (context, index) {

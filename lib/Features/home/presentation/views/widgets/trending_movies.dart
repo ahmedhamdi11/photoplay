@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:photoplay/Features/home/data/models/trending_model.dart';
+import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/trending_item.dart';
 
 class TrendingMovies extends StatelessWidget {
@@ -9,7 +9,7 @@ class TrendingMovies extends StatelessWidget {
     required this.trendingMovies,
   });
 
-  final List<TrendingModel> trendingMovies;
+  final List<MovieModel> trendingMovies;
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(

@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:photoplay/Features/home/data/models/cast_model.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:photoplay/Features/home/data/models/trending_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/failures/failures.dart';
@@ -45,13 +44,13 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<TrendingModel>>> getTrendingMovies() async {
+  Future<Either<Failure, List<MovieModel>>> getTrendingMovies() async {
     try {
       var response =
           await dio.get('$kBaseUrl/trending/all/week?api_key=$kApiKey');
-      List<TrendingModel> movies = [];
+      List<MovieModel> movies = [];
       for (int i = 0; i < response.data['results'].length; i++) {
-        movies.add(TrendingModel.fromJson(response.data['results'][i]));
+        movies.add(MovieModel.fromJson(response.data['results'][i]));
       }
       return right(movies);
     } catch (e) {
@@ -104,7 +103,7 @@ class HomeRepoImpl implements HomeRepo {
       {required int castId}) async {
     try {
       var response = await dio
-          .get('$kBaseUrl/person/$castId/movie_credits?api_key=$kApiKey');
+          .get('$kBaseUrl/person/$castId/combined_credits?api_key=$kApiKey');
       List<MovieModel> movies = [];
       for (int i = 0; i < response.data['cast'].length; i++) {
         movies.add(MovieModel.fromJson(response.data['cast'][i]));

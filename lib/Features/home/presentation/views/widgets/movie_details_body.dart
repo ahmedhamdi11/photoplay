@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
@@ -39,7 +40,7 @@ class MovieDetailsBody extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: Text(
-                          movie.title,
+                          movie.title!,
                           style: Styles.text19m,
                         ),
                       ),
@@ -73,48 +74,51 @@ class MovieDetailsBody extends StatelessWidget {
           ),
 
           Expanded(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  //movie overview
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      movie.overview!,
-                      style: Styles.text15bk,
+            child: CupertinoScrollbar(
+              thumbVisibility: true,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    //movie overview
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        movie.overview!,
+                        style: Styles.text15bk,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 18.0,
-                  ),
+                    const SizedBox(
+                      height: 18.0,
+                    ),
 
-                  //watch now button
-                  SizedBox(
-                    width: 160,
-                    child:
-                        DefaultButton(onPressed: () {}, btnText: 'WATCH NOW'),
-                  ),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  BlocBuilder<CastCubit, CastStates>(
-                    builder: (context, state) {
-                      if (state is GetMovieCastSuccessState) {
-                        return CastListView(movieCast: state.movieCast);
-                      } else if (state is GetMovieCastFailureState) {
-                        return ErrorView(
-                            errMessage: state.errMessage, onPressed: () {});
-                      } else if (state is GetMovieCastLoadingState) {
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 40),
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ],
+                    //watch now button
+                    SizedBox(
+                      width: 160,
+                      child:
+                          DefaultButton(onPressed: () {}, btnText: 'WATCH NOW'),
+                    ),
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                    BlocBuilder<CastCubit, CastStates>(
+                      builder: (context, state) {
+                        if (state is GetMovieCastSuccessState) {
+                          return CastListView(movieCast: state.movieCast);
+                        } else if (state is GetMovieCastFailureState) {
+                          return ErrorView(
+                              errMessage: state.errMessage, onPressed: () {});
+                        } else if (state is GetMovieCastLoadingState) {
+                          return const Padding(
+                            padding: EdgeInsets.only(top: 40),
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
