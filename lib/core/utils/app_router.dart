@@ -13,8 +13,10 @@ import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/home_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/known_for_cubit/known_for_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
 import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
+import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
 
 abstract class AppRouter {
@@ -22,6 +24,7 @@ abstract class AppRouter {
   static const resetPasswordViewPath = '/resetPasswordView';
   static const homeViewPath = '/homeView';
   static const movieDetailsViewPath = '/movieDetailsViewPath';
+  static const personDetailsViewPath = '/personDetailsViewPath';
   static GoRouter router = GoRouter(
     initialLocation: CashHelper.uId == null ? '/' : homeViewPath,
     routes: [
@@ -76,7 +79,21 @@ abstract class AppRouter {
             movie: state.extra as MovieModel,
           ),
         ),
-      )
+      ),
+      GoRoute(
+        path: personDetailsViewPath,
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) => CastCubit(homeRepo: HomeRepoImpl())),
+            BlocProvider(
+                create: (context) => KnownForCubit(homeRepo: HomeRepoImpl())),
+          ],
+          child: PersonDetailsView(
+            castId: state.extra as int,
+          ),
+        ),
+      ),
     ],
   );
 }

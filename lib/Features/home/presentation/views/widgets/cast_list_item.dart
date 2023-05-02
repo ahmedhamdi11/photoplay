@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/home/data/models/cast_model.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class CastListItem extends StatelessWidget {
@@ -16,34 +18,40 @@ class CastListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 12.0),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 145,
-            child: AspectRatio(
-              aspectRatio: 2 / 3,
-              child: CachedNetworkImage(
-                imageUrl: '$kImageBaseUrl/w300${movieCast.profilePath}',
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+      child: InkWell(
+        onTap: () {
+          GoRouter.of(context)
+              .push(AppRouter.personDetailsViewPath, extra: movieCast.id);
+        },
+        child: Column(
+          children: [
+            SizedBox(
+              height: 145,
+              child: AspectRatio(
+                aspectRatio: 2 / 3,
+                child: CachedNetworkImage(
+                  imageUrl: '$kImageBaseUrl/w300${movieCast.profilePath}',
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 4.0,
-          ),
-          SizedBox(
-            width: 70,
-            child: Text(
-              movieCast.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: Styles.text12b,
+            const SizedBox(
+              height: 4.0,
             ),
-          )
-        ],
+            SizedBox(
+              width: 70,
+              child: Text(
+                movieCast.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: Styles.text12b,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -17,3 +17,17 @@ class GetMovieCastFailureState extends CastStates {
 
   GetMovieCastFailureState(this.errMessage);
 }
+
+class GetCastDetailsLoadingState extends CastStates {}
+
+class GetCastDetailsSuccessState extends CastStates {
+  final CastModel castDetails;
+
+  GetCastDetailsSuccessState(this.castDetails);
+}
+
+class GetCastDetailsFailureState extends CastStates {
+  final String errMessage;
+
+  GetCastDetailsFailureState(this.errMessage);
+}

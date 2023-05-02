@@ -28,7 +28,7 @@ class PopularListView extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
-              itemCount: 10,
+              itemCount: movies.length,
               itemBuilder: (context, index) => MoviesListItem(
                 movie: movies[index],
               ),

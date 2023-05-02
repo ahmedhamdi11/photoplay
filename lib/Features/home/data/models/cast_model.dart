@@ -4,10 +4,12 @@ class CastModel extends Equatable {
   final int id;
   final String name;
   final String? profilePath;
+  final String? biography;
   const CastModel({
     required this.id,
     required this.name,
     required this.profilePath,
+    required this.biography,
   });
 
   factory CastModel.fromJson(Map<String, dynamic> jsonData) {
@@ -15,6 +17,7 @@ class CastModel extends Equatable {
       id: jsonData['id'],
       name: jsonData['name'],
       profilePath: jsonData['profile_path'] ?? '',
+      biography: jsonData['biography'],
     );
   }
   @override

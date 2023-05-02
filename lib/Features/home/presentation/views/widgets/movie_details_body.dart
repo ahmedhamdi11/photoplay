@@ -81,7 +81,7 @@ class MovieDetailsBody extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
-                      movie.overview,
+                      movie.overview!,
                       style: Styles.text15bk,
                     ),
                   ),
