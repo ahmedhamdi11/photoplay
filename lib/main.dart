@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,7 +15,6 @@ void main() async {
   await CashHelper.init();
   CashHelper.uId = CashHelper.prefs.getString('uId');
   Bloc.observer = MyBlocObserver();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const PhotoPlay());
 }
 

@@ -7,7 +7,7 @@ import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview
 import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer_button.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
 
@@ -106,7 +106,7 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                     ),
 
                     //watch trailer button
-                    WatchTrailer(movieId: widget.movie.id),
+                    WatchTrailerButton(movieId: widget.movie.id),
 
                     const SizedBox(
                       height: 16.0,
