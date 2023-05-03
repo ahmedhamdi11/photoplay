@@ -43,7 +43,7 @@ class TrendingItem extends StatelessWidget {
               ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.54,
+              height: MediaQuery.of(context).size.height * 0.53,
               fit: BoxFit.fill,
             ),
           ),
@@ -71,11 +71,13 @@ class TrendingItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
+                width: MediaQuery.of(context).size.width * 0.8,
                 child: Text(
                   '${trendingMovie.mediaType}   | ${getGenres(genreIds: trendingMovie.genreIds)}',
                   style: Styles.text12m,
                   textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               )
             ],

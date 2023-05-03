@@ -16,12 +16,12 @@ class GetNowPlayingMoviesFailureState extends HomeStates {
   GetNowPlayingMoviesFailureState(this.errMessage);
 }
 
-class GetPopularMoviesLoadingState extends HomeStates {}
+class GetTopRatedMoviesLoadingState extends HomeStates {}
 
-class GetPopularMoviesSuccessState extends HomeStates {}
+class GetTopRatedMoviesSuccessState extends HomeStates {}
 
-class GetPopularMoviesFailureState extends HomeStates {
+class GetTopRatedMoviesFailureState extends HomeStates {
   final String errMessage;
 
-  GetPopularMoviesFailureState(this.errMessage);
+  GetTopRatedMoviesFailureState(this.errMessage);
 }

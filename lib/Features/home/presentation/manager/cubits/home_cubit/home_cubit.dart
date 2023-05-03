@@ -22,7 +22,8 @@ class HomeCubit extends Cubit<HomeStates> {
     currentIndex = index;
     if (currentIndex == 0) {
       getNowPlayingMovies();
-      getPopularMovies();
+      getTopRatedMovies();
+      getTrendingMovies();
     }
     emit(ChangeBNavigationBarState());
   }
@@ -40,29 +41,29 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  List<MovieModel>? popularMovies;
-  Future getPopularMovies() async {
-    emit(GetPopularMoviesLoadingState());
-    var result = await homeRepo.getPopularMovies();
+  List<MovieModel>? topRatedMovies;
+  Future getTopRatedMovies() async {
+    emit(GetTopRatedMoviesLoadingState());
+    var result = await homeRepo.getTopRatedMovies();
 
     result.fold((failure) {
-      emit(GetPopularMoviesFailureState(failure.errMessage));
+      emit(GetTopRatedMoviesFailureState(failure.errMessage));
     }, (movies) {
-      popularMovies = movies;
-      emit(GetPopularMoviesSuccessState());
+      topRatedMovies = movies;
+      emit(GetTopRatedMoviesSuccessState());
     });
   }
 
   List<MovieModel>? trendingMovies;
   Future getTrendingMovies() async {
-    emit(GetPopularMoviesLoadingState());
+    emit(GetTopRatedMoviesLoadingState());
     var result = await homeRepo.getTrendingMovies();
 
     result.fold((failure) {
-      emit(GetPopularMoviesFailureState(failure.errMessage));
+      emit(GetTopRatedMoviesFailureState(failure.errMessage));
     }, (movies) {
       trendingMovies = movies;
-      emit(GetPopularMoviesSuccessState());
+      emit(GetTopRatedMoviesSuccessState());
     });
   }
 }

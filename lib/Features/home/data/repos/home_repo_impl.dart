@@ -28,9 +28,10 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<MovieModel>>> getPopularMovies() async {
+  Future<Either<Failure, List<MovieModel>>> getTopRatedMovies() async {
     try {
-      var response = await dio.get('$kBaseUrl/movie/popular?api_key=$kApiKey');
+      var response =
+          await dio.get('$kBaseUrl/movie/top_rated?api_key=$kApiKey');
       List<MovieModel> movies = [];
       for (int i = 0; i < response.data['results'].length; i++) {
         movies.add(MovieModel.fromJson(response.data['results'][i]));

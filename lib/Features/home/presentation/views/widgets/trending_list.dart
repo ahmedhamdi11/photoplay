@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/trending_item.dart';
 
-class TrendingMovies extends StatelessWidget {
-  const TrendingMovies({
+class TrendingList extends StatelessWidget {
+  const TrendingList({
     super.key,
     required this.trendingMovies,
   });
@@ -19,8 +19,8 @@ class TrendingMovies extends StatelessWidget {
       ),
       options: CarouselOptions(
           autoPlay: true,
-          height: MediaQuery.of(context).size.height * 0.61,
-          autoPlayInterval: const Duration(seconds: 8),
+          height: MediaQuery.of(context).size.height * 0.605,
+          autoPlayInterval: const Duration(seconds: 7),
           viewportFraction: 1),
     );
   }

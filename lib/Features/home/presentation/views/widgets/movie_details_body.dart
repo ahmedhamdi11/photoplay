@@ -100,6 +100,7 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
           Expanded(
             child: CupertinoScrollbar(
               thumbVisibility: true,
+              scrollbarOrientation: ScrollbarOrientation.left,
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
