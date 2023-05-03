@@ -6,12 +6,12 @@ abstract class TrailersStates {
 
 class TrailersInitialState extends TrailersStates {}
 
-class GetMovieTrailerLoadingState extends TrailersStates {}
+class GetTrailerLoadingState extends TrailersStates {}
 
-class GetMovieTrailerSuccessState extends TrailersStates {}
+class GetTrailerSuccessState extends TrailersStates {}
 
-class GetMovieTrailerFailureState extends TrailersStates {
+class GetTrailerFailureState extends TrailersStates {
   final String errMessage;
 
-  GetMovieTrailerFailureState(this.errMessage);
+  GetTrailerFailureState(this.errMessage);
 }

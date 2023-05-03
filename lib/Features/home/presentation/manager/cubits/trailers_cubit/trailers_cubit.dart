@@ -10,16 +10,32 @@ class TrailersCubit extends Cubit<TrailersStates> {
 
   VideosModel? trailerVideo;
   Future getMovieTrailer({required int movieId}) async {
-    emit(GetMovieTrailerLoadingState());
+    emit(GetTrailerLoadingState());
     var result = await homeRepo.getMovieTrailer(movieId: movieId);
 
     result.fold(
       (failure) {
-        emit(GetMovieTrailerFailureState(failure.errMessage));
+        emit(GetTrailerFailureState(failure.errMessage));
       },
       (trailer) {
         trailerVideo = trailer;
-        emit(GetMovieTrailerSuccessState());
+        emit(GetTrailerSuccessState());
+      },
+    );
+  }
+
+  VideosModel? tvTrailer;
+  Future getTvTrailer({required int tvId}) async {
+    emit(GetTrailerLoadingState());
+    var result = await homeRepo.getTvTrailer(tvId: tvId);
+
+    result.fold(
+      (failure) {
+        emit(GetTrailerFailureState(failure.errMessage));
+      },
+      (trailer) {
+        trailerVideo = trailer;
+        emit(GetTrailerSuccessState());
       },
     );
   }

@@ -145,4 +145,29 @@ class HomeRepoImpl implements HomeRepo {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, VideosModel>> getTvTrailer({required int tvId}) async {
+    try {
+      var respons = await dio.get('$kBaseUrl/tv/$tvId/videos?api_key=$kApiKey');
+      List<VideosModel> tvVideos = [];
+      for (int i = 0; i < respons.data['results'].length; i++) {
+        tvVideos.add(VideosModel.fromJson(respons.data['results'][i]));
+      }
+      List<VideosModel> trailerVideos = tvVideos
+          .where((e) => e.type == 'Trailer' && e.site == 'YouTube')
+          .toList();
+      if (trailerVideos.isEmpty) {
+        return left(HomeFailure('sorry trailer not found'));
+      } else {
+        return right(trailerVideos[0]);
+      }
+    } catch (e) {
+      if (e is DioError) {
+        return left(HomeFailure.fromDio(e));
+      } else {
+        return left(HomeFailure(e.toString()));
+      }
+    }
+  }
 }

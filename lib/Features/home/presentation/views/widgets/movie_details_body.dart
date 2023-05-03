@@ -106,7 +106,7 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                     ),
 
                     //watch trailer button
-                    WatchTrailerButton(movieId: widget.movie.id),
+                    WatchTrailerButton(movie: widget.movie),
 
                     const SizedBox(
                       height: 16.0,

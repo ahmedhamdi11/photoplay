@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/trailers_cubit/trailers_cubit.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
@@ -10,9 +11,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class WatchTrailerButton extends StatelessWidget {
   const WatchTrailerButton({
     super.key,
-    required this.movieId,
+    required this.movie,
   });
-  final int movieId;
+  final MovieModel movie;
   @override
   Widget build(BuildContext context) {
     TrailersCubit cubit = BlocProvider.of<TrailersCubit>(context);
@@ -21,7 +22,7 @@ class WatchTrailerButton extends StatelessWidget {
       //bloc listener
       listener: (context, state) {
         //show the errMessage when the state is failure state
-        if (state is GetMovieTrailerFailureState) {
+        if (state is GetTrailerFailureState) {
           showCustomSnackBar(
             context: context,
             content: state.errMessage,
@@ -33,7 +34,7 @@ class WatchTrailerButton extends StatelessWidget {
       //bloc builder
       builder: (context, state) {
         // if the state is loading show loading indicator else show the watch trailer btn
-        return state is GetMovieTrailerLoadingState
+        return state is GetTrailerLoadingState
             ?
             // return loading indicator
             const Center(child: CircularProgressIndicator())
@@ -44,7 +45,7 @@ class WatchTrailerButton extends StatelessWidget {
                 child: DefaultButton(
                   onPressed: () {
                     //get the Youtube video id
-                    cubit.getMovieTrailer(movieId: movieId).then(
+                    getTrailer(cubit: cubit).then(
                       (value) {
                         if (cubit.trailerVideo?.videoKey != null) {
                           //initialize the youtube controller
@@ -106,5 +107,13 @@ class WatchTrailerButton extends StatelessWidget {
       ),
     );
     return controller;
+  }
+
+  Future<dynamic> getTrailer({required TrailersCubit cubit}) {
+    if (movie.mediaType == 'tv') {
+      return cubit.getTvTrailer(tvId: movie.id);
+    } else {
+      return cubit.getMovieTrailer(movieId: movie.id);
+    }
   }
 }

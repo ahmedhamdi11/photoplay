@@ -13,4 +13,5 @@ abstract class HomeRepo {
   Future<Either<Failure, List<MovieModel>>> getKnownForList(
       {required int castId});
   Future<Either<Failure, VideosModel>> getMovieTrailer({required int movieId});
+  Future<Either<Failure, VideosModel>> getTvTrailer({required int tvId});
 }
