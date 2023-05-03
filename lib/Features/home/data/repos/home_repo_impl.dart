@@ -21,9 +21,9 @@ class HomeRepoImpl implements HomeRepo {
       return right(movies);
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       }
-      return left(HomeFailure(e.toString()));
+      return left(ServerFailure(e.toString()));
     }
   }
 
@@ -39,9 +39,9 @@ class HomeRepoImpl implements HomeRepo {
       return right(movies);
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       }
-      return left(HomeFailure(e.toString()));
+      return left(ServerFailure(e.toString()));
     }
   }
 
@@ -57,9 +57,9 @@ class HomeRepoImpl implements HomeRepo {
       return right(movies);
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       }
-      return left(HomeFailure(e.toString()));
+      return left(ServerFailure(e.toString()));
     }
   }
 
@@ -76,9 +76,9 @@ class HomeRepoImpl implements HomeRepo {
       return right(movieCast);
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       } else {
-        return left(HomeFailure(e.toString()));
+        return left(ServerFailure(e.toString()));
       }
     }
   }
@@ -93,9 +93,9 @@ class HomeRepoImpl implements HomeRepo {
       return right(castDetails);
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       } else {
-        return left(HomeFailure(e.toString()));
+        return left(ServerFailure(e.toString()));
       }
     }
   }
@@ -113,9 +113,9 @@ class HomeRepoImpl implements HomeRepo {
       return right(movies);
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       } else {
-        return left(HomeFailure(e.toString()));
+        return left(ServerFailure(e.toString()));
       }
     }
   }
@@ -134,15 +134,15 @@ class HomeRepoImpl implements HomeRepo {
           .where((e) => e.type == 'Trailer' && e.site == 'YouTube')
           .toList();
       if (trailerVideos.isEmpty) {
-        return left(HomeFailure('sorry trailer not found'));
+        return left(ServerFailure('sorry trailer not found'));
       } else {
         return right(trailerVideos[0]);
       }
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       } else {
-        return left(HomeFailure(e.toString()));
+        return left(ServerFailure(e.toString()));
       }
     }
   }
@@ -159,15 +159,15 @@ class HomeRepoImpl implements HomeRepo {
           .where((e) => e.type == 'Trailer' && e.site == 'YouTube')
           .toList();
       if (trailerVideos.isEmpty) {
-        return left(HomeFailure('sorry trailer not found'));
+        return left(ServerFailure('sorry trailer not found'));
       } else {
         return right(trailerVideos[0]);
       }
     } catch (e) {
       if (e is DioError) {
-        return left(HomeFailure.fromDio(e));
+        return left(ServerFailure.fromDio(e));
       } else {
-        return left(HomeFailure(e.toString()));
+        return left(ServerFailure(e.toString()));
       }
     }
   }

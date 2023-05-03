@@ -4,7 +4,7 @@ import 'package:photoplay/Features/home/data/repos/home_repo.dart';
 import 'package:photoplay/Features/home/presentation/views/downloads_view.dart';
 import 'package:photoplay/Features/home/presentation/views/profile_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/home_view_body.dart';
-import 'package:photoplay/Features/home/presentation/views/search_view.dart';
+import 'package:photoplay/Features/search/presentation/views/search_view.dart';
 
 part 'home_state.dart';
 

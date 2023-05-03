@@ -11,49 +11,49 @@ class AuthFailure extends Failure {
   AuthFailure(super.errMessage);
 }
 
-class HomeFailure extends Failure {
-  HomeFailure(super.errMessage);
+class ServerFailure extends Failure {
+  ServerFailure(super.errMessage);
 
-  factory HomeFailure.fromDio(DioError dioError) {
+  factory ServerFailure.fromDio(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.connectionTimeout:
-        return HomeFailure('Connection timeout');
+        return ServerFailure('Connection timeout');
       case DioErrorType.sendTimeout:
-        return HomeFailure('Send Timeout');
+        return ServerFailure('Send Timeout');
       case DioErrorType.receiveTimeout:
-        return HomeFailure('Receive Timeout');
+        return ServerFailure('Receive Timeout');
       case DioErrorType.badCertificate:
-        return HomeFailure(
+        return ServerFailure(
             'The connection to the server could not be established');
       case DioErrorType.badResponse:
-        return HomeFailure.fromResponse(
+        return ServerFailure.fromResponse(
             dioError.response!.statusCode!, dioError.response!.data);
       case DioErrorType.cancel:
-        return HomeFailure('Request Canceled');
+        return ServerFailure('Request Canceled');
       case DioErrorType.connectionError:
-        return HomeFailure('Connection Error,please try again!');
+        return ServerFailure('Connection Error,please try again!');
       case DioErrorType.unknown:
         if (dioError.error is SocketException) {
-          return HomeFailure(
+          return ServerFailure(
               'No Internet Connection, please check your internet and try again');
         } else {
-          return HomeFailure('Opps There Was An Error, please try again!');
+          return ServerFailure('Opps There Was An Error, please try again!');
         }
 
       default:
-        return HomeFailure('Opps There Was An Error, please try again!');
+        return ServerFailure('Opps There Was An Error, please try again!');
     }
   }
 
-  factory HomeFailure.fromResponse(int statusCode, dynamic response) {
+  factory ServerFailure.fromResponse(int statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return HomeFailure(response['error']['message']);
+      return ServerFailure(response['error']['message']);
     } else if (statusCode == 404) {
-      return HomeFailure('Request Not Found,please try later!');
+      return ServerFailure('Request Not Found,please try later!');
     } else if (statusCode == 500) {
-      return HomeFailure('Internal Server Error,please try later!');
+      return ServerFailure('Internal Server Error,please try later!');
     } else {
-      return HomeFailure('Opps There Was An Error, please try again!');
+      return ServerFailure('Opps There Was An Error, please try again!');
     }
   }
 }
