@@ -4,7 +4,7 @@ import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/h
 import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/popular_listview.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/trending_movies.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/watchin_listview.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/now_playing_listview.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -27,7 +27,7 @@ class HomeViewBody extends StatelessWidget {
                   const SizedBox(
                     height: 28.0,
                   ),
-                  WatchingListView(
+                  NowPlayingListView(
                     movies: cubit.nowPlayingMovies!,
                   ),
                   const SizedBox(

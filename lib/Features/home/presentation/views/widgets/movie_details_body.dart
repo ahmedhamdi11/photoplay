@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer_button.dart';
@@ -54,7 +53,15 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: Text(
                           widget.movie.title!,
-                          style: Styles.text19m,
+                          style: Styles.text19m.copyWith(
+                            shadows: [
+                              const Shadow(
+                                color: Colors.black,
+                                blurRadius: 4,
+                                offset: Offset(2, 2),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -109,24 +116,10 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                     WatchTrailerButton(movie: widget.movie),
 
                     const SizedBox(
-                      height: 16.0,
+                      height: 28.0,
                     ),
-                    BlocBuilder<CastCubit, CastStates>(
-                      builder: (context, state) {
-                        if (state is GetMovieCastSuccessState) {
-                          return CastListView(movieCast: state.movieCast);
-                        } else if (state is GetMovieCastFailureState) {
-                          return ErrorView(
-                              errMessage: state.errMessage, onPressed: () {});
-                        } else if (state is GetMovieCastLoadingState) {
-                          return const Padding(
-                            padding: EdgeInsets.only(top: 40),
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
+
+                    CastListView(movieId: widget.movie.id),
                   ],
                 ),
               ),

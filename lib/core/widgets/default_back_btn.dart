@@ -30,7 +30,16 @@ class DefaultBackBtn extends StatelessWidget {
               ),
               Text(
                 'BACK',
-                style: Styles.text14b.copyWith(color: Colors.white),
+                style: Styles.text14b.copyWith(
+                  color: Colors.white,
+                  shadows: [
+                    const Shadow(
+                      color: Colors.black,
+                      offset: Offset(2, 2),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
               )
             ],
           ),

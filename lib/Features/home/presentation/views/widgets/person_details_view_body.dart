@@ -49,12 +49,20 @@ class _PersonDetailsViewBodyState extends State<PersonDetailsViewBody> {
 
                     //actor name
                     Positioned(
-                      bottom: -28.0,
+                      bottom: -22.0,
                       left: 40.0,
                       right: 40.0,
                       child: Text(
                         state.castDetails.name,
-                        style: Styles.text37,
+                        style: Styles.text37.copyWith(
+                          shadows: [
+                            const Shadow(
+                              color: Colors.black,
+                              blurRadius: 4,
+                              offset: Offset(2, 2),
+                            ),
+                          ],
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     )
