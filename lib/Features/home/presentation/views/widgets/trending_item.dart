@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/functions/get_genres.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
@@ -69,9 +70,13 @@ class TrendingItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '${trendingMovie.mediaType}   | Family   | Comedy   | Adventure',
-                style: Styles.text12m,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Text(
+                  '${trendingMovie.mediaType}   | ${getGenres(genreIds: trendingMovie.genreIds)}',
+                  style: Styles.text12m,
+                  textAlign: TextAlign.center,
+                ),
               )
             ],
           ),

@@ -7,6 +7,7 @@ import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer_button.dart';
+import 'package:photoplay/core/functions/get_genres.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
 
@@ -71,9 +72,12 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Movie   | Family   | Comedy   | Adventure',
-                            style: Styles.text12m,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: Text(
+                              '${widget.movie.mediaType ?? 'Movie'}   | ${getGenres(genreIds: widget.movie.genreIds)}',
+                              style: Styles.text12m,
+                            ),
                           )
                         ],
                       ),
