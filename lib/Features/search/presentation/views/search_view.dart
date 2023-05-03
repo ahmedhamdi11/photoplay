@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
+import 'package:photoplay/Features/search/presentation/manager/cubits/search_cubit/search_cubit.dart';
 import 'package:photoplay/Features/search/presentation/widgets/search_movies.dart';
 import 'package:photoplay/Features/search/presentation/widgets/search_tv_shows.dart';
 import 'package:photoplay/core/widgets/custom_text_feild.dart';
@@ -9,24 +12,60 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SearchCubit searchCubit = BlocProvider.of<SearchCubit>(context);
     return Column(
-      children: const [
+      children: [
         Padding(
-          padding: EdgeInsets.only(top: 60, left: 36, right: 36),
+          padding: const EdgeInsets.only(top: 60, left: 36, right: 36),
           child: CustomTextField(
+            onChanged: (value) {
+              searchCubit.fetchSearchData(q: value);
+            },
             autofocus: true,
-            suffix: Icon(FontAwesomeIcons.magnifyingGlass),
+            suffix: const Icon(FontAwesomeIcons.magnifyingGlass),
             hint: 'Search',
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 26.0,
         ),
-        SearchTVShows(),
-        SizedBox(
-          height: 26.0,
-        ),
-        SearchMovies(),
+        BlocBuilder<SearchCubit, SearchStates>(builder: (context, state) {
+          if (state is SearchLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is SearchFailureState) {
+            return ErrorView(
+              errMessage: state.errMessage,
+              withTryAgainBtn: false,
+            );
+          } else if (state is SearchSuccessState) {
+            return Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    if (searchCubit.moviesSearchData.isNotEmpty)
+                      SearchMovies(
+                        movies: searchCubit.moviesSearchData,
+                      ),
+                    if (searchCubit.moviesSearchData.isNotEmpty)
+                      const SizedBox(
+                        height: 26.0,
+                      ),
+                    const SearchTVShows(),
+                    const SizedBox(
+                      height: 26.0,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          return const Center(
+            child: Text('Serach for movie,tv show or person'),
+          );
+        }),
       ],
     );
   }

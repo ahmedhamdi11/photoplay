@@ -3,9 +3,8 @@ import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class DefaultButton extends StatelessWidget {
-  const DefaultButton(
-      {super.key, required this.onPressed, required this.btnText});
-  final void Function() onPressed;
+  const DefaultButton({super.key, this.onPressed, required this.btnText});
+  final void Function()? onPressed;
   final String btnText;
   @override
   Widget build(BuildContext context) {

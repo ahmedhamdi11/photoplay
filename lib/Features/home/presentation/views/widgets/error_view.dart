@@ -6,10 +6,12 @@ class ErrorView extends StatelessWidget {
   const ErrorView({
     super.key,
     required this.errMessage,
-    required this.onPressed,
+    this.onPressed,
+    this.withTryAgainBtn = true,
   });
   final String errMessage;
-  final void Function() onPressed;
+  final void Function()? onPressed;
+  final bool withTryAgainBtn;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -31,10 +33,11 @@ class ErrorView extends StatelessWidget {
           const SizedBox(
             height: 16.0,
           ),
-          SizedBox(
-            width: 105,
-            child: DefaultButton(onPressed: onPressed, btnText: 'Try Again'),
-          )
+          if (withTryAgainBtn)
+            SizedBox(
+              width: 105,
+              child: DefaultButton(onPressed: onPressed, btnText: 'Try Again'),
+            )
         ],
       ),
     );

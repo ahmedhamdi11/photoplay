@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:photoplay/Features/home/data/models/movie_model.dart';
+import 'package:photoplay/Features/home/presentation/views/widgets/movies_list_item.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class SearchMovies extends StatelessWidget {
   const SearchMovies({
     super.key,
+    required this.movies,
   });
+  final List<MovieModel> movies;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,20 +35,11 @@ class SearchMovies extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.18,
             child: ListView.builder(
-                itemCount: 2,
+                itemCount: movies.length,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 26),
-                    child: AspectRatio(
-                      aspectRatio: 2 / 3,
-                      child: Image.asset(
-                        'assets/images/test_image2.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
+                  return MoviesListItem(movie: movies[index]);
                 }),
           ),
         ],

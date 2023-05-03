@@ -3,6 +3,6 @@ import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/core/failures/failures.dart';
 
 abstract class SearchRepo {
-  Future<Either<ServerFailure, List<MovieModel>>> fetchSearchData(
+  Future<Either<ServerFailure, List<MovieModel>>> fetchMoviesSearchData(
       {required String q});
 }
