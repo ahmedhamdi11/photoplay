@@ -5,6 +5,7 @@ import 'package:photoplay/Features/home/presentation/views/widgets/error_view.da
 import 'package:photoplay/Features/search/presentation/manager/cubits/search_cubit/search_cubit.dart';
 import 'package:photoplay/Features/search/presentation/widgets/search_movies.dart';
 import 'package:photoplay/Features/search/presentation/widgets/search_tv_shows.dart';
+import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/custom_text_feild.dart';
 
 class SearchView extends StatelessWidget {
@@ -20,6 +21,7 @@ class SearchView extends StatelessWidget {
           child: CustomTextField(
             onChanged: (value) {
               searchCubit.fetchSearchData(q: value);
+              searchCubit.fetchTvShowsSearchData(q: value);
             },
             autofocus: true,
             suffix: const Icon(FontAwesomeIcons.magnifyingGlass),
@@ -31,40 +33,64 @@ class SearchView extends StatelessWidget {
         ),
         BlocBuilder<SearchCubit, SearchStates>(builder: (context, state) {
           if (state is SearchLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return const Expanded(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           } else if (state is SearchFailureState) {
             return ErrorView(
               errMessage: state.errMessage,
               withTryAgainBtn: false,
             );
-          } else if (state is SearchSuccessState) {
-            return Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    if (searchCubit.moviesSearchData.isNotEmpty)
-                      SearchMovies(
-                        movies: searchCubit.moviesSearchData,
-                      ),
-                    if (searchCubit.moviesSearchData.isNotEmpty)
-                      const SizedBox(
-                        height: 26.0,
-                      ),
-                    const SearchTVShows(),
-                    const SizedBox(
-                      height: 26.0,
-                    ),
-                  ],
+          } else if (searchCubit.moviesSearchData != null &&
+              searchCubit.tvShowsSearchData != null) {
+            if (searchCubit.moviesSearchData!.isEmpty &&
+                searchCubit.tvShowsSearchData!.isEmpty) {
+              return const Expanded(
+                child: Center(
+                  child: Text(
+                    'No Results Found',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ),
+              );
+            } else {
+              return Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      if (searchCubit.moviesSearchData!.isNotEmpty)
+                        SearchMovies(
+                          movies: searchCubit.moviesSearchData!,
+                        ),
+                      if (searchCubit.moviesSearchData!.isNotEmpty)
+                        const SizedBox(
+                          height: 26.0,
+                        ),
+                      if (searchCubit.tvShowsSearchData!.isNotEmpty)
+                        SearchTVShows(
+                          tvShows: searchCubit.tvShowsSearchData!,
+                        ),
+                      if (searchCubit.tvShowsSearchData!.isNotEmpty)
+                        const SizedBox(
+                          height: 26.0,
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            }
+          } else if (state is SearchInitialState) {
+            return const Center(
+              child: Text(
+                'serach for tv shows,movies or actor',
+                style: TextStyle(color: Colors.grey),
               ),
             );
           }
-          return const Center(
-            child: Text('Serach for movie,tv show or person'),
-          );
+          return const SizedBox.shrink();
         }),
       ],
     );

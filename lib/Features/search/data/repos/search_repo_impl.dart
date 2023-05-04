@@ -27,4 +27,24 @@ class SearchRepoImpl implements SearchRepo {
       }
     }
   }
+
+  @override
+  Future<Either<ServerFailure, List<MovieModel>>> fetchTvShowsSearchData(
+      {required String q}) async {
+    try {
+      var response =
+          await dio.get('$kBaseUrl/search/tv?api_key=$kApiKey&query=$q');
+      List<MovieModel> searchData = [];
+      for (int i = 0; i < response.data['results'].length; i++) {
+        searchData.add(MovieModel.fromJson(response.data['results'][i]));
+      }
+      return right(searchData);
+    } catch (e) {
+      if (e is DioError) {
+        return left(ServerFailure.fromDio(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
 }

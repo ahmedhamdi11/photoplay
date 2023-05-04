@@ -8,7 +8,7 @@ class SearchCubit extends Cubit<SearchStates> {
   SearchCubit({required this.searchRepo}) : super(SearchInitialState());
   SearchRepo searchRepo;
 
-  late List<MovieModel> moviesSearchData;
+  List<MovieModel>? moviesSearchData;
   Future fetchSearchData({required String q}) async {
     emit(SearchLoadingState());
     var result = await searchRepo.fetchMoviesSearchData(q: q);
@@ -18,6 +18,21 @@ class SearchCubit extends Cubit<SearchStates> {
       },
       (searchData) {
         moviesSearchData = searchData;
+        emit(SearchSuccessState());
+      },
+    );
+  }
+
+  List<MovieModel>? tvShowsSearchData;
+  Future fetchTvShowsSearchData({required String q}) async {
+    emit(SearchLoadingState());
+    var result = await searchRepo.fetchTvShowsSearchData(q: q);
+    result.fold(
+      (failure) {
+        emit(SearchFailureState(failure.errMessage));
+      },
+      (searchData) {
+        tvShowsSearchData = searchData;
         emit(SearchSuccessState());
       },
     );
