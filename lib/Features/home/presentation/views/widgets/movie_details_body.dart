@@ -12,6 +12,7 @@ import 'package:photoplay/core/functions/get_genres.dart';
 import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
+import 'package:photoplay/core/widgets/favorites_button.dart';
 
 class MovieDetailsBody extends StatefulWidget {
   const MovieDetailsBody({super.key, required this.movie});
@@ -30,7 +31,7 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
       BlocProvider.of<CastCubit>(context)
           .getMovieCast(movieId: widget.movie.id);
     }
-
+    BlocProvider.of<FavoritesCubit>(context).getFavorites();
     super.initState();
   }
 
@@ -88,52 +89,7 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                               ),
                             ),
                             const Spacer(),
-                            MaterialButton(
-                                color: Colors.white.withOpacity(0.15),
-                                onPressed: () {
-                                  BlocProvider.of<FavoritesCubit>(context)
-                                      .addToFavorites(
-                                          favoriteItem: widget.movie.toMap());
-                                },
-                                child: BlocConsumer<FavoritesCubit,
-                                    FavoritesStates>(
-                                  listener: (context, state) {
-                                    if (state is AddToFavoritesFailureState) {
-                                      showCustomSnackBar(
-                                        context: context,
-                                        content: state.errMessage,
-                                        backgroundColor: Colors.red,
-                                      );
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    if (state is AddToFavoritesLoadingState) {
-                                      return const SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      );
-                                    } else if (state
-                                        is AddToFavoritesSuccessState) {
-                                      return Image.asset(
-                                        'assets/images/heart_minus.png',
-                                        width: 25,
-                                        height: 25,
-                                        color: Colors.red,
-                                      );
-                                    }
-                                    return Image.asset(
-                                      'assets/images/heart_plus.png',
-                                      width: 25,
-                                      height: 25,
-                                      color: Colors.white,
-                                    );
-                                  },
-                                ))
+                            FavoritesBtn(movie: widget.movie),
                           ],
                         ),
                       ),

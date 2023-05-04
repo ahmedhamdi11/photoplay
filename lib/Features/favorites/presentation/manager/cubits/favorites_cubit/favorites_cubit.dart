@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:photoplay/Features/favorites/data/repos/favorites_repo/favorites_repo.dart';
+import 'package:photoplay/Features/home/data/models/movie_model.dart';
 
 part 'favorites_state.dart';
 
@@ -19,5 +20,18 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
         emit(AddToFavoritesSuccessState(success));
       },
     );
+  }
+
+  List<MovieModel> favorites = [];
+  Future getFavorites() async {
+    emit(GetFavoritesLoadingState());
+    var result = await favoritesRepo.getFavorites();
+
+    result.fold((failure) {
+      emit(GetFavoritesFailureState(failure.errMessage));
+    }, (movies) {
+      favorites = movies;
+      emit(GetFavoritesSuccessState(movies));
+    });
   }
 }
