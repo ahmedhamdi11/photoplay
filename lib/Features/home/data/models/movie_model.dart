@@ -34,4 +34,18 @@ class MovieModel {
       mediaType: jsonData['media_type'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'overview': overview,
+      'poster_path': posterPath,
+      'backdrop_path': backdropPath,
+      'vote_count': voteCount,
+      'vote_average': voteAverage,
+      'genre_ids': genreIds,
+      'media_type': mediaType,
+    };
+  }
 }

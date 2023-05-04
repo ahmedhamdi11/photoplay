@@ -15,4 +15,6 @@ abstract class HomeRepo {
       {required int castId});
   Future<Either<Failure, VideosModel>> getMovieTrailer({required int movieId});
   Future<Either<Failure, VideosModel>> getTvTrailer({required int tvId});
+  Future<Either<Failure, String>> addToFavorites(
+      {required Map<String, dynamic> favoriteItem});
 }

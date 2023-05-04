@@ -11,6 +11,7 @@ import 'package:photoplay/Features/auth/presentation/views/reset_password_view.d
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/known_for_cubit/known_for_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/trailers_cubit/trailers_cubit.dart';
@@ -74,9 +75,14 @@ abstract class AppRouter {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (context) => CastCubit(homeRepo: HomeRepoImpl())),
+              create: (context) => CastCubit(homeRepo: HomeRepoImpl()),
+            ),
             BlocProvider(
-                create: (context) => TrailersCubit(homeRepo: HomeRepoImpl())),
+              create: (context) => TrailersCubit(homeRepo: HomeRepoImpl()),
+            ),
+            BlocProvider(
+              create: (context) => FavoritesCubit(homeRepo: HomeRepoImpl()),
+            ),
           ],
           child: MovieDetailsView(
             movie: state.extra as MovieModel,

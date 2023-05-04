@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer_button.dart';
 import 'package:photoplay/core/functions/get_genres.dart';
+import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
 
@@ -48,7 +50,7 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
 
               //movie title and genrs
               Positioned(
-                bottom: -15,
+                bottom: -22,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
@@ -74,17 +76,66 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                         height: 8.0,
                       ),
                       //genrs
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: Text(
-                              '${widget.movie.mediaType ?? 'movie'}   | ${getGenres(genreIds: widget.movie.genreIds)}',
-                              style: Styles.text12m,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: Text(
+                                '${widget.movie.mediaType ?? 'movie'}   | ${getGenres(genreIds: widget.movie.genreIds)}',
+                                style: Styles.text12m,
+                              ),
                             ),
-                          )
-                        ],
+                            const Spacer(),
+                            MaterialButton(
+                                color: Colors.white.withOpacity(0.15),
+                                onPressed: () {
+                                  BlocProvider.of<FavoritesCubit>(context)
+                                      .addToFavorites(
+                                          favoriteItem: widget.movie.toMap());
+                                },
+                                child: BlocConsumer<FavoritesCubit,
+                                    FavoritesStates>(
+                                  listener: (context, state) {
+                                    if (state is AddToFavoritesFailureState) {
+                                      showCustomSnackBar(
+                                        context: context,
+                                        content: state.errMessage,
+                                        backgroundColor: Colors.red,
+                                      );
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state is AddToFavoritesLoadingState) {
+                                      return const SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      );
+                                    } else if (state
+                                        is AddToFavoritesSuccessState) {
+                                      return Image.asset(
+                                        'assets/images/heart_minus.png',
+                                        width: 25,
+                                        height: 25,
+                                        color: Colors.red,
+                                      );
+                                    }
+                                    return Image.asset(
+                                      'assets/images/heart_plus.png',
+                                      width: 25,
+                                      height: 25,
+                                      color: Colors.white,
+                                    );
+                                  },
+                                ))
+                          ],
+                        ),
                       ),
                     ],
                   ),
