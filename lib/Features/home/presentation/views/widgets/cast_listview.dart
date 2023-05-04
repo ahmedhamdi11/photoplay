@@ -29,21 +29,21 @@ class CastListView extends StatelessWidget {
           //cast list view
           BlocBuilder<CastCubit, CastStates>(
             builder: (context, state) {
-              if (state is GetMovieCastSuccessState) {
+              if (state is GetCastSuccessState) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height * 0.21,
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.movieCast.length,
+                    itemCount: state.cast.length,
                     itemBuilder: (context, index) {
                       return CastListItem(
-                        movieCast: state.movieCast[index],
+                        movieCast: state.cast[index],
                       );
                     },
                   ),
                 );
-              } else if (state is GetMovieCastFailureState) {
+              } else if (state is GetCastFailureState) {
                 return ErrorView(
                   errMessage: state.errMessage,
                   onPressed: () {
@@ -51,7 +51,7 @@ class CastListView extends StatelessWidget {
                         .getMovieCast(movieId: movieId);
                   },
                 );
-              } else if (state is GetMovieCastLoadingState) {
+              } else if (state is GetCastLoadingState) {
                 return const Padding(
                   padding: EdgeInsets.only(top: 40),
                   child: Center(child: CircularProgressIndicator()),

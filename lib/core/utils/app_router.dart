@@ -4,7 +4,6 @@ import 'package:photoplay/Features/auth/data/auth_repo_impl.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/login_cubit/login_cubit.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/register_cubit/register_cubit.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/reset_password_cubit/reset_password_cubit.dart';
-import 'package:photoplay/Features/auth/presentation/manager/cubits/sign_out_cubit/sign_out_cubit.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/social_signin_cubit/social_signin_cubit.dart';
 import 'package:photoplay/Features/auth/presentation/views/login_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/register_view.dart';

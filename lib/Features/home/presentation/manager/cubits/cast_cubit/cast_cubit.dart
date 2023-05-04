@@ -9,13 +9,24 @@ class CastCubit extends Cubit<CastStates> {
   HomeRepo homeRepo;
 
   Future getMovieCast({required int movieId}) async {
-    emit(GetMovieCastLoadingState());
+    emit(GetCastLoadingState());
     var result = await homeRepo.getMovieCast(movieId: movieId);
 
     result.fold((failure) {
-      emit(GetMovieCastFailureState(failure.errMessage));
+      emit(GetCastFailureState(failure.errMessage));
     }, (movieCast) {
-      emit(GetMovieCastSuccessState(movieCast));
+      emit(GetCastSuccessState(movieCast));
+    });
+  }
+
+  Future getTvCast({required int tvId}) async {
+    emit(GetCastLoadingState());
+    var result = await homeRepo.getTvCast(tvId: tvId);
+
+    result.fold((failure) {
+      emit(GetCastFailureState(failure.errMessage));
+    }, (movieCast) {
+      emit(GetCastSuccessState(movieCast));
     });
   }
 

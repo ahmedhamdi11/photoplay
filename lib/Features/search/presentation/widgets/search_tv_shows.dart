@@ -40,7 +40,7 @@ class SearchTVShows extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  tvShows[index].mediaType = 'Tv';
+                  tvShows[index].mediaType = 'tv';
                   return Column(
                     children: [
                       SizedBox(

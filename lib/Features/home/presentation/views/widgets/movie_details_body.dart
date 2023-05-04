@@ -22,7 +22,12 @@ class MovieDetailsBody extends StatefulWidget {
 class _MovieDetailsBodyState extends State<MovieDetailsBody> {
   @override
   void initState() {
-    BlocProvider.of<CastCubit>(context).getMovieCast(movieId: widget.movie.id);
+    if (widget.movie.mediaType == 'tv') {
+      BlocProvider.of<CastCubit>(context).getTvCast(tvId: widget.movie.id);
+    } else {
+      BlocProvider.of<CastCubit>(context)
+          .getMovieCast(movieId: widget.movie.id);
+    }
 
     super.initState();
   }
@@ -75,7 +80,7 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.9,
                             child: Text(
-                              '${widget.movie.mediaType ?? 'Movie'}   | ${getGenres(genreIds: widget.movie.genreIds)}',
+                              '${widget.movie.mediaType ?? 'movie'}   | ${getGenres(genreIds: widget.movie.genreIds)}',
                               style: Styles.text12m,
                             ),
                           )

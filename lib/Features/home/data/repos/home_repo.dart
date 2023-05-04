@@ -9,6 +9,7 @@ abstract class HomeRepo {
   Future<Either<Failure, List<MovieModel>>> getTopRatedMovies();
   Future<Either<Failure, List<MovieModel>>> getTrendingMovies();
   Future<Either<Failure, List<CastModel>>> getMovieCast({required int movieId});
+  Future<Either<Failure, List<CastModel>>> getTvCast({required int tvId});
   Future<Either<Failure, CastModel>> getCastDetails({required int castId});
   Future<Either<Failure, List<MovieModel>>> getKnownForList(
       {required int castId});

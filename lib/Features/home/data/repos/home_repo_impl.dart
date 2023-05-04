@@ -84,6 +84,26 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
+  Future<Either<Failure, List<CastModel>>> getTvCast(
+      {required int tvId}) async {
+    try {
+      var response =
+          await dio.get('$kBaseUrl/tv/$tvId/credits?api_key=$kApiKey');
+      List<CastModel> tvCast = [];
+      for (int i = 0; i < response.data['cast'].length; i++) {
+        tvCast.add(CastModel.fromJson(response.data['cast'][i]));
+      }
+      return right(tvCast);
+    } catch (e) {
+      if (e is DioError) {
+        return left(ServerFailure.fromDio(e));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
+
+  @override
   Future<Either<Failure, CastModel>> getCastDetails(
       {required int castId}) async {
     try {

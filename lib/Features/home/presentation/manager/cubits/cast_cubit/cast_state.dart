@@ -4,18 +4,18 @@ abstract class CastStates {}
 
 class CastInitialState extends CastStates {}
 
-class GetMovieCastLoadingState extends CastStates {}
+class GetCastLoadingState extends CastStates {}
 
-class GetMovieCastSuccessState extends CastStates {
-  final List<CastModel> movieCast;
+class GetCastSuccessState extends CastStates {
+  final List<CastModel> cast;
 
-  GetMovieCastSuccessState(this.movieCast);
+  GetCastSuccessState(this.cast);
 }
 
-class GetMovieCastFailureState extends CastStates {
+class GetCastFailureState extends CastStates {
   final String errMessage;
 
-  GetMovieCastFailureState(this.errMessage);
+  GetCastFailureState(this.errMessage);
 }
 
 class GetCastDetailsLoadingState extends CastStates {}
