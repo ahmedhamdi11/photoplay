@@ -7,4 +7,5 @@ abstract class FavoritesRepo {
       {required Map<String, dynamic> favoriteItem});
 
   Future<Either<Failure, List<MovieModel>>> getFavorites();
+  Future<Either<Failure, String>> removeFavorite({required int id});
 }

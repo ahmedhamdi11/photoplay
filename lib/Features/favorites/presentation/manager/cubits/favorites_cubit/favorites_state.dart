@@ -7,7 +7,7 @@ abstract class FavoritesStates {
 class FavoritesInitialState extends FavoritesStates {}
 
 //add to favorites states
-class AddToFavoritesLoadingState extends FavoritesStates {}
+class AddOrRemoveFavoritesLoadingState extends FavoritesStates {}
 
 class AddToFavoritesSuccessState extends FavoritesStates {
   final String success;
@@ -15,10 +15,16 @@ class AddToFavoritesSuccessState extends FavoritesStates {
   AddToFavoritesSuccessState(this.success);
 }
 
-class AddToFavoritesFailureState extends FavoritesStates {
+class RemoveFavoriteSuccessState extends FavoritesStates {
+  final String success;
+
+  RemoveFavoriteSuccessState(this.success);
+}
+
+class AddOrRemoveFavoritesFailureState extends FavoritesStates {
   final String errMessage;
 
-  AddToFavoritesFailureState(this.errMessage);
+  AddOrRemoveFavoritesFailureState(this.errMessage);
 }
 
 //get favorites states

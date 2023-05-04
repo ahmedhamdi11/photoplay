@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/favorites/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
+import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
 
 class FavoritesBtn extends StatelessWidget {
@@ -18,25 +19,47 @@ class FavoritesBtn extends StatelessWidget {
     return MaterialButton(
       color: Colors.white.withOpacity(0.15),
       onPressed: () {
-        favoritesCubit.addToFavorites(favoriteItem: movie.toMap());
+        if (favoritesCubit.favorites
+            .where((e) => e.id == movie.id)
+            .isNotEmpty) {
+          favoritesCubit.removeFavorite(id: movie.id);
+        } else {
+          favoritesCubit.addToFavorites(favoriteItem: movie.toMap());
+        }
       },
       child: BlocConsumer<FavoritesCubit, FavoritesStates>(
         listener: (context, state) {
-          if (state is AddToFavoritesFailureState) {
+          if (state is AddOrRemoveFavoritesFailureState) {
             showCustomSnackBar(
               context: context,
               content: state.errMessage,
               backgroundColor: Colors.red,
             );
           }
+          if (state is RemoveFavoriteSuccessState) {
+            favoritesCubit.getFavorites();
+            showCustomSnackBar(
+              context: context,
+              content: state.success,
+              backgroundColor: kPrimatyColor,
+            );
+          }
+          if (state is AddToFavoritesSuccessState) {
+            favoritesCubit.getFavorites();
+            showCustomSnackBar(
+              context: context,
+              content: state.success,
+              backgroundColor: kPrimatyColor,
+            );
+          }
         },
         builder: (context, state) {
-          if (state is AddToFavoritesLoadingState) {
+          if (state is AddOrRemoveFavoritesLoadingState) {
             return const FavoritesBtnLoading();
           } else if (state is AddToFavoritesSuccessState) {
-            return const FavoritesBtnChild(
-              isInFavorites: true,
-            );
+            return const FavoritesBtnChild(isInFavorites: true);
+          } else if (state is RemoveFavoriteSuccessState) {
+            return const FavoritesBtnChild(isInFavorites: false);
           }
           return favoritesCubit.favorites
                   .where((e) => e.id == movie.id)

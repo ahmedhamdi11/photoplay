@@ -49,4 +49,26 @@ class FavoritesRepoImpl implements FavoritesRepo {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, String>> removeFavorite({required int id}) async {
+    try {
+      await firebaseFirestore
+          .collection('Users')
+          .doc(currentUser!.uid)
+          .collection('Favorites')
+          .where('id', isEqualTo: id)
+          .get()
+          .then((querySnapshot) {
+        querySnapshot.docs.first.reference.delete();
+      });
+      return right('removed from favorites');
+    } catch (e) {
+      if (e is FirebaseException) {
+        return left(ServerFailure(e.message.toString()));
+      } else {
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
 }
