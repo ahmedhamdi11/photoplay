@@ -66,8 +66,6 @@ abstract class AppRouter {
                   ..getNowPlayingMovies()
                   ..getTopRatedMovies()
                   ..getTrendingMovies()),
-            BlocProvider(
-                create: (context) => SignOutCubit(authRepo: AuthRepoImpl())),
           ],
           child: const HomeView(),
         ),

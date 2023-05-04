@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
+import 'package:photoplay/core/widgets/error_view.dart';
 import 'package:photoplay/Features/search/presentation/manager/cubits/search_cubit/search_cubit.dart';
 import 'package:photoplay/Features/search/presentation/widgets/search_movies.dart';
 import 'package:photoplay/Features/search/presentation/widgets/search_tv_shows.dart';
-import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/custom_text_feild.dart';
 
 class SearchView extends StatelessWidget {
@@ -85,7 +84,7 @@ class SearchView extends StatelessWidget {
           } else if (state is SearchInitialState) {
             return const Center(
               child: Text(
-                'serach for tv shows,movies or actor',
+                'serach for tv shows and movies',
                 style: TextStyle(color: Colors.grey),
               ),
             );

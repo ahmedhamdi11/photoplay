@@ -26,7 +26,7 @@ class CastListItem extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 145,
+              height: MediaQuery.of(context).size.height * 0.168,
               child: AspectRatio(
                 aspectRatio: 2 / 3,
                 child: CachedNetworkImage(

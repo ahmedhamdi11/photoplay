@@ -33,13 +33,32 @@ class SearchMovies extends StatelessWidget {
             height: 16.0,
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.18,
+            height: MediaQuery.of(context).size.height * 0.22,
             child: ListView.builder(
                 itemCount: movies.length,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return MoviesListItem(movie: movies[index]);
+                  return Column(
+                    children: [
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.18,
+                          child: MoviesListItem(movie: movies[index])),
+                      const SizedBox(
+                        height: 4.0,
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          movies[index].title ?? '',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: Styles.text12b,
+                        ),
+                      ),
+                    ],
+                  );
                 }),
           ),
         ],

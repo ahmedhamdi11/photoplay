@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_list_item.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
+import 'package:photoplay/core/widgets/error_view.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class CastListView extends StatelessWidget {
@@ -31,7 +31,7 @@ class CastListView extends StatelessWidget {
             builder: (context, state) {
               if (state is GetMovieCastSuccessState) {
                 return SizedBox(
-                  height: 180,
+                  height: MediaQuery.of(context).size.height * 0.21,
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,

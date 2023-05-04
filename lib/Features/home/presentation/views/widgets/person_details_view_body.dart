@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/known_for_cubit/known_for_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_details_image.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/error_view.dart';
+import 'package:photoplay/core/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/known_for_listview.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';

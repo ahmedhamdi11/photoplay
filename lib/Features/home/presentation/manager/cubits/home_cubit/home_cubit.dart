@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/Features/auth/data/auth_repo_impl.dart';
+import 'package:photoplay/Features/auth/presentation/manager/cubits/sign_out_cubit/sign_out_cubit.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo.dart';
 import 'package:photoplay/Features/home/presentation/views/downloads_view.dart';
-import 'package:photoplay/Features/home/presentation/views/profile_view.dart';
+import 'package:photoplay/Features/profile/presentation/views/profile_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:photoplay/Features/search/data/repos/search_repo_impl.dart';
 import 'package:photoplay/Features/search/presentation/manager/cubits/search_cubit/search_cubit.dart';
@@ -21,7 +23,10 @@ class HomeCubit extends Cubit<HomeStates> {
       child: const SearchView(),
     ),
     const DownloadsView(),
-    const ProfileView(),
+    BlocProvider(
+      create: (context) => SignOutCubit(authRepo: AuthRepoImpl()),
+      child: const ProfileView(),
+    ),
   ];
   changeBNavigationBar({required int index}) {
     currentIndex = index;

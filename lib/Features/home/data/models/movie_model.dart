@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-class MovieModel extends Equatable {
+class MovieModel {
   final int id;
   final String? title;
   final String? overview;
@@ -9,9 +7,9 @@ class MovieModel extends Equatable {
   final dynamic voteAverage;
   final int voteCount;
   final List genreIds;
-  final String? mediaType;
+  String? mediaType;
 
-  const MovieModel({
+  MovieModel({
     required this.id,
     required this.title,
     required this.overview,
@@ -26,7 +24,7 @@ class MovieModel extends Equatable {
   factory MovieModel.fromJson(jsonData) {
     return MovieModel(
       id: jsonData['id'],
-      title: jsonData['title'] ?? '',
+      title: jsonData['title'] ?? jsonData['name'] ?? '',
       overview: jsonData['overview'] ?? '-',
       posterPath: jsonData['poster_path'] ?? '',
       backdropPath: jsonData['backdrop_path'] ?? '',
@@ -36,15 +34,4 @@ class MovieModel extends Equatable {
       mediaType: jsonData['media_type'],
     );
   }
-
-  @override
-  List<Object?> get props => [
-        id,
-        title,
-        overview,
-        posterPath,
-        voteAverage,
-        voteCount,
-        mediaType,
-      ];
 }
