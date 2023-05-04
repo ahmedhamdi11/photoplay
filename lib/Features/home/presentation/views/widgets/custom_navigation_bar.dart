@@ -42,9 +42,9 @@ class CustomNavigationBar extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: Padding(
                       padding: EdgeInsets.only(bottom: 8),
-                      child: Icon(FontAwesomeIcons.download),
+                      child: Icon(FontAwesomeIcons.solidHeart),
                     ),
-                    label: 'DOWNLOADS'),
+                    label: 'FAVORITES'),
                 BottomNavigationBarItem(
                   icon: Padding(
                     padding: EdgeInsets.only(bottom: 8),

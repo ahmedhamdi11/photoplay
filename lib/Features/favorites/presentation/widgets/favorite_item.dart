@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
-class DownloadedItem extends StatelessWidget {
-  const DownloadedItem({
+class FavoriteItem extends StatelessWidget {
+  const FavoriteItem({
     super.key,
   });
 

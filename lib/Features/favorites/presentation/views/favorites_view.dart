@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:photoplay/Features/home/presentation/views/widgets/downloaded_item.dart';
+import 'package:photoplay/Features/favorites/presentation/widgets/favorite_item.dart';
 
-class DownloadsView extends StatelessWidget {
-  const DownloadsView({super.key});
+class FavoritesView extends StatelessWidget {
+  const FavoritesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class DownloadsView extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemCount: 20,
           itemBuilder: (context, index) {
-            return const DownloadedItem();
+            return const FavoriteItem();
           }),
     );
   }

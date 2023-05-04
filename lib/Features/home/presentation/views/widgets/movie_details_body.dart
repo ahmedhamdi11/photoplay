@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/Features/favorites/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
-import 'package:photoplay/Features/home/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
