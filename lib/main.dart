@@ -1,5 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/Features/favorites/data/repos/favorites_repo/favorites_repo_impl.dart';
+import 'package:photoplay/Features/favorites/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,15 +25,18 @@ class PhotoPlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: AppRouter.router,
-      theme: ThemeData(
-        colorSchemeSeed: kPrimatyColor,
-        // textSelectionTheme: TextSelectionThemeData(
-        // selectionColor: kPrimatyColor, selectionHandleColor: kPrimatyColor),
-        fontFamily: 'Gotham',
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
+    return BlocProvider(
+      create: (context) => FavoritesCubit(favoritesRepo: FavoritesRepoImpl()),
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
+        theme: ThemeData(
+          colorSchemeSeed: kPrimatyColor,
+          // textSelectionTheme: TextSelectionThemeData(
+          // selectionColor: kPrimatyColor, selectionHandleColor: kPrimatyColor),
+          fontFamily: 'Gotham',
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: Colors.black,
+        ),
       ),
     );
   }

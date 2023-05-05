@@ -9,7 +9,6 @@ import 'package:photoplay/Features/home/presentation/views/widgets/movie_details
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer_button.dart';
 import 'package:photoplay/core/functions/get_genres.dart';
-import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
 import 'package:photoplay/core/widgets/favorites_button.dart';

@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/auth/data/auth_repo_impl.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/sign_out_cubit/sign_out_cubit.dart';
-import 'package:photoplay/Features/favorites/data/repos/favorites_repo/favorites_repo_impl.dart';
-import 'package:photoplay/Features/favorites/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo.dart';
 import 'package:photoplay/Features/favorites/presentation/views/favorites_view.dart';
@@ -24,10 +22,7 @@ class HomeCubit extends Cubit<HomeStates> {
       create: (context) => SearchCubit(searchRepo: SearchRepoImpl()),
       child: const SearchView(),
     ),
-    BlocProvider(
-      create: (context) => FavoritesCubit(favoritesRepo: FavoritesRepoImpl()),
-      child: const FavoritesView(),
-    ),
+    const FavoritesView(),
     BlocProvider(
       create: (context) => SignOutCubit(authRepo: AuthRepoImpl()),
       child: const ProfileView(),

@@ -8,8 +8,6 @@ import 'package:photoplay/Features/auth/presentation/manager/cubits/social_signi
 import 'package:photoplay/Features/auth/presentation/views/login_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/register_view.dart';
 import 'package:photoplay/Features/auth/presentation/views/reset_password_view.dart';
-import 'package:photoplay/Features/favorites/data/repos/favorites_repo/favorites_repo_impl.dart';
-import 'package:photoplay/Features/favorites/presentation/manager/cubits/favorites_cubit/favorites_cubit.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
@@ -80,10 +78,6 @@ abstract class AppRouter {
             ),
             BlocProvider(
               create: (context) => TrailersCubit(homeRepo: HomeRepoImpl()),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  FavoritesCubit(favoritesRepo: FavoritesRepoImpl()),
             ),
           ],
           child: MovieDetailsView(

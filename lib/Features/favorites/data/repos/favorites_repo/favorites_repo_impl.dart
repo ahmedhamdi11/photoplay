@@ -7,7 +7,6 @@ import 'package:photoplay/core/failures/failures.dart';
 
 class FavoritesRepoImpl implements FavoritesRepo {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  User? currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   Future<Either<Failure, String>> addToFavorites(
@@ -15,7 +14,7 @@ class FavoritesRepoImpl implements FavoritesRepo {
     try {
       await firebaseFirestore
           .collection('Users')
-          .doc(currentUser!.uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('Favorites')
           .add(favoriteItem);
       return right('added to favorites');
@@ -33,7 +32,7 @@ class FavoritesRepoImpl implements FavoritesRepo {
     try {
       var response = await firebaseFirestore
           .collection('Users')
-          .doc(currentUser!.uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('Favorites')
           .get();
       List<MovieModel> movies = [];
@@ -55,7 +54,7 @@ class FavoritesRepoImpl implements FavoritesRepo {
     try {
       await firebaseFirestore
           .collection('Users')
-          .doc(currentUser!.uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('Favorites')
           .where('id', isEqualTo: id)
           .get()
