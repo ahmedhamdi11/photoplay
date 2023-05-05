@@ -16,77 +16,63 @@ class FavoritesBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FavoritesCubit favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
-    return MaterialButton(
-      color: Colors.white.withOpacity(0.15),
-      onPressed: () {
-        if (favoritesCubit.favorites
-            .where((e) => e.id == movie.id)
-            .isNotEmpty) {
-          favoritesCubit.removeFavorite(id: movie.id);
-        } else {
-          favoritesCubit.addToFavorites(favoriteItem: movie.toMap());
+    return BlocConsumer<FavoritesCubit, FavoritesStates>(
+      listener: (context, state) {
+        if (state is AddOrRemoveFavoritesFailureState) {
+          showCustomSnackBar(
+            context: context,
+            content: state.errMessage,
+            backgroundColor: Colors.red,
+          );
+        }
+        if (state is RemoveFavoriteSuccessState) {
+          favoritesCubit.getFavorites().then((value) {
+            showCustomSnackBar(
+              context: context,
+              content: state.success,
+              backgroundColor: kPrimatyColor,
+              textColor: Colors.black,
+            );
+          });
+        }
+        if (state is AddToFavoritesSuccessState) {
+          favoritesCubit.getFavorites().then((value) {
+            showCustomSnackBar(
+              context: context,
+              content: state.success,
+              backgroundColor: kPrimatyColor,
+              textColor: Colors.black,
+            );
+          });
         }
       },
-      child: BlocConsumer<FavoritesCubit, FavoritesStates>(
-        listener: (context, state) {
-          if (state is AddOrRemoveFavoritesFailureState) {
-            showCustomSnackBar(
-              context: context,
-              content: state.errMessage,
-              backgroundColor: Colors.red,
-            );
-          }
-          if (state is RemoveFavoriteSuccessState) {
-            favoritesCubit.getFavorites();
-            showCustomSnackBar(
-              context: context,
-              content: state.success,
-              backgroundColor: kPrimatyColor,
-            );
-          }
-          if (state is AddToFavoritesSuccessState) {
-            favoritesCubit.getFavorites();
-            showCustomSnackBar(
-              context: context,
-              content: state.success,
-              backgroundColor: kPrimatyColor,
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is AddOrRemoveFavoritesLoadingState) {
-            return const FavoritesBtnLoading();
-          } else if (state is AddToFavoritesSuccessState) {
-            return const FavoritesBtnChild(isInFavorites: true);
-          } else if (state is RemoveFavoriteSuccessState) {
-            return const FavoritesBtnChild(isInFavorites: false);
-          }
-          return favoritesCubit.favorites
-                  .where((e) => e.id == movie.id)
-                  .isNotEmpty
-              ? const FavoritesBtnChild(isInFavorites: true)
-              : const FavoritesBtnChild(isInFavorites: false);
-        },
-      ),
-    );
-  }
-}
-
-class FavoritesBtnLoading extends StatelessWidget {
-  const FavoritesBtnLoading({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      width: 20,
-      height: 20,
-      child: Center(
-        child: CircularProgressIndicator(
-          color: Colors.white,
-        ),
-      ),
+      builder: (context, state) {
+        if (state is GetFavoritesSuccessState) {
+          return MaterialButton(
+            color: Colors.white.withOpacity(0.15),
+            onPressed: () {
+              if (favoritesCubit.isFaved(id: movie.id)) {
+                favoritesCubit.removeFavorite(id: movie.id);
+              } else {
+                favoritesCubit.addToFavorites(favoriteItem: movie.toMap());
+              }
+            },
+            child: FavoritesBtnChild(
+                isFaved: favoritesCubit.isFaved(id: movie.id)),
+          );
+        }
+        return MaterialButton(
+          onPressed: () {},
+          child: const SizedBox(
+            height: 25,
+            width: 25,
+            child: Center(
+                child: CircularProgressIndicator(
+              color: Colors.white,
+            )),
+          ),
+        );
+      },
     );
   }
 }
@@ -94,12 +80,12 @@ class FavoritesBtnLoading extends StatelessWidget {
 class FavoritesBtnChild extends StatelessWidget {
   const FavoritesBtnChild({
     super.key,
-    required this.isInFavorites,
+    required this.isFaved,
   });
-  final bool isInFavorites;
+  final bool isFaved;
   @override
   Widget build(BuildContext context) {
-    return isInFavorites
+    return isFaved
         ? Image.asset(
             'assets/images/heart_minus.png',
             width: 25,

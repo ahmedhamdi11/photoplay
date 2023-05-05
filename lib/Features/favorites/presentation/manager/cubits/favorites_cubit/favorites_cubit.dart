@@ -47,4 +47,8 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       emit(GetFavoritesSuccessState(movies));
     });
   }
+
+  bool isFaved({required id}) {
+    return favorites.where((e) => e.id == id).isNotEmpty ? true : false;
+  }
 }
