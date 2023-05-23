@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/sign_out_cubit/sign_out_cubit.dart';
 import 'package:photoplay/Features/profile/presentation/widgets/custom_profile_btn.dart';
 import 'package:photoplay/Features/profile/presentation/widgets/profile_image.dart';
-import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
 import 'package:photoplay/core/functions/show_loading_alert.dart';
 import 'package:photoplay/core/utils/styles.dart';
@@ -31,11 +30,6 @@ class ProfileView extends StatelessWidget {
             backgroundColor: Colors.red,
           );
         } else if (state is SignOutSuccessState) {
-          showCustomSnackBar(
-            context: context,
-            content: state.success,
-            backgroundColor: kPrimatyColor,
-          );
           GoRouter.of(context).pushReplacement('/');
         }
       },

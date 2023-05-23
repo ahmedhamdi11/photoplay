@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/auth/data/auth_repo_impl.dart';
@@ -17,6 +18,7 @@ import 'package:photoplay/Features/home/presentation/manager/cubits/trailers_cub
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
 import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
 import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
+import 'package:photoplay/core/functions/page_transition.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
 
 abstract class AppRouter {
@@ -25,77 +27,101 @@ abstract class AppRouter {
   static const homeViewPath = '/homeView';
   static const movieDetailsViewPath = '/movieDetailsViewPath';
   static const personDetailsViewPath = '/personDetailsViewPath';
+
   static GoRouter router = GoRouter(
     initialLocation: CashHelper.uId == null ? '/' : homeViewPath,
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => LoginCubit(authRepo: AuthRepoImpl()),
-            ),
-            BlocProvider(
-              create: (context) => SocialSignInCubit(authRepo: AuthRepoImpl()),
-            ),
-          ],
-          child: const LoginView(),
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          tween: Tween(begin: const Offset(0, 1), end: Offset.zero),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => LoginCubit(authRepo: AuthRepoImpl()),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    SocialSignInCubit(authRepo: AuthRepoImpl()),
+              ),
+            ],
+            child: const LoginView(),
+          ),
         ),
       ),
       GoRoute(
         path: registerViewPath,
-        builder: (context, state) => BlocProvider(
-          create: (context) => RegisterCubit(authRepo: AuthRepoImpl()),
-          child: const RegisterView(),
-        ),
+        pageBuilder: (context, state) {
+          return defaultTransitionPage(
+            key: state.pageKey,
+            child: BlocProvider(
+              create: (context) => RegisterCubit(authRepo: AuthRepoImpl()),
+              child: const RegisterView(),
+            ),
+          );
+        },
       ),
       GoRoute(
         path: resetPasswordViewPath,
-        builder: (context, state) => BlocProvider(
-          create: (context) => ResetPasswordCubit(authRepo: AuthRepoImpl()),
-          child: const ResetPasswordView(),
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) => ResetPasswordCubit(authRepo: AuthRepoImpl()),
+            child: const ResetPasswordView(),
+          ),
         ),
       ),
       GoRoute(
         path: homeViewPath,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-                create: (context) => HomeCubit(HomeRepoImpl())
-                  ..getNowPlayingMovies()
-                  ..getTopRatedMovies()
-                  ..getTrendingMovies()),
-          ],
-          child: const HomeView(),
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          tween: Tween(begin: const Offset(0, 1), end: Offset.zero),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (context) => HomeCubit(HomeRepoImpl())
+                    ..getNowPlayingMovies()
+                    ..getTopRatedMovies()
+                    ..getTrendingMovies()),
+            ],
+            child: const HomeView(),
+          ),
         ),
       ),
       GoRoute(
         path: movieDetailsViewPath,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => CastCubit(homeRepo: HomeRepoImpl()),
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => CastCubit(homeRepo: HomeRepoImpl()),
+              ),
+              BlocProvider(
+                create: (context) => TrailersCubit(homeRepo: HomeRepoImpl()),
+              ),
+            ],
+            child: MovieDetailsView(
+              movie: state.extra as MovieModel,
             ),
-            BlocProvider(
-              create: (context) => TrailersCubit(homeRepo: HomeRepoImpl()),
-            ),
-          ],
-          child: MovieDetailsView(
-            movie: state.extra as MovieModel,
           ),
         ),
       ),
       GoRoute(
         path: personDetailsViewPath,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-                create: (context) => CastCubit(homeRepo: HomeRepoImpl())),
-            BlocProvider(
-                create: (context) => KnownForCubit(homeRepo: HomeRepoImpl())),
-          ],
-          child: PersonDetailsView(
-            castId: state.extra as int,
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (context) => CastCubit(homeRepo: HomeRepoImpl())),
+              BlocProvider(
+                  create: (context) => KnownForCubit(homeRepo: HomeRepoImpl())),
+            ],
+            child: PersonDetailsView(
+              castId: state.extra as int,
+            ),
           ),
         ),
       ),
