@@ -53,7 +53,11 @@ dependencies:
   path: ^1.8.2
   shared_preferences: ^2.1.0
   youtube_player_flutter: ^8.1.2
-
+  flutter_native_splash: ^2.3.0
+flutter_native_splash:
+  color: "#000000"
+  image: "assets/images/splash.png"
+  fit:
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
