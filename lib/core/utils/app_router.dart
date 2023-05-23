@@ -35,7 +35,7 @@ abstract class AppRouter {
         path: '/',
         pageBuilder: (context, state) => defaultTransitionPage(
           key: state.pageKey,
-          tween: Tween(begin: const Offset(0, 1), end: Offset.zero),
+          beginOffset: const Offset(0, 1),
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
@@ -76,7 +76,7 @@ abstract class AppRouter {
         path: homeViewPath,
         pageBuilder: (context, state) => defaultTransitionPage(
           key: state.pageKey,
-          tween: Tween(begin: const Offset(0, 1), end: Offset.zero),
+          beginOffset: const Offset(0, 1),
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
