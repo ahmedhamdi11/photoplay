@@ -6,6 +6,7 @@ import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
+import 'package:photoplay/core/utils/service_locator.dart';
 import 'firebase_options.dart';
 import 'observer.dart';
 
@@ -17,6 +18,7 @@ void main() async {
   await CashHelper.init();
   CashHelper.uId = CashHelper.prefs.getString('uId');
   Bloc.observer = MyBlocObserver();
+  setupServiceLocator();
   runApp(const PhotoPlay());
 }
 

@@ -20,6 +20,7 @@ import 'package:photoplay/Features/home/presentation/views/movie_details_view.da
 import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
 import 'package:photoplay/core/functions/page_transition.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
+import 'package:photoplay/core/utils/service_locator.dart';
 
 abstract class AppRouter {
   static const registerViewPath = '/registerView';
@@ -39,11 +40,12 @@ abstract class AppRouter {
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => LoginCubit(authRepo: AuthRepoImpl()),
+                create: (context) =>
+                    LoginCubit(authRepo: getIt.get<AuthRepoImpl>()),
               ),
               BlocProvider(
                 create: (context) =>
-                    SocialSignInCubit(authRepo: AuthRepoImpl()),
+                    SocialSignInCubit(authRepo: getIt.get<AuthRepoImpl>()),
               ),
             ],
             child: const LoginView(),
@@ -56,7 +58,8 @@ abstract class AppRouter {
           return defaultTransitionPage(
             key: state.pageKey,
             child: BlocProvider(
-              create: (context) => RegisterCubit(authRepo: AuthRepoImpl()),
+              create: (context) =>
+                  RegisterCubit(authRepo: getIt.get<AuthRepoImpl>()),
               child: const RegisterView(),
             ),
           );
@@ -67,7 +70,8 @@ abstract class AppRouter {
         pageBuilder: (context, state) => defaultTransitionPage(
           key: state.pageKey,
           child: BlocProvider(
-            create: (context) => ResetPasswordCubit(authRepo: AuthRepoImpl()),
+            create: (context) =>
+                ResetPasswordCubit(authRepo: getIt.get<AuthRepoImpl>()),
             child: const ResetPasswordView(),
           ),
         ),
@@ -80,7 +84,7 @@ abstract class AppRouter {
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
-                  create: (context) => HomeCubit(HomeRepoImpl())
+                  create: (context) => HomeCubit(getIt.get<HomeRepoImpl>())
                     ..getNowPlayingMovies()
                     ..getTopRatedMovies()
                     ..getTrendingMovies()),
@@ -96,10 +100,12 @@ abstract class AppRouter {
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => CastCubit(homeRepo: HomeRepoImpl()),
+                create: (context) =>
+                    CastCubit(homeRepo: getIt.get<HomeRepoImpl>()),
               ),
               BlocProvider(
-                create: (context) => TrailersCubit(homeRepo: HomeRepoImpl()),
+                create: (context) =>
+                    TrailersCubit(homeRepo: getIt.get<HomeRepoImpl>()),
               ),
             ],
             child: MovieDetailsView(
@@ -115,9 +121,13 @@ abstract class AppRouter {
           child: MultiBlocProvider(
             providers: [
               BlocProvider(
-                  create: (context) => CastCubit(homeRepo: HomeRepoImpl())),
+                create: (context) =>
+                    CastCubit(homeRepo: getIt.get<HomeRepoImpl>()),
+              ),
               BlocProvider(
-                  create: (context) => KnownForCubit(homeRepo: HomeRepoImpl())),
+                create: (context) =>
+                    KnownForCubit(homeRepo: getIt.get<HomeRepoImpl>()),
+              ),
             ],
             child: PersonDetailsView(
               castId: state.extra as int,
