@@ -8,6 +8,7 @@ import 'package:photoplay/Features/profile/presentation/widgets/custom_profile_b
 import 'package:photoplay/Features/profile/presentation/widgets/profile_image.dart';
 import 'package:photoplay/core/functions/show_custom_snack_bar.dart';
 import 'package:photoplay/core/functions/show_loading_alert.dart';
+import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class ProfileView extends StatelessWidget {
@@ -67,18 +68,42 @@ class ProfileView extends StatelessWidget {
                   const SizedBox(height: 70),
 
                   ///////////
+                  // Account button
                   const CustomProfileButton(
-                      text: 'Account', icon: FontAwesomeIcons.solidUser),
+                    text: 'Account',
+                    icon: FontAwesomeIcons.solidUser,
+                  ),
+
                   const Divider(color: Colors.white),
+
+                  //Novification button
                   const CustomProfileButton(
-                      text: 'Notifications', icon: FontAwesomeIcons.solidBell),
+                    text: 'Notifications',
+                    icon: FontAwesomeIcons.solidBell,
+                  ),
+
                   const Divider(color: Colors.white),
+
+                  //Settings button
+                  CustomProfileButton(
+                    onTap: () {
+                      GoRouter.of(context).push(AppRouter.settingsViewPath);
+                    },
+                    text: 'Settings',
+                    icon: FontAwesomeIcons.gear,
+                  ),
+
+                  const Divider(color: Colors.white),
+
+                  //help button
                   const CustomProfileButton(
-                      text: 'Settings', icon: FontAwesomeIcons.gear),
+                    text: 'Help',
+                    icon: FontAwesomeIcons.circleInfo,
+                  ),
+
                   const Divider(color: Colors.white),
-                  const CustomProfileButton(
-                      text: 'Help', icon: FontAwesomeIcons.circleInfo),
-                  const Divider(color: Colors.white),
+
+                  //logout button
                   CustomProfileButton(
                       onTap: () {
                         logout(context, signOutCubit);

@@ -18,6 +18,7 @@ import 'package:photoplay/Features/home/presentation/manager/cubits/trailers_cub
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
 import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
 import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
+import 'package:photoplay/Features/profile/presentation/views/settings_view.dart';
 import 'package:photoplay/core/functions/page_transition.dart';
 import 'package:photoplay/core/utils/cash_helper.dart';
 import 'package:photoplay/core/utils/service_locator.dart';
@@ -28,6 +29,7 @@ abstract class AppRouter {
   static const homeViewPath = '/homeView';
   static const movieDetailsViewPath = '/movieDetailsViewPath';
   static const personDetailsViewPath = '/personDetailsViewPath';
+  static const settingsViewPath = '/settingsViewPath';
 
   static GoRouter router = GoRouter(
     initialLocation: CashHelper.uId == null ? '/' : homeViewPath,
@@ -133,6 +135,13 @@ abstract class AppRouter {
               castId: state.extra as int,
             ),
           ),
+        ),
+      ),
+      GoRoute(
+        path: settingsViewPath,
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          child: const SettingsView(),
         ),
       ),
     ],
