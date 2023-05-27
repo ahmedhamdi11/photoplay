@@ -16,6 +16,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
+    SignOutCubit signOutCubit = BlocProvider.of<SignOutCubit>(context);
     return BlocConsumer<SignOutCubit, SignOutStates>(
       listener: (context, state) {
         if (state is SignOutLoadingState) {
@@ -80,7 +81,7 @@ class ProfileView extends StatelessWidget {
                   const Divider(color: Colors.white),
                   CustomProfileButton(
                       onTap: () {
-                        BlocProvider.of<SignOutCubit>(context).signOut();
+                        logout(context, signOutCubit);
                       },
                       text: 'Logout',
                       icon: FontAwesomeIcons.rightFromBracket),
@@ -90,6 +91,32 @@ class ProfileView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Future<dynamic> logout(BuildContext context, SignOutCubit signOutCubit) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        contentPadding:
+            const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+        content: const Text('Are you sure you want to logout?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              signOutCubit.signOut();
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
     );
   }
 }
