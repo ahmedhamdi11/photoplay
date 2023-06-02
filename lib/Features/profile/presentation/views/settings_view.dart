@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/profile/presentation/widgets/change_language_widget.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
 import 'package:rive/rive.dart';
 
@@ -13,15 +15,21 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   late RiveAnimationController _riveAnimationController;
-  bool isDarkThem = true;
-  void togglePlay() => setState(() => isDarkThem
-      ? _riveAnimationController = SimpleAnimation('to_dark')
-      : _riveAnimationController = SimpleAnimation('to_light'));
+
+  void toggleAnimation() {
+    setState(
+      () => BlocProvider.of<ThemeCubit>(context).isDarkTheme
+          ? _riveAnimationController = SimpleAnimation('to_light')
+          : _riveAnimationController = SimpleAnimation('to_dark'),
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-    _riveAnimationController = SimpleAnimation('to_dark');
+    _riveAnimationController = BlocProvider.of<ThemeCubit>(context).isDarkTheme
+        ? SimpleAnimation('to_dark')
+        : SimpleAnimation('to_light');
   }
 
   @override
@@ -38,11 +46,11 @@ class _SettingsViewState extends State<SettingsView> {
             ),
             SwitchListTile(
               contentPadding: EdgeInsets.zero,
-              value: isDarkThem,
+              value: BlocProvider.of<ThemeCubit>(context).isDarkTheme,
               activeColor: kPrimatyColor,
               onChanged: (value) {
-                isDarkThem = !isDarkThem;
-                togglePlay();
+                BlocProvider.of<ThemeCubit>(context).toggleTheme();
+                toggleAnimation();
               },
               title: const Text('Dark Theme'),
             ),

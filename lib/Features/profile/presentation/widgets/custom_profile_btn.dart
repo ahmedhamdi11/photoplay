@@ -31,7 +31,10 @@ class CustomProfileButton extends StatelessWidget {
               ),
               Text(
                 text,
-                style: Styles.text17.copyWith(color: Colors.white),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 17,
+                ),
               )
             ],
           ),

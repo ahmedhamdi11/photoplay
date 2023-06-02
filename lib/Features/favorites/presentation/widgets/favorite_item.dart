@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
@@ -14,6 +16,7 @@ class FavoriteItem extends StatelessWidget {
   final MovieModel movie;
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
     return Padding(
       padding: const EdgeInsets.only(bottom: 26),
       child: InkWell(
@@ -67,8 +70,11 @@ class FavoriteItem extends StatelessWidget {
                   ),
                   Text(
                     movie.overview ?? '',
-                    style: Styles.text12b
-                        .copyWith(color: Colors.white.withAlpha(67)),
+                    style: isDarkTheme
+                        ? Styles.text12b
+                            .copyWith(color: Colors.white.withAlpha(67))
+                        : Styles.text12b
+                            .copyWith(color: Colors.black.withAlpha(67)),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),

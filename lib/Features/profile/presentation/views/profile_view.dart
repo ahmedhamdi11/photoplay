@@ -74,7 +74,7 @@ class ProfileView extends StatelessWidget {
                     icon: FontAwesomeIcons.solidUser,
                   ),
 
-                  const Divider(color: Colors.white),
+                  const Divider(),
 
                   //Novification button
                   const CustomProfileButton(
@@ -82,7 +82,7 @@ class ProfileView extends StatelessWidget {
                     icon: FontAwesomeIcons.solidBell,
                   ),
 
-                  const Divider(color: Colors.white),
+                  const Divider(),
 
                   //Settings button
                   CustomProfileButton(
@@ -93,7 +93,7 @@ class ProfileView extends StatelessWidget {
                     icon: FontAwesomeIcons.gear,
                   ),
 
-                  const Divider(color: Colors.white),
+                  const Divider(),
 
                   //help button
                   const CustomProfileButton(
@@ -101,15 +101,16 @@ class ProfileView extends StatelessWidget {
                     icon: FontAwesomeIcons.circleInfo,
                   ),
 
-                  const Divider(color: Colors.white),
+                  const Divider(),
 
                   //logout button
                   CustomProfileButton(
-                      onTap: () {
-                        logout(context, signOutCubit);
-                      },
-                      text: 'Logout',
-                      icon: FontAwesomeIcons.rightFromBracket),
+                    onTap: () {
+                      logout(context, signOutCubit);
+                    },
+                    text: 'Logout',
+                    icon: FontAwesomeIcons.rightFromBracket,
+                  ),
                 ],
               ),
             ),

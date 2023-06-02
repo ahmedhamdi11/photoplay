@@ -17,12 +17,10 @@ class CustomNavigationBar extends StatelessWidget {
           height: 65,
           child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              backgroundColor: const Color(0xff1A1A1A),
               selectedItemColor: kPrimatyColor,
-              selectedFontSize: 8,
+              selectedFontSize: 11,
               unselectedFontSize: 8,
               iconSize: 22,
-              unselectedLabelStyle: const TextStyle(letterSpacing: 1),
               currentIndex: BlocProvider.of<HomeCubit>(context).currentIndex,
               onTap: (value) => BlocProvider.of<HomeCubit>(context)
                   .changeBNavigationBar(index: value),

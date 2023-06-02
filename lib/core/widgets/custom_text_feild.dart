@@ -22,29 +22,31 @@ class CustomTextField extends StatelessWidget {
   final bool autofocus;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator: validator,
-      onChanged: onChanged,
-      keyboardType: keyboardType,
-      cursorColor: kPrimatyColor,
-      obscureText: isPassword,
-      autofocus: autofocus,
-      decoration: InputDecoration(
-          isDense: true,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
-          fillColor: const Color(0xff212121),
-          filled: true,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide.none),
-          suffixIcon: Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: suffix,
-          ),
-          suffixIconConstraints: const BoxConstraints(maxHeight: 42),
-          hintText: hint,
-          hintStyle: Styles.text17),
+    return Material(
+      elevation: 10,
+      borderRadius: BorderRadius.circular(8.0),
+      child: TextFormField(
+        validator: validator,
+        onChanged: onChanged,
+        keyboardType: keyboardType,
+        cursorColor: kPrimatyColor,
+        obscureText: isPassword,
+        autofocus: autofocus,
+        decoration: InputDecoration(
+            isDense: true,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide.none),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: suffix,
+            ),
+            suffixIconConstraints: const BoxConstraints(maxHeight: 42),
+            hintText: hint,
+            hintStyle: Styles.text17),
+      ),
     );
   }
 }
