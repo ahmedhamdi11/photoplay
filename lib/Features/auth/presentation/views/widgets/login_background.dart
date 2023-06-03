@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
+import 'package:photoplay/core/functions/shader_mask_colors.dart';
 
 class LoginBackground extends StatelessWidget {
   const LoginBackground({
@@ -7,18 +10,18 @@ class LoginBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
+    List<double> shaderStopsList = [0, 0.04, 0.05, 0.91, 0.94, 1];
+
     return ShaderMask(
+      blendMode: BlendMode.dstOut,
       shaderCallback: (bounds) {
-        return const LinearGradient(
-            colors: [
-              Colors.black,
-              Colors.grey,
-              Colors.white,
-              Colors.black,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, .1, .5, 1]).createShader(bounds);
+        return LinearGradient(
+          colors: shaderMaskColors(isDarkTheme),
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: shaderStopsList,
+        ).createShader(bounds);
       },
       child: Image.asset(
         'assets/images/loginImage.png',

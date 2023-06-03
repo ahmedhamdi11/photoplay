@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
+import 'package:photoplay/core/functions/shader_mask_colors.dart';
 
 class CastDetailsImage extends StatelessWidget {
   const CastDetailsImage({
@@ -10,19 +13,18 @@ class CastDetailsImage extends StatelessWidget {
   final String? imagePath;
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
+    List<double> shaderStopsList = [0, 0.04, 0.05, 0.91, 0.94, 1];
+
     return ShaderMask(
+      blendMode: BlendMode.dstOut,
       shaderCallback: (bounds) {
-        return const LinearGradient(
-            colors: [
-              Colors.black,
-              Colors.white,
-              Colors.white,
-              Colors.grey,
-              Colors.black,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0, 0.1, 0.9, 0.95, 1]).createShader(bounds);
+        return LinearGradient(
+          colors: shaderMaskColors(isDarkTheme),
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: shaderStopsList,
+        ).createShader(bounds);
       },
       child: CachedNetworkImage(
         imageUrl: '$kImageBaseUrl/original$imagePath',

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/known_for_cubit/known_for_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/cast_details_image.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/widgets/error_view.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/known_for_listview.dart';
 import 'package:photoplay/core/utils/styles.dart';
@@ -30,6 +31,8 @@ class _PersonDetailsViewBodyState extends State<PersonDetailsViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
+
     return SafeArea(
       child: BlocBuilder<CastCubit, CastStates>(
         builder: (context, state) {
@@ -87,7 +90,11 @@ class _PersonDetailsViewBodyState extends State<PersonDetailsViewBody> {
                                 const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Text(
                               state.castDetails.biography!,
-                              style: Styles.text15bk,
+                              style: isDarkTheme
+                                  ? Styles.text15bk
+                                  : Styles.text15bk.copyWith(
+                                      color: const Color(0xff7E7E7E),
+                                    ),
                             ),
                           ),
                           const SizedBox(

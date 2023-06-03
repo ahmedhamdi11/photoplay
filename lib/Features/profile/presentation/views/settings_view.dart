@@ -19,7 +19,7 @@ class _SettingsViewState extends State<SettingsView> {
   void toggleAnimation() {
     setState(
       () => BlocProvider.of<ThemeCubit>(context).isDarkTheme
-          ? _riveAnimationController = SimpleAnimation('to_light')
+          ? _riveAnimationController = SimpleAnimation('idle')
           : _riveAnimationController = SimpleAnimation('to_dark'),
     );
   }
@@ -29,7 +29,7 @@ class _SettingsViewState extends State<SettingsView> {
     super.initState();
     _riveAnimationController = BlocProvider.of<ThemeCubit>(context).isDarkTheme
         ? SimpleAnimation('to_dark')
-        : SimpleAnimation('to_light');
+        : SimpleAnimation('idle');
   }
 
   @override

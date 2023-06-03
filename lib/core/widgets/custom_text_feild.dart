@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -22,9 +24,18 @@ class CustomTextField extends StatelessWidget {
   final bool autofocus;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 10,
-      borderRadius: BorderRadius.circular(8.0),
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: isDarkTheme
+            ? null
+            : [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.28),
+                  blurRadius: 12,
+                ),
+              ],
+      ),
       child: TextFormField(
         validator: validator,
         onChanged: onChanged,
@@ -37,8 +48,9 @@ class CustomTextField extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide.none),
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide.none,
+            ),
             suffixIcon: Padding(
               padding: const EdgeInsets.only(right: 20),
               child: suffix,

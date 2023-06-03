@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/auth/presentation/manager/cubits/reset_password_cubit/reset_password_cubit.dart';
 import 'package:photoplay/Features/auth/presentation/views/widgets/app_logo.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/custom_text_feild.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
@@ -21,6 +22,7 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
     return SafeArea(
       child: Column(
         children: [
@@ -47,7 +49,11 @@ class _ResetPasswordViewBodyState extends State<ResetPasswordViewBody> {
                       const SizedBox(height: 10.0),
                       Text(
                         'Enter the email address you used to create your account and we will email you a link to reset your password',
-                        style: Styles.text15bk,
+                        style: isDarkTheme
+                            ? Styles.text15bk
+                            : Styles.text15bk.copyWith(
+                                color: const Color(0xff7E7E7E),
+                              ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 28.0),

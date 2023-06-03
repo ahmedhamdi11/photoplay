@@ -5,7 +5,7 @@ part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeStates> {
   ThemeCubit() : super(ThemeInitialState());
-  bool isDarkTheme = false;
+  bool isDarkTheme = true;
   getThemeFromPrefs(bool? themeFromPrefs) async {
     if (themeFromPrefs != null) {
       isDarkTheme = themeFromPrefs;

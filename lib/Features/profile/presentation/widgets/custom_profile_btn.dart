@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:photoplay/core/utils/styles.dart';
 
 class CustomProfileButton extends StatelessWidget {
   const CustomProfileButton({

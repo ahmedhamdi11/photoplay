@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 
 class CustomDropdownMenu extends StatefulWidget {
   final List<Widget> children;
@@ -61,13 +64,18 @@ class _CustomDropdownMenu extends State<CustomDropdownMenu>
     return SizeTransition(
       axisAlignment: 1.0,
       sizeFactor: animation!,
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-            color: Colors.grey[900],
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: Colors.grey)),
-        child: Column(children: widget.children),
+      child: BlocBuilder<ThemeCubit, ThemeStates>(
+        builder: (context, state) {
+          bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
+          return Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                color: isDarkTheme ? kDarkDropdownColor : kLightDropdownColor,
+                borderRadius: BorderRadius.circular(12.0),
+                border: Border.all(color: Colors.grey)),
+            child: Column(children: widget.children),
+          );
+        },
       ),
     );
   }

@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/functions/get_genres.dart';
+import 'package:photoplay/core/functions/shader_mask_colors.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
@@ -16,6 +19,9 @@ class TrendingItem extends StatelessWidget {
   final MovieModel trendingMovie;
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
+    List<double> shaderStopsList = [0, 0.04, 0.05, 0.91, 0.94, 1];
+
     return InkWell(
       onTap: () {
         GoRouter.of(context)
@@ -24,17 +30,14 @@ class TrendingItem extends StatelessWidget {
       child: Column(
         children: [
           ShaderMask(
+            blendMode: BlendMode.dstOut,
             shaderCallback: (bounds) {
-              return const LinearGradient(
-                  colors: [
-                    Colors.black,
-                    Colors.white,
-                    Colors.white,
-                    Colors.black,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0, 0.1, 0.94, 1]).createShader(bounds);
+              return LinearGradient(
+                colors: shaderMaskColors(isDarkTheme),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: shaderStopsList,
+              ).createShader(bounds);
             },
             child: CachedNetworkImage(
               imageUrl: '$kImageBaseUrl/original${trendingMovie.posterPath}',

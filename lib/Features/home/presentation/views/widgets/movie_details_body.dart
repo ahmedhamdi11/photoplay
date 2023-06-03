@@ -8,6 +8,7 @@ import 'package:photoplay/Features/home/presentation/views/widgets/cast_listview
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_details_image.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movie_detalis_rating.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/watch_trailer_button.dart';
+import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/functions/get_genres.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
@@ -36,6 +37,8 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
+
     return SafeArea(
       child: Column(
         children: [
@@ -62,19 +65,22 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                         child: Text(
                           widget.movie.title!,
                           style: Styles.text19m.copyWith(
+                            color: Colors.white,
                             shadows: [
                               const Shadow(
                                 color: Colors.black,
                                 blurRadius: 4,
-                                offset: Offset(2, 2),
+                                offset: Offset(1, 1),
                               ),
                             ],
                           ),
                         ),
                       ),
+
                       const SizedBox(
                         height: 8.0,
                       ),
+
                       //genrs
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -88,6 +94,8 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                               ),
                             ),
                             const Spacer(),
+
+                            //add or remove favorite
                             FavoritesBtn(movie: widget.movie),
                           ],
                         ),
@@ -121,7 +129,10 @@ class _MovieDetailsBodyState extends State<MovieDetailsBody> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         widget.movie.overview!,
-                        style: Styles.text15bk,
+                        style: isDarkTheme
+                            ? Styles.text15bk
+                            : Styles.text15bk
+                                .copyWith(color: const Color(0xff7E7E7E)),
                       ),
                     ),
                     const SizedBox(
