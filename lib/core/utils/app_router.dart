@@ -20,7 +20,7 @@ import 'package:photoplay/Features/home/presentation/views/movie_details_view.da
 import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
 import 'package:photoplay/Features/profile/presentation/views/settings_view.dart';
 import 'package:photoplay/core/functions/page_transition.dart';
-import 'package:photoplay/core/utils/cash_helper.dart';
+import 'package:photoplay/core/utils/globals.dart';
 import 'package:photoplay/core/utils/service_locator.dart';
 
 abstract class AppRouter {
@@ -32,7 +32,7 @@ abstract class AppRouter {
   static const settingsViewPath = '/settingsViewPath';
 
   static GoRouter router = GoRouter(
-    initialLocation: CashHelper.uId == null ? '/' : homeViewPath,
+    initialLocation: Globals.uId == null ? '/' : homeViewPath,
     routes: [
       GoRoute(
         path: '/',

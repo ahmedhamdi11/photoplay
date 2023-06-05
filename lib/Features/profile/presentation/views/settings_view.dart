@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/profile/presentation/widgets/change_language_widget.dart';
-import 'package:photoplay/constants.dart';
+import 'package:photoplay/Features/profile/presentation/widgets/change_theme_switch.dart';
 import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
 import 'package:rive/rive.dart';
@@ -24,6 +24,11 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
+  void toggleTheme() {
+    BlocProvider.of<ThemeCubit>(context).toggleTheme();
+    toggleAnimation();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -33,38 +38,45 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _riveAnimationController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      body: SafeArea(
         child: Column(
           children: [
+            // go back button
             const DefaultBackBtn(),
-            const SizedBox(
-              height: 16,
-            ),
-            SwitchListTile(
-              contentPadding: EdgeInsets.zero,
+
+            const SizedBox(height: 16),
+
+            // change theme switch tile
+            ChangeThemeSwitch(
               value: BlocProvider.of<ThemeCubit>(context).isDarkTheme,
-              activeColor: kPrimatyColor,
-              onChanged: (value) {
-                BlocProvider.of<ThemeCubit>(context).toggleTheme();
-                toggleAnimation();
-              },
-              title: const Text('Dark Theme'),
+              onChanged: (value) => toggleTheme(),
             ),
-            const Divider(),
+
+            const Divider(indent: 28.0, endIndent: 28.0),
+
+            //change language (drop down menu)
             const ChangeLanguage(),
+
+            // the cute rive animation
             Flexible(
-                child: Center(
-                    child: RiveAnimation.asset(
-              'assets/rive/setting_animation.riv',
-              controllers: [_riveAnimationController],
-            )))
+              child: Center(
+                child: RiveAnimation.asset(
+                  'assets/rive/setting_animation.riv',
+                  controllers: [_riveAnimationController],
+                ),
+              ),
+            ),
           ],
         ),
       ),
-    ));
+    );
   }
 }

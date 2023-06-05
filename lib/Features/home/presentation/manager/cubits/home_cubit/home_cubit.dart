@@ -40,7 +40,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<MovieModel>? nowPlayingMovies;
   Future getNowPlayingMovies() async {
-    emit(GetNowPlayingMoviesLoadingState());
     var result = await homeRepo.getNowPlayingMovies();
 
     result.fold((failure) {
@@ -53,7 +52,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<MovieModel>? topRatedMovies;
   Future getTopRatedMovies() async {
-    emit(GetTopRatedMoviesLoadingState());
     var result = await homeRepo.getTopRatedMovies();
 
     result.fold((failure) {
@@ -66,14 +64,13 @@ class HomeCubit extends Cubit<HomeStates> {
 
   List<MovieModel>? trendingMovies;
   Future getTrendingMovies() async {
-    emit(GetTopRatedMoviesLoadingState());
     var result = await homeRepo.getTrendingMovies();
 
     result.fold((failure) {
-      emit(GetTopRatedMoviesFailureState(failure.errMessage));
+      emit(GetTrendingMoviesFailureState(failure.errMessage));
     }, (movies) {
       trendingMovies = movies;
-      emit(GetTopRatedMoviesSuccessState());
+      emit(GetTrendingMoviesSuccessState());
     });
   }
 }

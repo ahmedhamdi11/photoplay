@@ -9,10 +9,12 @@ import 'package:photoplay/Features/auth/data/auth_repo.dart';
 import 'package:photoplay/core/failures/failures.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as p;
-import 'package:photoplay/core/utils/cash_helper.dart';
+import 'package:photoplay/core/utils/service_locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepoImpl implements AuthRepo {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  SharedPreferences prefs = getIt.get<SharedPreferences>();
   @override
   Future<Either<Failure, UserCredential>> loginUser({
     required String email,
@@ -21,7 +23,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final userCredential = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      CashHelper.prefs.setString('uId', userCredential.user!.uid);
+      prefs.setString('uId', userCredential.user!.uid);
       return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {
@@ -57,7 +59,7 @@ class AuthRepoImpl implements AuthRepo {
         });
       }
       userCredential.user!.updateDisplayName('$firstName $lastName');
-      CashHelper.prefs.setString('uId', userCredential.user!.uid);
+      prefs.setString('uId', userCredential.user!.uid);
       return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {
@@ -96,7 +98,7 @@ class AuthRepoImpl implements AuthRepo {
       );
       final userCredential =
           await firebaseAuth.signInWithCredential(credential);
-      CashHelper.prefs.setString('uId', userCredential.user!.uid);
+      prefs.setString('uId', userCredential.user!.uid);
 
       return right(userCredential);
     } catch (e) {
@@ -116,7 +118,7 @@ class AuthRepoImpl implements AuthRepo {
         await googleSignIn.disconnect();
       }
       await firebaseAuth.signOut();
-      await CashHelper.prefs.remove('uId');
+      await prefs.remove('uId');
       return right('Signed Out');
     } catch (e) {
       if (e is FirebaseAuthException) {
@@ -139,7 +141,7 @@ class AuthRepoImpl implements AuthRepo {
           FacebookAuthProvider.credential(result.accessToken!.token);
       final UserCredential userCredential =
           await firebaseAuth.signInWithCredential(facebookAuthCredential);
-      CashHelper.prefs.setString('uId', userCredential.user!.uid);
+      prefs.setString('uId', userCredential.user!.uid);
       return right(userCredential);
     } catch (e) {
       if (e is FirebaseAuthException) {

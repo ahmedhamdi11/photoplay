@@ -6,7 +6,7 @@ import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/themes/themes.dart';
 import 'package:photoplay/core/utils/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:photoplay/core/utils/cash_helper.dart';
+import 'package:photoplay/core/utils/globals.dart';
 import 'package:photoplay/core/utils/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
@@ -14,15 +14,22 @@ import 'observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // initialize firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await CashHelper.init();
-  CashHelper.uId = CashHelper.prefs.getString('uId');
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  // setup the service locator
+  await setupServiceLocator();
+
+  SharedPreferences prefs = getIt.get<SharedPreferences>();
+
+  // get the theme and the user id from the shared preferences
+  Globals.uId = prefs.getString('uId');
   bool? themeFromPrefs = prefs.getBool('isDarkTheme');
-  Bloc.observer = MyBlocObserver();
-  setupServiceLocator();
+
+  Bloc.observer = MyBlocObserver(); // my bloc observer
   runApp(PhotoPlay(
     themeFromPrefs: themeFromPrefs,
   ));

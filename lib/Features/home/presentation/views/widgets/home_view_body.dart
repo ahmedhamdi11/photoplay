@@ -59,6 +59,15 @@ class HomeViewBody extends StatelessWidget {
               cubit.getTrendingMovies();
             },
           );
+        } else if (state is GetTrendingMoviesFailureState) {
+          return ErrorView(
+            errMessage: state.errMessage,
+            onPressed: () {
+              cubit.getNowPlayingMovies();
+              cubit.getTopRatedMovies();
+              cubit.getTrendingMovies();
+            },
+          );
         }
         return const Center(
           child: CircularProgressIndicator(),
