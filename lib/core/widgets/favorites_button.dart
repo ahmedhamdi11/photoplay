@@ -50,7 +50,7 @@ class FavoritesBtn extends StatelessWidget {
       builder: (context, state) {
         if (state is GetFavoritesSuccessState) {
           return MaterialButton(
-            color: kPrimatyColor.withOpacity(0.2),
+            color: Colors.white.withOpacity(0.3),
             onPressed: () {
               if (favoritesCubit.isFaved(id: movie.id)) {
                 favoritesCubit.removeFavorite(id: movie.id);

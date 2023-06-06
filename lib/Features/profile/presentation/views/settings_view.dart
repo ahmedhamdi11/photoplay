@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/profile/presentation/widgets/change_language_widget.dart';
 import 'package:photoplay/Features/profile/presentation/widgets/change_theme_switch.dart';
 import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
-import 'package:photoplay/core/widgets/default_back_btn.dart';
+import 'package:photoplay/core/widgets/custom_appbar.dart';
 import 'package:rive/rive.dart';
 
 class SettingsView extends StatefulWidget {
@@ -50,7 +50,7 @@ class _SettingsViewState extends State<SettingsView> {
         child: Column(
           children: [
             // go back button
-            const DefaultBackBtn(),
+            const CustomAppBar(title: 'Setting'),
 
             const SizedBox(height: 16),
 

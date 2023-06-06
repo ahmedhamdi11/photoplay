@@ -19,7 +19,7 @@ class TrendingList extends StatelessWidget {
       ),
       options: CarouselOptions(
           autoPlay: true,
-          height: MediaQuery.of(context).size.height * 0.605,
+          height: MediaQuery.of(context).size.height * 0.55,
           autoPlayInterval: const Duration(seconds: 7),
           viewportFraction: 1),
     );

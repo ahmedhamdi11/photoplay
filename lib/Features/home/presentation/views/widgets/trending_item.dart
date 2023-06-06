@@ -29,41 +29,41 @@ class TrendingItem extends StatelessWidget {
       },
       child: Column(
         children: [
-          ShaderMask(
-            blendMode: BlendMode.dstOut,
-            shaderCallback: (bounds) {
-              return LinearGradient(
-                colors: shaderMaskColors(isDarkTheme),
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: shaderStopsList,
-              ).createShader(bounds);
-            },
-            child: CachedNetworkImage(
-              imageUrl: '$kImageBaseUrl/original${trendingMovie.posterPath}',
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.53,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Stack(
+            alignment: Alignment.bottomCenter,
             children: [
-              const Icon(Icons.star_rounded, color: kPrimatyColor),
-              Text(
-                '${trendingMovie.voteAverage.toStringAsFixed(1)}',
-                style: const TextStyle(fontSize: 20),
+              ShaderMask(
+                blendMode: BlendMode.dstOut,
+                shaderCallback: (bounds) {
+                  return LinearGradient(
+                    colors: shaderMaskColors(isDarkTheme),
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: shaderStopsList,
+                  ).createShader(bounds);
+                },
+                child: CachedNetworkImage(
+                  imageUrl:
+                      '$kImageBaseUrl/original${trendingMovie.posterPath}',
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                ),
               ),
-              const SizedBox(
-                width: 8.0,
-              ),
-              Text(
-                '(${trendingMovie.voteCount})',
-                style: Styles.text14m.copyWith(color: Colors.grey),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: Text(
+                  trendingMovie.title!,
+                  style: Styles.text19m,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

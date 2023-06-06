@@ -1,11 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/get_more_movies_cubit/get_more_movies_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/more_movies_item.dart';
-import 'package:photoplay/constants.dart';
-import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
-import 'package:photoplay/core/utils/styles.dart';
-import 'package:photoplay/core/widgets/default_back_btn.dart';
+import 'package:photoplay/core/widgets/custom_appbar.dart';
 import 'package:photoplay/core/widgets/error_view.dart';
 
 class MoreNowPlaying extends StatefulWidget {
@@ -16,16 +14,16 @@ class MoreNowPlaying extends StatefulWidget {
 }
 
 class _MoreNowPlayingState extends State<MoreNowPlaying> {
-  ScrollController scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   int pageNum = 1;
 
   @override
   void initState() {
     super.initState();
 
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
         pageNum += 1;
         BlocProvider.of<GetMoreMoviesCubit>(context)
             .getMoreNowPlaying(pageNum: pageNum);
@@ -35,7 +33,7 @@ class _MoreNowPlayingState extends State<MoreNowPlaying> {
 
   @override
   void dispose() {
-    scrollController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -48,25 +46,7 @@ class _MoreNowPlayingState extends State<MoreNowPlaying> {
         child: Column(
           children: [
             // appBar
-            Container(
-              color: BlocProvider.of<ThemeCubit>(context).isDarkTheme
-                  ? kDarkNavigationBarColor
-                  : kLightNavigationBarColor,
-              child: Row(
-                children: [
-                  const DefaultBackBtn(
-                    onlyIcon: true,
-                  ),
-                  const SizedBox(
-                    width: 4.0,
-                  ),
-                  Text(
-                    'Now Playing',
-                    style: Styles.text19m,
-                  )
-                ],
-              ),
-            ),
+            const CustomAppBar(title: 'Now Playing'),
             const SizedBox(
               height: 4.0,
             ),
@@ -82,29 +62,34 @@ class _MoreNowPlayingState extends State<MoreNowPlaying> {
                     return ErrorView(errMessage: state.errMessage);
                   }
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: GridView.builder(
-                      controller: scrollController,
-                      itemCount: cubit.nowPlayingMovies.length + 1,
-                      physics: const BouncingScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 2 / 3,
-                        crossAxisSpacing: 4.0,
-                        mainAxisSpacing: 4.0,
+                  return CupertinoScrollbar(
+                    controller: _scrollController,
+                    scrollbarOrientation: ScrollbarOrientation.left,
+                    thumbVisibility: true,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: GridView.builder(
+                        controller: _scrollController,
+                        itemCount: cubit.nowPlayingMovies.length + 1,
+                        physics: const BouncingScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 2 / 3,
+                          crossAxisSpacing: 4.0,
+                          mainAxisSpacing: 4.0,
+                        ),
+                        itemBuilder: (context, index) {
+                          if (index < cubit.nowPlayingMovies.length) {
+                            return MoreMoviesItem(
+                                movie: cubit.nowPlayingMovies[index]);
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
                       ),
-                      itemBuilder: (context, index) {
-                        if (index < cubit.nowPlayingMovies.length) {
-                          return MoreMoviesItem(
-                              movie: cubit.nowPlayingMovies[index]);
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
                     ),
                   );
                 },
