@@ -29,10 +29,48 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
+  Future<Either<Failure, List<MovieModel>>> getMoreNowPlayingMovies(
+      {required int pageNum}) async {
+    try {
+      var response = await dio
+          .get('$kBaseUrl/movie/now_playing?page=$pageNum&api_key=$kApiKey');
+      List<MovieModel> movies = [];
+      for (int i = 0; i < response.data['results'].length; i++) {
+        movies.add(MovieModel.fromJson(response.data['results'][i]));
+      }
+      return right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return left(ServerFailure.fromDio(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<MovieModel>>> getTopRatedMovies() async {
     try {
       var response =
           await dio.get('$kBaseUrl/movie/top_rated?api_key=$kApiKey');
+      List<MovieModel> movies = [];
+      for (int i = 0; i < response.data['results'].length; i++) {
+        movies.add(MovieModel.fromJson(response.data['results'][i]));
+      }
+      return right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return left(ServerFailure.fromDio(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MovieModel>>> getMoreTopMovies(
+      {required int pageNum}) async {
+    try {
+      var response = await dio
+          .get('$kBaseUrl/movie/top_rated?page=$pageNum&api_key=$kApiKey');
       List<MovieModel> movies = [];
       for (int i = 0; i < response.data['results'].length; i++) {
         movies.add(MovieModel.fromJson(response.data['results'][i]));

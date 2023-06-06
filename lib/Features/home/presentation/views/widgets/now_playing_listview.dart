@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/presentation/views/widgets/movies_list_item.dart';
+import 'package:photoplay/constants.dart';
+import 'package:photoplay/core/utils/app_router.dart';
 import 'package:photoplay/core/utils/styles.dart';
 
 class NowPlayingListView extends StatelessWidget {
@@ -16,9 +19,26 @@ class NowPlayingListView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Now Playing',
-            style: Styles.text15b,
+          Row(
+            children: [
+              Text(
+                'Now Playing',
+                style: Styles.text15b,
+              ),
+              const Spacer(),
+              InkWell(
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.moreNowPlayingPath);
+                },
+                child: const Text(
+                  'More >',
+                  style: TextStyle(color: kPrimatyColor),
+                ),
+              ),
+              const SizedBox(
+                width: 12.0,
+              ),
+            ],
           ),
           const SizedBox(
             height: 12.0,

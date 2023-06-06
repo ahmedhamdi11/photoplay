@@ -8,8 +8,10 @@ import 'package:photoplay/core/utils/styles.dart';
 class DefaultBackBtn extends StatelessWidget {
   const DefaultBackBtn({
     super.key,
+    this.onlyIcon = false,
   });
 
+  final bool onlyIcon;
   List<Shadow> backBtnShadows(bool isDarkTheme) {
     return isDarkTheme
         ? [
@@ -53,14 +55,16 @@ class DefaultBackBtn extends StatelessWidget {
                   const SizedBox(
                     width: 5.0,
                   ),
-                  Text(
-                    'BACK',
-                    style: Styles.text14b.copyWith(
-                      color:
-                          isDarkTheme ? kDarkBackBtnColor : kLightBackBtnColor,
-                      shadows: backBtnShadows(isDarkTheme),
-                    ),
-                  )
+                  if (onlyIcon == false)
+                    Text(
+                      'BACK',
+                      style: Styles.text14b.copyWith(
+                        color: isDarkTheme
+                            ? kDarkBackBtnColor
+                            : kLightBackBtnColor,
+                        shadows: backBtnShadows(isDarkTheme),
+                      ),
+                    )
                 ],
               ),
             ),

@@ -6,7 +6,11 @@ import 'package:photoplay/core/failures/failures.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, List<MovieModel>>> getNowPlayingMovies();
+  Future<Either<Failure, List<MovieModel>>> getMoreNowPlayingMovies(
+      {required int pageNum});
   Future<Either<Failure, List<MovieModel>>> getTopRatedMovies();
+  Future<Either<Failure, List<MovieModel>>> getMoreTopMovies(
+      {required int pageNum});
   Future<Either<Failure, List<MovieModel>>> getTrendingMovies();
   Future<Either<Failure, List<CastModel>>> getMovieCast({required int movieId});
   Future<Either<Failure, List<CastModel>>> getTvCast({required int tvId});

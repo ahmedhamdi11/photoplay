@@ -12,10 +12,13 @@ import 'package:photoplay/Features/auth/presentation/views/reset_password_view.d
 import 'package:photoplay/Features/home/data/models/movie_model.dart';
 import 'package:photoplay/Features/home/data/repos/home_repo_impl.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/cast_cubit/cast_cubit.dart';
+import 'package:photoplay/Features/home/presentation/manager/cubits/get_more_movies_cubit/get_more_movies_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/home_cubit/home_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/known_for_cubit/known_for_cubit.dart';
 import 'package:photoplay/Features/home/presentation/manager/cubits/trailers_cubit/trailers_cubit.dart';
 import 'package:photoplay/Features/home/presentation/views/home_view.dart';
+import 'package:photoplay/Features/home/presentation/views/more_now_playing.dart';
+import 'package:photoplay/Features/home/presentation/views/more_top_rated.dart';
 import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
 import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
 import 'package:photoplay/Features/profile/presentation/views/settings_view.dart';
@@ -30,6 +33,8 @@ abstract class AppRouter {
   static const movieDetailsViewPath = '/movieDetailsViewPath';
   static const personDetailsViewPath = '/personDetailsViewPath';
   static const settingsViewPath = '/settingsViewPath';
+  static const moreNowPlayingPath = '/moreNowPlayingPath';
+  static const moreTopRatedPath = '/moreTopRatedPath';
 
   static GoRouter router = GoRouter(
     initialLocation: Globals.uId == null ? '/' : homeViewPath,
@@ -142,6 +147,28 @@ abstract class AppRouter {
         pageBuilder: (context, state) => defaultTransitionPage(
           key: state.pageKey,
           child: const SettingsView(),
+        ),
+      ),
+      GoRoute(
+        path: moreNowPlayingPath,
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) => GetMoreMoviesCubit(getIt.get<HomeRepoImpl>())
+              ..getMoreNowPlaying(),
+            child: const MoreNowPlaying(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: moreTopRatedPath,
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) => GetMoreMoviesCubit(getIt.get<HomeRepoImpl>())
+              ..getMoreTopRated(),
+            child: const MoreTopRatedView(),
+          ),
         ),
       ),
     ],
