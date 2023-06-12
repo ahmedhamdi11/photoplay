@@ -1,16 +1,5 @@
 # photoplay
+photoplay is a movie app that allows you to discover new and trending movies and tv shows, watch trailers, search for a movie or tv show, add to favorites and a lot more.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### screenshots:
+![Frame 1-min](https://github.com/ahmedhamdi11/photoplay/assets/113295140/72951a6e-b40f-4991-9fb8-c0de63fe9c9c)
