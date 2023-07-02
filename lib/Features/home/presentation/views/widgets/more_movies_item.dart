@@ -35,7 +35,7 @@ class MoreMoviesItem extends StatelessWidget {
             ),
             child: Text(
               '${movie.voteAverage}',
-              style: Styles.text12m,
+              style: Styles.text12m.copyWith(color: Colors.white),
             ),
           )
         ],
