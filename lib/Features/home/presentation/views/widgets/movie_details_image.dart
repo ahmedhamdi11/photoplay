@@ -19,25 +19,28 @@ class MovieDetailsImage extends StatelessWidget {
     bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
     List<double> shaderStopsList = [0, 0.04, 0.05, 0.91, 0.94, 1];
 
-    return ShaderMask(
-      blendMode: BlendMode.dstOut,
-      shaderCallback: (bounds) {
-        return LinearGradient(
-          colors: shaderMaskColors(isDarkTheme),
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: shaderStopsList,
-        ).createShader(bounds);
-      },
-      child: CachedNetworkImage(
-        imageUrl: '$kImageBaseUrl/original${movie.backdropPath}',
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
+    return Hero(
+      tag: movie.id,
+      child: ShaderMask(
+        blendMode: BlendMode.dstOut,
+        shaderCallback: (bounds) {
+          return LinearGradient(
+            colors: shaderMaskColors(isDarkTheme),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: shaderStopsList,
+          ).createShader(bounds);
+        },
+        child: CachedNetworkImage(
+          imageUrl: '$kImageBaseUrl/original${movie.backdropPath}',
+          placeholder: (context, url) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height * 0.3,
+          fit: BoxFit.fill,
         ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.3,
-        fit: BoxFit.fill,
       ),
     );
   }

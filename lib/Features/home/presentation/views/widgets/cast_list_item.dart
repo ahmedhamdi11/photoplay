@@ -17,7 +17,7 @@ class CastListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 12.0),
+      padding: const EdgeInsets.only(right: 8.0),
       child: InkWell(
         onTap: () {
           GoRouter.of(context)
@@ -29,11 +29,15 @@ class CastListItem extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.168,
               child: AspectRatio(
                 aspectRatio: 2 / 3,
-                child: CachedNetworkImage(
-                  imageUrl: '$kImageBaseUrl/w300${movieCast.profilePath}',
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: CachedNetworkImage(
+                    imageUrl: '$kImageBaseUrl/w300${movieCast.profilePath}',
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
               ),
             ),

@@ -14,19 +14,25 @@ class MoviesListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 12.0),
+      padding: const EdgeInsets.only(right: 8.0),
       child: InkWell(
         onTap: () {
           GoRouter.of(context)
               .push(AppRouter.movieDetailsViewPath, extra: movie);
         },
-        child: AspectRatio(
-          aspectRatio: 2 / 3,
-          child: CachedNetworkImage(
-            imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+        child: Hero(
+          tag: movie.id,
+          child: AspectRatio(
+            aspectRatio: 2 / 3,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: CachedNetworkImage(
+                imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
           ),
         ),
       ),
