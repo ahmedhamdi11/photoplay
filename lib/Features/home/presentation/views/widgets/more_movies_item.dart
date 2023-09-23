@@ -18,27 +18,30 @@ class MoreMoviesItem extends StatelessWidget {
       onTap: () {
         GoRouter.of(context).push(AppRouter.movieDetailsViewPath, extra: movie);
       },
-      child: Stack(
-        alignment: Alignment.topRight,
-        children: [
-          CachedNetworkImage(
-            imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          ),
-          Container(
-            padding: const EdgeInsets.all(4.0),
-            decoration: const BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12.0),
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            CachedNetworkImage(
+              imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+            Container(
+              padding: const EdgeInsets.all(6.0),
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12.0),
+                ),
               ),
-            ),
-            child: Text(
-              '${movie.voteAverage}',
-              style: Styles.text12m.copyWith(color: Colors.white),
-            ),
-          )
-        ],
+              child: Text(
+                '${movie.voteAverage}',
+                style: Styles.text12m.copyWith(color: Colors.white),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

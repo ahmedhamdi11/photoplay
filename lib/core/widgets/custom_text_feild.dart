@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType,
     this.isPassword = false,
     this.autofocus = false,
+    this.initialValue,
   });
   final Widget? suffix;
   final String? hint;
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool isPassword;
   final bool autofocus;
+  final String? initialValue;
   @override
   Widget build(BuildContext context) {
     bool isDarkTheme = BlocProvider.of<ThemeCubit>(context).isDarkTheme;
@@ -37,6 +39,7 @@ class CustomTextField extends StatelessWidget {
               ],
       ),
       child: TextFormField(
+        initialValue: initialValue,
         validator: validator,
         onChanged: onChanged,
         keyboardType: keyboardType,

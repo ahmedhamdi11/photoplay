@@ -21,6 +21,9 @@ import 'package:photoplay/Features/home/presentation/views/more_now_playing.dart
 import 'package:photoplay/Features/home/presentation/views/more_top_rated.dart';
 import 'package:photoplay/Features/home/presentation/views/movie_details_view.dart';
 import 'package:photoplay/Features/home/presentation/views/person_details_view.dart';
+import 'package:photoplay/Features/profile/data/repos/user_account_repo/user_account_repo_impl.dart';
+import 'package:photoplay/Features/profile/presentation/manager/cubits/cubit/user_account_cubit.dart';
+import 'package:photoplay/Features/profile/presentation/views/user_account_view.dart';
 import 'package:photoplay/Features/profile/presentation/views/settings_view.dart';
 import 'package:photoplay/core/functions/page_transition.dart';
 import 'package:photoplay/core/utils/globals.dart';
@@ -35,6 +38,7 @@ abstract class AppRouter {
   static const settingsViewPath = '/settingsViewPath';
   static const moreNowPlayingPath = '/moreNowPlayingPath';
   static const moreTopRatedPath = '/moreTopRatedPath';
+  static const accountViewPath = '/accountViewPath';
 
   static GoRouter router = GoRouter(
     initialLocation: Globals.uId == null ? '/' : homeViewPath,
@@ -59,6 +63,7 @@ abstract class AppRouter {
           ),
         ),
       ),
+
       GoRoute(
         path: registerViewPath,
         pageBuilder: (context, state) {
@@ -72,6 +77,7 @@ abstract class AppRouter {
           );
         },
       ),
+
       GoRoute(
         path: resetPasswordViewPath,
         pageBuilder: (context, state) => defaultTransitionPage(
@@ -83,6 +89,7 @@ abstract class AppRouter {
           ),
         ),
       ),
+
       GoRoute(
         path: homeViewPath,
         pageBuilder: (context, state) => defaultTransitionPage(
@@ -100,6 +107,7 @@ abstract class AppRouter {
           ),
         ),
       ),
+
       GoRoute(
         path: movieDetailsViewPath,
         pageBuilder: (context, state) => defaultTransitionPage(
@@ -121,6 +129,7 @@ abstract class AppRouter {
           ),
         ),
       ),
+
       GoRoute(
         path: personDetailsViewPath,
         pageBuilder: (context, state) => defaultTransitionPage(
@@ -142,6 +151,7 @@ abstract class AppRouter {
           ),
         ),
       ),
+
       GoRoute(
         path: settingsViewPath,
         pageBuilder: (context, state) => defaultTransitionPage(
@@ -149,6 +159,7 @@ abstract class AppRouter {
           child: const SettingsView(),
         ),
       ),
+
       GoRoute(
         path: moreNowPlayingPath,
         pageBuilder: (context, state) => defaultTransitionPage(
@@ -160,6 +171,7 @@ abstract class AppRouter {
           ),
         ),
       ),
+
       GoRoute(
         path: moreTopRatedPath,
         pageBuilder: (context, state) => defaultTransitionPage(
@@ -168,6 +180,19 @@ abstract class AppRouter {
             create: (context) => GetMoreMoviesCubit(getIt.get<HomeRepoImpl>())
               ..getMoreTopRated(),
             child: const MoreTopRatedView(),
+          ),
+        ),
+      ),
+
+      // user account
+      GoRoute(
+        path: accountViewPath,
+        pageBuilder: (context, state) => defaultTransitionPage(
+          key: state.pageKey,
+          child: BlocProvider(
+            create: (context) => UserAccountCubit(
+                userAccountRepo: getIt.get<UserAccountRepoImpl>()),
+            child: const UserAccountView(),
           ),
         ),
       ),

@@ -77,7 +77,7 @@ class _MoreNowPlayingState extends State<MoreNowPlaying> {
                           crossAxisCount: 3,
                           childAspectRatio: 2 / 3,
                           crossAxisSpacing: 4.0,
-                          mainAxisSpacing: 4.0,
+                          mainAxisSpacing: 6.0,
                         ),
                         itemBuilder: (context, index) {
                           if (index < cubit.nowPlayingMovies.length) {

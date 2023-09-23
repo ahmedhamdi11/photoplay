@@ -15,8 +15,5 @@ const kDarkNavigationBarColor = Color(0xff1A1A1A);
 const kDarkTextFieldColor = Color(0xff212121);
 const kLightTextFieldColor = Colors.white;
 
-const kLightBackBtnColor = Color(0xff7C7C7C);
-const kDarkBackBtnColor = Colors.white;
-
 const kLightDropdownColor = Color(0xffE1E1E1);
 const kDarkDropdownColor = Color(0xff212121);

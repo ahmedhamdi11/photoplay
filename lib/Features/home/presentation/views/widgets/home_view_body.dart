@@ -35,7 +35,7 @@ class HomeViewBody extends StatelessWidget {
                   ),
                   TopRatedMoviesListView(movies: cubit.topRatedMovies!),
                   const SizedBox(
-                    height: 28.0,
+                    height: 80.0,
                   ),
                 ],
               ),

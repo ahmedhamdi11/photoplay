@@ -37,82 +37,85 @@ class ProfileView extends StatelessWidget {
       },
       builder: (context, state) {
         return SafeArea(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 60,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                const SizedBox(
+                  height: 60,
+                ),
+
+                //user image
+                ProfileImage(
+                  photoUrl: currentUser!.photoURL,
+                ),
+                const SizedBox(height: 18),
+
+                //user name
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .7,
+                  child: Text(
+                    currentUser.displayName!,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: Styles.text27,
                   ),
+                ),
+                const SizedBox(height: 70),
 
-                  //user image
-                  ProfileImage(
-                    photoUrl: currentUser!.photoURL,
-                  ),
-                  const SizedBox(height: 18),
+                // Account button
+                CustomProfileButton(
+                  text: 'Account',
+                  icon: FontAwesomeIcons.solidUser,
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.accountViewPath);
+                  },
+                ),
 
-                  //user name
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * .7,
-                    child: Text(
-                      currentUser.displayName!,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: Styles.text27,
-                    ),
-                  ),
-                  const SizedBox(height: 70),
+                const Divider(),
 
-                  ///////////
-                  // Account button
-                  const CustomProfileButton(
-                    text: 'Account',
-                    icon: FontAwesomeIcons.solidUser,
-                  ),
+                //Novification button
+                const CustomProfileButton(
+                  text: 'Notifications',
+                  icon: FontAwesomeIcons.solidBell,
+                ),
 
-                  const Divider(),
+                const Divider(),
 
-                  //Novification button
-                  const CustomProfileButton(
-                    text: 'Notifications',
-                    icon: FontAwesomeIcons.solidBell,
-                  ),
+                //Settings button
+                CustomProfileButton(
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.settingsViewPath);
+                  },
+                  text: 'Settings',
+                  icon: FontAwesomeIcons.gear,
+                ),
 
-                  const Divider(),
+                const Divider(),
 
-                  //Settings button
-                  CustomProfileButton(
-                    onTap: () {
-                      GoRouter.of(context).push(AppRouter.settingsViewPath);
-                    },
-                    text: 'Settings',
-                    icon: FontAwesomeIcons.gear,
-                  ),
+                //help button
+                const CustomProfileButton(
+                  text: 'Help',
+                  icon: FontAwesomeIcons.circleInfo,
+                ),
 
-                  const Divider(),
+                const Divider(),
 
-                  //help button
-                  const CustomProfileButton(
-                    text: 'Help',
-                    icon: FontAwesomeIcons.circleInfo,
-                  ),
+                //logout button
+                CustomProfileButton(
+                  onTap: () {
+                    logout(context, signOutCubit);
+                  },
+                  text: 'Logout',
+                  icon: FontAwesomeIcons.rightFromBracket,
+                ),
 
-                  const Divider(),
-
-                  //logout button
-                  CustomProfileButton(
-                    onTap: () {
-                      logout(context, signOutCubit);
-                    },
-                    text: 'Logout',
-                    icon: FontAwesomeIcons.rightFromBracket,
-                  ),
-                ],
-              ),
+                const SizedBox(
+                  height: 80,
+                ),
+              ],
             ),
           ),
         );

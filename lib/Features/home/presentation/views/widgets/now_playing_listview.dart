@@ -14,48 +14,49 @@ class NowPlayingListView extends StatelessWidget {
   final List<MovieModel> movies;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                'Now Playing',
-                style: Styles.text15b,
-              ),
-              const Spacer(),
-              InkWell(
-                onTap: () {
-                  GoRouter.of(context).push(AppRouter.moreNowPlayingPath);
-                },
-                child: const Text(
-                  'More >',
-                  style: TextStyle(color: kPrimatyColor),
-                ),
-              ),
-              const SizedBox(
-                width: 12.0,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 12.0,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.175,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemCount: movies.length,
-              itemBuilder: (context, index) => MoviesListItem(
-                movie: movies[index],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const SizedBox(
+              width: 16,
+            ),
+            Text(
+              'Now Playing',
+              style: Styles.text15b,
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: () {
+                GoRouter.of(context).push(AppRouter.moreNowPlayingPath);
+              },
+              child: const Text(
+                'More >',
+                style: TextStyle(color: kPrimatyColor),
               ),
             ),
+            const SizedBox(
+              width: 12.0,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 12.0,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.175,
+          child: ListView.builder(
+            padding: const EdgeInsets.only(left: 16.0),
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemCount: movies.length,
+            itemBuilder: (context, index) => MoviesListItem(
+              movie: movies[index],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -10,6 +10,7 @@ showCustomSnackBar({
   SnackBar mySnackBar = SnackBar(
     duration: const Duration(seconds: 3),
     behavior: SnackBarBehavior.floating,
+    margin: const EdgeInsets.only(bottom: 70.0, left: 12.0, right: 12.0),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
     ),

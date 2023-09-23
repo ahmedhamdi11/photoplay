@@ -13,8 +13,14 @@ class HomeView extends StatelessWidget {
       builder: (context, state) {
         HomeCubit homeCubit = BlocProvider.of<HomeCubit>(context);
         return Scaffold(
-          body: homeCubit.views[homeCubit.currentIndex],
-          bottomNavigationBar: const CustomNavigationBar(),
+          resizeToAvoidBottomInset: false,
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              homeCubit.views[homeCubit.currentIndex],
+              const CustomNavigationBar(),
+            ],
+          ),
         );
       },
     );

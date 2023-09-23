@@ -28,13 +28,17 @@ class FavoriteItem extends StatelessWidget {
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.18,
-              child: AspectRatio(
-                aspectRatio: 2 / 3,
-                child: CachedNetworkImage(
-                  imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: AspectRatio(
+                  aspectRatio: 2 / 3,
+                  child: CachedNetworkImage(
+                    imageUrl: '$kImageBaseUrl/w300${movie.posterPath}',
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
               ),
             ),

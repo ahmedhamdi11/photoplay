@@ -28,9 +28,14 @@ class _FavoritesViewState extends State<FavoritesView> {
               child: Text('No Favorites Yet'),
             );
           } else {
-            return Padding(
-              padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
+            return SafeArea(
               child: ListView.builder(
+                  padding: const EdgeInsets.only(
+                    top: 60,
+                    bottom: 60,
+                    left: 16,
+                    right: 16,
+                  ),
                   physics: const BouncingScrollPhysics(),
                   itemCount: state.movies.length,
                   itemBuilder: (context, index) {

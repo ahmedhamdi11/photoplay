@@ -48,7 +48,7 @@ class CastListItem extends StatelessWidget {
               width: 70,
               child: Text(
                 movieCast.name,
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: Styles.text12b,

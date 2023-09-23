@@ -13,44 +13,47 @@ class CustomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeStates>(
       builder: (context, state) {
-        return SizedBox(
-          height: 65,
-          child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              selectedItemColor: kPrimatyColor,
-              selectedFontSize: 11,
-              unselectedFontSize: 8,
-              iconSize: 22,
-              currentIndex: BlocProvider.of<HomeCubit>(context).currentIndex,
-              onTap: (value) => BlocProvider.of<HomeCubit>(context)
-                  .changeBNavigationBar(index: value),
-              items: const [
-                BottomNavigationBarItem(
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(16.0),
+          child: SizedBox(
+            height: 65,
+            child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                selectedItemColor: kPrimatyColor,
+                selectedFontSize: 11,
+                unselectedFontSize: 8,
+                iconSize: 22,
+                currentIndex: BlocProvider.of<HomeCubit>(context).currentIndex,
+                onTap: (value) => BlocProvider.of<HomeCubit>(context)
+                    .changeBNavigationBar(index: value),
+                items: const [
+                  BottomNavigationBarItem(
+                      icon: Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Icon(FontAwesomeIcons.houseChimney),
+                      ),
+                      label: 'HOME'),
+                  BottomNavigationBarItem(
+                      icon: Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Icon(FontAwesomeIcons.magnifyingGlass),
+                      ),
+                      label: 'SEARCH'),
+                  BottomNavigationBarItem(
+                      icon: Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Icon(FontAwesomeIcons.solidHeart),
+                      ),
+                      label: 'FAVORITES'),
+                  BottomNavigationBarItem(
                     icon: Padding(
                       padding: EdgeInsets.only(bottom: 8),
-                      child: Icon(FontAwesomeIcons.houseChimney),
+                      child: Icon(FontAwesomeIcons.solidUser),
                     ),
-                    label: 'HOME'),
-                BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: EdgeInsets.only(bottom: 8),
-                      child: Icon(FontAwesomeIcons.magnifyingGlass),
-                    ),
-                    label: 'SEARCH'),
-                BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: EdgeInsets.only(bottom: 8),
-                      child: Icon(FontAwesomeIcons.solidHeart),
-                    ),
-                    label: 'FAVORITES'),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: Icon(FontAwesomeIcons.solidUser),
+                    label: 'PROFILE',
                   ),
-                  label: 'PROFILE',
-                ),
-              ]),
+                ]),
+          ),
         );
       },
     );

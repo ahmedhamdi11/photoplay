@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photoplay/constants.dart';
 import 'package:photoplay/core/cubits/theme_cubit/theme_cubit.dart';
 import 'package:photoplay/core/utils/styles.dart';
 import 'package:photoplay/core/widgets/default_back_btn.dart';
@@ -15,10 +14,8 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeStates>(
       builder: (context, state) {
-        return Container(
-          color: BlocProvider.of<ThemeCubit>(context).isDarkTheme
-              ? kDarkNavigationBarColor
-              : kLightNavigationBarColor,
+        return SizedBox(
+          height: 50,
           child: Row(
             children: [
               const DefaultBackBtn(
