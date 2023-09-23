@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,16 +9,17 @@ class ProfileImage extends StatelessWidget {
   const ProfileImage({
     super.key,
     required this.photoUrl,
+    this.imageFile,
   });
 
   final String? photoUrl;
-
+  final File? imageFile;
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: 72,
       backgroundColor: kPrimatyColor,
-      child: photoUrl != null
+      child: photoUrl != null && imageFile == null
           ? CachedNetworkImage(
               imageUrl: photoUrl!,
               placeholder: (context, url) => const Center(
@@ -33,7 +36,10 @@ class ProfileImage extends StatelessWidget {
           : CircleAvatar(
               radius: 70,
               backgroundColor: const Color(0xff1D1D1D),
-              child: SvgPicture.asset('assets/images/person.svg'),
+              backgroundImage: imageFile == null ? null : FileImage(imageFile!),
+              child: imageFile != null
+                  ? null
+                  : SvgPicture.asset('assets/images/person.svg'),
             ),
     );
   }

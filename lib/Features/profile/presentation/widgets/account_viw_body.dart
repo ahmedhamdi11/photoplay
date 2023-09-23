@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photoplay/Features/auth/presentation/views/widgets/text_field_title.dart';
 import 'package:photoplay/Features/profile/presentation/manager/cubits/cubit/user_account_cubit.dart';
 import 'package:photoplay/Features/profile/presentation/widgets/profile_image.dart';
 import 'package:photoplay/constants.dart';
@@ -16,7 +17,6 @@ class AccountViewBody extends StatefulWidget {
 
 class _AccountViewBodyState extends State<AccountViewBody> {
   User currentUser = FirebaseAuth.instance.currentUser!;
-  String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,7 @@ class _AccountViewBodyState extends State<AccountViewBody> {
               const DefaultBackBtn(),
               const Spacer(),
               TextButton(
-                onPressed: () {
-                  if (name != null) {
-                    userAccountCubit.updateUserData(userName: name!);
-                  }
-                },
+                onPressed: () => userAccountCubit.updateUserData(),
                 child: const Text('Save'),
               ),
               const SizedBox(
@@ -53,14 +49,15 @@ class _AccountViewBodyState extends State<AccountViewBody> {
             children: [
               ProfileImage(
                 photoUrl: currentUser.photoURL,
+                imageFile: userAccountCubit.imageFile,
               ),
               CircleAvatar(
-                backgroundColor: kPrimatyColor,
+                backgroundColor: kPrimatyColor.withOpacity(0.9),
                 child: IconButton(
                   splashRadius: 5,
-                  onPressed: () {},
+                  onPressed: () => userAccountCubit.pickeImage(),
                   icon: const Icon(
-                    Icons.camera_alt_outlined,
+                    Icons.image,
                     size: 20,
                     color: Colors.white,
                   ),
@@ -74,19 +71,25 @@ class _AccountViewBodyState extends State<AccountViewBody> {
           //const EditProfileFormFields(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: CustomTextField(
-              initialValue: currentUser.displayName,
-              keyboardType: TextInputType.name,
-              onChanged: (value) {
-                name = value;
-              },
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'please inter your name';
-                } else {
-                  return null;
-                }
-              },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextFieldTitle(title: 'YOUR NAME'),
+                CustomTextField(
+                  initialValue: currentUser.displayName,
+                  keyboardType: TextInputType.name,
+                  onChanged: (value) {
+                    userAccountCubit.userName = value;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'please inter your name';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ],

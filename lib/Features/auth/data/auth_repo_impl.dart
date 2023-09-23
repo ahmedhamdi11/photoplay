@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:photoplay/Features/auth/data/auth_repo.dart';
 import 'package:photoplay/core/failures/failures.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as p;
 import 'package:photoplay/core/utils/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,7 +50,7 @@ class AuthRepoImpl implements AuthRepo {
       if (imageFile != null) {
         await FirebaseStorage.instance
             .ref()
-            .child('Images/${p.basename(imageFile.path)}')
+            .child('profile_images/profile_image_${userCredential.user!.uid}')
             .putFile(imageFile)
             .then((value) async {
           String? imageUrl = await value.ref.getDownloadURL();

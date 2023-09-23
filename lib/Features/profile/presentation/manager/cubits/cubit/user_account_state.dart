@@ -1,10 +1,7 @@
 part of 'user_account_cubit.dart';
 
-class UserAccountState extends Equatable {
+class UserAccountState {
   const UserAccountState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class UserAccountInitial extends UserAccountState {}
@@ -22,3 +19,5 @@ class UpdateUserDataFailureState extends UserAccountState {
 
   const UpdateUserDataFailureState(this.errMessage);
 }
+
+class PickImageState extends UserAccountState {}
